@@ -15,69 +15,74 @@ var checkValue = function checkValue(len, theArgs) {
     return false;
 };
 var calculateCircle = function calculateCircle() {
-    for (var _len = arguments.length, theArgs = Array(_len), _key = 0; _key < _len; _key++) {
-        theArgs[_key] = arguments[_key];
+    for (var len = arguments.length, theArgs = [], key = 0; key < len; key++) {
+        theArgs[key] = arguments[key];
     }
 
-    var len = theArgs.length;
-    var needs = "1개의 인자가 필요합니다";
-    var checkErr = checkValue(len, theArgs);
+    var length = theArgs.length;
+    var requireArguments = "1개의 인자가 필요합니다";
+    var checkErr = checkValue(length, theArgs);
     if (checkErr) return checkErr;
-    if (len !== 1) return needs;
+    if (length !== 1) return requireArguments;
     if (theArgs[0] <= 0) return big("반지름");
     var radius = theArgs[0];
+    var circle = Math.PI * radius * radius;
 
     execution.push("circle");
-    return Math.PI * radius * radius;
+    return circle;
 };
 var calculateRect = function calculateRect() {
-    for (var _len2 = arguments.length, theArgs = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        theArgs[_key2] = arguments[_key2];
+    for (var len = arguments.length, theArgs = [], key = 0; key < len; key++) {
+        theArgs[key] = arguments[key];
     }
 
-    var len = theArgs.length;
-    var needs = "2개의 인자가 필요합니다";
-    var checkErr = checkValue(len, theArgs);
+    var length = theArgs.length;
+    var requireArguments = "2개의 인자가 필요합니다";
+    var checkErr = checkValue(length, theArgs);
     if (checkErr) return checkErr;
-    if (len !== 2) return needs;
+    if (length !== 2) return requireArguments;
     if (theArgs[0] <= 0) return big("밑변");
     if (theArgs[1] <= 0) return big("높이");
     var width = theArgs[0],
         height = theArgs[1];
+    var rect = width * height;
 
 
     execution.push("rect");
-    return width * height;
+    return rect;
 };
 var calculateTrapezoid = function calculateTrapezoid() {
-    for (var _len3 = arguments.length, theArgs = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-        theArgs[_key3] = arguments[_key3];
+    for (var len = arguments.length, theArgs = [], key = 0; key < len; key++) {
+        theArgs[key] = arguments[key];
     }
 
-    var len = theArgs.length;
-    var needs = "3개의 인자가 필요합니다";
-    var checkErr = checkValue(len, theArgs);
+    var length = theArgs.length;
+    var requireArguments = "3개의 인자가 필요합니다";
+    var checkErr = checkValue(length, theArgs);
     if (checkErr) return checkErr;
-    if (len !== 3) return needs;
+    if (length !== 3) return requireArguments;
     if (theArgs[0] <= 0) return big("밑변");
     if (theArgs[1] <= 0) return big("윗변");
     if (theArgs[2] <= 0) return big("높이");
     var base = theArgs[0],
         upper = theArgs[1],
         height = theArgs[2];
+    var trapezoid = (base + upper) / 2 * height;
 
 
     execution.push("trapezoid");
-    return (base + upper) / 2 * height;
+    return trapezoid;
 };
 var getArea = function getArea(name) {
     switch (name) {
         case "circle":
-            var len = arguments.length <= 1 ? 0 : arguments.length - 1;
-            if (len === 1) {
-                console.log(calculateCircle(arguments.length <= 1 ? undefined : arguments[1]));
-            } else if (len === 2) {
-                for (var i = arguments.length <= 1 ? undefined : arguments[1], count = arguments.length <= 2 ? undefined : arguments[2]; i <= count; i++) {
+            var length = arguments.length <= 1 ? 0 : arguments.length - 1;
+            var radius = arguments.length <= 1 ? undefined : arguments[1];
+            if (length === 1) {
+                console.log(calculateCircle(radius));
+            } else if (length === 2) {
+                var count = arguments.length <= 2 ? undefined : arguments[2];
+                for (var i = radius; i <= count; i++) {
                     console.log(calculateCircle(i));
                 }
             }
@@ -100,14 +105,14 @@ var print = function print(num) {
 };
 
 var execution = [];
-var length = 0;
+var lengthExecution = 0;
 execution.push = function () {
-    print(++length);
+    print(++lengthExecution);
     return Array.prototype.push.apply(this, arguments);
 };
 
 getArea('circle', 2);
-// getArea('rect', 10, 15);
-// getArea('trapezoid', 10, 15, 12);
-// getArea('circle', 1, 15);
+getArea('rect', 10, 15);
+getArea('trapezoid', 10, 15, 12);
+getArea('circle', 1, 15);
 getReport();
