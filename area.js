@@ -11,7 +11,7 @@ const calculateCircle = (...theArgs) => {
             return "숫자형타입만 계산이 가능합니다.";
         }
     }
-    if (theArgs[0] < 0)
+    if (theArgs[0] <= 0)
         return "반지름은 0보다 커야 합니다";
     let radius = theArgs[0];
 
@@ -31,9 +31,9 @@ const calculateRect = (...theArgs) => {
             return "숫자형타입만 계산이 가능합니다.";
         }
     }
-    if (theArgs[0] < 0)
+    if (theArgs[0] <= 0)
         return "밑변은 0보다 커야 합니다";
-    if (theArgs[1] < 0)
+    if (theArgs[1] <= 0)
         return "높이는 0보다 커야 합니다";
     let [width, height] = theArgs;
 
@@ -53,19 +53,18 @@ const calculateTrapezoid = (...theArgs) => {
             return "숫자형타입만 계산이 가능합니다.";
         }
     }
-    if (theArgs[0] < 0)
+    if (theArgs[0] <= 0)
         return "밑변은 0보다 커야 합니다";
-    if (theArgs[1] < 0)
+    if (theArgs[1] <= 0)
         return "윗변은 0보다 커야 합니다";
-    if (theArgs[2] < 0)
+    if (theArgs[2] <= 0)
         return "높이는 0보다 커야 합니다";
     let [base, upper, height] = theArgs;
 
     execution.push("trapezoid");
     return ((base + upper) / 2) * height;
 };
-const getArea = (...theArgs) => {
-    let name = theArgs.shift();
+const getArea = (name, ...theArgs) => {
     switch (name) {
         case "circle":
             let len = theArgs.length;
@@ -101,6 +100,9 @@ execution.push = function () {
     print(++length);
     return Array.prototype.push.apply(this, arguments);
 }
+
+
+
 getArea('circle', 10);
 getArea('rect', 10, 15);
 // getArea('trapezoid', 10, 15, 12);
