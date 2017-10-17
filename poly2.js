@@ -4,10 +4,12 @@
 
 //원 넓이 구하기
 function getCircle(radius){
-    if(!radius) return console.log("인자가 부족합니다.");
-    console.log(radius*radius*Math.PI);
+    arguments.length
+    //if(!radius) return console.log("인자가 부족합니다.");
+    if(!arguments.length) console.log("인자가 부족합니다.");
+    else console.log(radius * radius * Math.PI);
 }
-getCircle(5);
+getCircle();
 
 //사각형넓이 구하기
 function getRect(width,height){
