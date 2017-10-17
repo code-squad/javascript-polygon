@@ -4,9 +4,9 @@ function getCircle(radius) {
     return null;
   }
 
-  var result = Math.pow(radius, 2) * Math.PI;
+  var circleArea = Math.pow(radius, 2) * Math.PI;
 
-  return result;
+  return circleArea;
 }
 
 function getRectangle(base, height) {
@@ -16,9 +16,9 @@ function getRectangle(base, height) {
     return null;
   }
 
-  var result = base * height;
+  var reacArea = base * height;
 
-  return result;
+  return rectArea;
 }
 
 function getTrapezoid(base, upperSide, height) {
@@ -28,7 +28,7 @@ function getTrapezoid(base, upperSide, height) {
     return null;
   }
 
-  var result = base * upperSide * height / 2;
+  var trapezoidArea = base * upperSide * height / 2;
 
-  return result;
+  return trapezoidArea;
 }
