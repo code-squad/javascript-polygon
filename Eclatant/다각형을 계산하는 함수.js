@@ -1,7 +1,7 @@
 function getCircle(radius) {
   if (arguments.length !== 1) {
     console.log("1개의 인자가 필요합니다.");
-    return null;
+    return false;
   }
 
   var circleArea = Math.pow(radius, 2) * Math.PI;
@@ -12,8 +12,7 @@ function getCircle(radius) {
 function getRectangle(base, height) {
   if (arguments.length !== 2) {
     console.log("2개의 인자가 필요합니다.");
-
-    return null;
+    return false;
   }
 
   var reacArea = base * height;
@@ -24,8 +23,7 @@ function getRectangle(base, height) {
 function getTrapezoid(base, upperSide, height) {
   if (arguments.length !== 3) {
     console.log("3개의 인자가 필요합니다.");
-
-    return null;
+    return false;
   }
 
   var trapezoidArea = base * upperSide * height / 2;
