@@ -20,12 +20,11 @@ var calculateCircle = function calculateCircle() {
     }
 
     var len = theArgs.length;
+    var needs = "1개의 인자가 필요합니다";
     var checkErr = checkValue(len, theArgs);
     if (checkErr) return checkErr;
-    if (len !== 1) {
-        return "1개의 인자가 필요합니다";
-    }
-    if (theArgs[0] <= 0) return "반지름은 0보다 커야 합니다";
+    if (len !== 1) return needs;
+    if (theArgs[0] <= 0) return big("반지름");
     var radius = theArgs[0];
 
     execution.push("circle");
@@ -37,11 +36,10 @@ var calculateRect = function calculateRect() {
     }
 
     var len = theArgs.length;
+    var needs = "2개의 인자가 필요합니다";
     var checkErr = checkValue(len, theArgs);
     if (checkErr) return checkErr;
-    if (len !== 2) {
-        return "2개의 인자가 필요합니다";
-    }
+    if (len !== 2) return needs;
     if (theArgs[0] <= 0) return big("밑변");
     if (theArgs[1] <= 0) return big("높이");
     var width = theArgs[0],
@@ -57,11 +55,10 @@ var calculateTrapezoid = function calculateTrapezoid() {
     }
 
     var len = theArgs.length;
+    var needs = "3개의 인자가 필요합니다";
     var checkErr = checkValue(len, theArgs);
     if (checkErr) return checkErr;
-    if (len !== 3) {
-        return "3개의 인자가 필요합니다";
-    }
+    if (len !== 3) return needs;
     if (theArgs[0] <= 0) return big("밑변");
     if (theArgs[1] <= 0) return big("윗변");
     if (theArgs[2] <= 0) return big("높이");
