@@ -21,80 +21,80 @@ function checkArgTypeofNumber(arg, predictArgNumber) {
   return false;
 }
 
-function circle(numArr) {
+function getCircle(numArr) {
   if (numArr.length !== 1) {
     console.log("1개의 인자가 필요합니다.");
-    return null;
+    return false;
   }
 
   if (checkArgTypeofNumber(numArr, 1)) {
-    return null;
+    return false;
   }
 
   if (numArr[0] <= 0) {
     console.log("반지름은 0보다 커야 합니다.");
-    return null;
+    return false;
   }
 
-  var result = Math.pow(numArr[0], 2) * Math.PI;
+  var circleArea = Math.pow(numArr[0], 2) * Math.PI;
 
-  return result;
+  return circleArea;
 }
 
-function rect(numArr) {
+function getRect(numArr) {
   if (numArr.length !== 2) {
     console.log("2개의 인자가 필요합니다.");
-    return null;
+    return false;
   }
 
   if (checkArgTypeofNumber(numArr, 2)) {
-    return null;
+    return false;
   }
 
   if (numArr[0] <= 0) {
     console.log("밑변은 0보다 커야 합니다.");
-    return null;
+    return false;
   }
 
   if (numArr[1] <= 0) {
     console.log("높이는 0보다 커야 합니다.");
-    return null;
+    return false;
   }
 
-  var result = numArr[0] * numArr[1];
+  var rectArea = numArr[0] * numArr[1];
 
-  return result;
+  return rectArea;
 }
 
-function trapezoid(numArr) {
+function getTrapezoid(numArr) {
   if (numArr.length !== 3) {
     console.log("3개의 인자가 필요합니다.");
-    return null;
+    return false;
   }
 
   if (checkArgTypeofNumber(numArr, 3)) {
     console.log("숫자형 타입만 계산이 가능합니다.");
-    return null;
+    return false;
   }
 
   if (numArr[0] <= 0) {
     console.log("밑변은 0보다 커야 합니다.");
-    return null;
+    return false;
   }
 
   if (numArr[1] <= 0) {
     console.log("윗변은 0보다 커야 합니다.");
-    return null;
+    return false;
   }
 
   if (numArr[2] <= 0) {
     console.log("높이는 0보다 커야 합니다.");
-    return null;
+    return false;
   }
 
-  var result = numArr[0] * numArr[1] * numArr[2] / 2;
+  var trapezoidArea = numArr[0] * numArr[1] * numArr[2] / 2;
 
-  return result;
+  return trapezoidArea;
 }
 
 // Array.prototype 사용하기 : http://www.bsidesoft.com/?p=323
@@ -104,13 +104,13 @@ function getArea(calculateCase) {
 
   switch (calculateCase) {
     case "circle":
-      console.log(circle(arg));
+      console.log(getCircle(arg));
       break;
     case "rect":
-      console.log(rect(arg));
+      console.log(getRect(arg));
       break;
     case "trapezoid":
-      console.log(trapezoid(arg));
+      console.log(getTrapezoid(arg));
       break;
   }
 }
