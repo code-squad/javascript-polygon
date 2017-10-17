@@ -1,9 +1,9 @@
 "use strict";
 
-var big = function big(text) {
+function checkPositive(text) {
     return text + "은(는) 0보다 커야 합니다";
 };
-var checkValue = function checkValue(len, theArgs) {
+function checkValue(len, theArgs) {
     if (len === 0) {
         return "최소 한가지 값이 필요합니다";
     }
@@ -14,8 +14,10 @@ var checkValue = function checkValue(len, theArgs) {
     }
     return false;
 };
-var calculateCircle = function calculateCircle() {
-    for (var len = arguments.length, theArgs = [], key = 0; key < len; key++) {
+function calculateCircle() {
+    var theArgs = [];
+    var key = 0;
+    for (var len = arguments.length; key < len; key++) {
         theArgs[key] = arguments[key];
     }
 
@@ -24,15 +26,17 @@ var calculateCircle = function calculateCircle() {
     var checkErr = checkValue(length, theArgs);
     if (checkErr) return checkErr;
     if (length !== 1) return requireArguments;
-    if (theArgs[0] <= 0) return big("반지름");
+    if (theArgs[0] <= 0) return checkPositive("반지름");
     var radius = theArgs[0];
     var circle = Math.PI * radius * radius;
 
     execution.push("circle");
     return circle;
 };
-var calculateRect = function calculateRect() {
-    for (var len = arguments.length, theArgs = [], key = 0; key < len; key++) {
+function calculateRect() {
+    var theArgs = [];
+    var key = 0;
+    for (var len = arguments.length; key < len; key++) {
         theArgs[key] = arguments[key];
     }
 
@@ -41,8 +45,8 @@ var calculateRect = function calculateRect() {
     var checkErr = checkValue(length, theArgs);
     if (checkErr) return checkErr;
     if (length !== 2) return requireArguments;
-    if (theArgs[0] <= 0) return big("밑변");
-    if (theArgs[1] <= 0) return big("높이");
+    if (theArgs[0] <= 0) return checkPositive("밑변");
+    if (theArgs[1] <= 0) return checkPositive("높이");
     var width = theArgs[0],
         height = theArgs[1];
     var rect = width * height;
@@ -51,8 +55,10 @@ var calculateRect = function calculateRect() {
     execution.push("rect");
     return rect;
 };
-var calculateTrapezoid = function calculateTrapezoid() {
-    for (var len = arguments.length, theArgs = [], key = 0; key < len; key++) {
+function calculateTrapezoid() {
+    var theArgs = [];
+    var key = 0;
+    for (var len = arguments.length; key < len; key++) {
         theArgs[key] = arguments[key];
     }
 
@@ -61,9 +67,9 @@ var calculateTrapezoid = function calculateTrapezoid() {
     var checkErr = checkValue(length, theArgs);
     if (checkErr) return checkErr;
     if (length !== 3) return requireArguments;
-    if (theArgs[0] <= 0) return big("밑변");
-    if (theArgs[1] <= 0) return big("윗변");
-    if (theArgs[2] <= 0) return big("높이");
+    if (theArgs[0] <= 0) return checkPositive("밑변");
+    if (theArgs[1] <= 0) return checkPositive("윗변");
+    if (theArgs[2] <= 0) return checkPositive("높이");
     var base = theArgs[0],
         upper = theArgs[1],
         height = theArgs[2];
@@ -73,7 +79,7 @@ var calculateTrapezoid = function calculateTrapezoid() {
     execution.push("trapezoid");
     return trapezoid;
 };
-var getArea = function getArea(name) {
+function getArea(name) {
     switch (name) {
         case "circle":
             var length = arguments.length <= 1 ? 0 : arguments.length - 1;
@@ -97,17 +103,17 @@ var getArea = function getArea(name) {
             console.log("Sorry, we are out of " + name + ".");
     }
 };
-var getReport = function getReport() {
+function getReport() {
     console.log("계산수행순서 : " + execution);
 };
-var print = function print(num) {
+function printCalculation(num) {
     console.log("계산이 " + num + "번 일어났습니다.");
 };
 
 var execution = [];
 var lengthExecution = 0;
 execution.push = function () {
-    print(++lengthExecution);
+    printCalculation(++lengthExecution);
     return Array.prototype.push.apply(this, arguments);
 };
 
