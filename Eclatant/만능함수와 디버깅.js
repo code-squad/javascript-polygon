@@ -10,7 +10,7 @@
 // getArea('circle', 1, 100);
 // > 반지름이 1부터 100까지 1씩 증가하면서, 100개의 원의 넓이의 결과값을 출력.
 
-function checkArgTypeofNumber(arg, predictArgNumber) {
+function checkArgNaN(arg, predictArgNumber) {
   for (var i = 0; i < predictArgNumber; i += 1) {
     if (typeof arg[i] !== "number") {
       console.log("숫자형 타입만 계산이 가능합니다!");
@@ -27,7 +27,7 @@ function getCircle(numArr) {
     return false;
   }
 
-  if (checkArgTypeofNumber(numArr, 1)) {
+  if (checkArgNaN(numArr, 1)) {
     return false;
   }
 
@@ -47,7 +47,7 @@ function getRect(numArr) {
     return false;
   }
 
-  if (checkArgTypeofNumber(numArr, 2)) {
+  if (checkArgNaN(numArr, 2)) {
     return false;
   }
 
@@ -72,7 +72,7 @@ function getTrapezoid(numArr) {
     return false;
   }
 
-  if (checkArgTypeofNumber(numArr, 3)) {
+  if (checkArgNaN(numArr, 3)) {
     console.log("숫자형 타입만 계산이 가능합니다.");
     return false;
   }
