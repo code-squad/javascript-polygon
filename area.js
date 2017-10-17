@@ -3,6 +3,7 @@
 function checkPositive(text) {
     return text + "은(는) 0보다 커야 합니다";
 };
+
 function checkValue(len, theArgs) {
     if (len === 0) {
         return "최소 한가지 값이 필요합니다";
@@ -14,7 +15,8 @@ function checkValue(len, theArgs) {
     }
     return false;
 };
-function calculateCircle() {
+
+function calculateCircle(radius) {
     var theArgs = [];
     var key = 0;
     for (var len = arguments.length; key < len; key++) {
@@ -27,13 +29,13 @@ function calculateCircle() {
     if (checkErr) return checkErr;
     if (length !== 1) return requireArguments;
     if (theArgs[0] <= 0) return checkPositive("반지름");
-    var radius = theArgs[0];
     var circle = Math.PI * radius * radius;
 
     execution.push("circle");
     return circle;
 };
-function calculateRect() {
+
+function calculateRect(width, height) {
     var theArgs = [];
     var key = 0;
     for (var len = arguments.length; key < len; key++) {
@@ -47,15 +49,14 @@ function calculateRect() {
     if (length !== 2) return requireArguments;
     if (theArgs[0] <= 0) return checkPositive("밑변");
     if (theArgs[1] <= 0) return checkPositive("높이");
-    var width = theArgs[0],
-        height = theArgs[1];
     var rect = width * height;
 
 
     execution.push("rect");
     return rect;
 };
-function calculateTrapezoid() {
+
+function calculateTrapezoid(base, upper, height) {
     var theArgs = [];
     var key = 0;
     for (var len = arguments.length; key < len; key++) {
@@ -70,15 +71,13 @@ function calculateTrapezoid() {
     if (theArgs[0] <= 0) return checkPositive("밑변");
     if (theArgs[1] <= 0) return checkPositive("윗변");
     if (theArgs[2] <= 0) return checkPositive("높이");
-    var base = theArgs[0],
-        upper = theArgs[1],
-        height = theArgs[2];
     var trapezoid = (base + upper) / 2 * height;
 
 
     execution.push("trapezoid");
     return trapezoid;
 };
+
 function getArea(name) {
     switch (name) {
         case "circle":
@@ -94,18 +93,25 @@ function getArea(name) {
             }
             break;
         case "rect":
-            console.log(calculateRect(arguments.length <= 1 ? undefined : arguments[1], arguments.length <= 2 ? undefined : arguments[2]));
+            var width = arguments.length <= 1 ? undefined : arguments[1];
+            var height = arguments.length <= 2 ? undefined : arguments[2];
+            console.log(calculateRect(width, height));
             break;
         case "trapezoid":
-            console.log(calculateTrapezoid(arguments.length <= 1 ? undefined : arguments[1], arguments.length <= 2 ? undefined : arguments[2], arguments.length <= 3 ? undefined : arguments[3]));
+            var base = arguments.length <= 1 ? undefined : arguments[1];
+            var upper = arguments.length <= 2 ? undefined : arguments[2];
+            var height = arguments.length <= 3 ? undefined : arguments[3];
+            console.log(calculateTrapezoid(base, upper, height));
             break;
         default:
             console.log("Sorry, we are out of " + name + ".");
     }
 };
+
 function getReport() {
     console.log("계산수행순서 : " + execution);
 };
+
 function printCalculation(num) {
     console.log("계산이 " + num + "번 일어났습니다.");
 };
