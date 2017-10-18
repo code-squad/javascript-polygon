@@ -24,7 +24,7 @@ getRect(5,10);
 
 //사다리꼴 넓이 구하기
 function getTrap(bottom,top,height){
-    if(bottom && top && height) return console.log(( bottom + top) * height / 2);
+    if(bottom && top && height) return console.log((bottom + top) * height / 2);
     needMoreArg(3);
     
 }
