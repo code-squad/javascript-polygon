@@ -29,16 +29,16 @@ function checkArgTypeofNumber(arg, predictArgNumber) {
 function getCircle(numArr) {
   if (numArr.length !== 1) {
     console.log("1개의 인자가 필요합니다.");
-    return null;
+    return;
   }
 
   if (checkArgTypeofNumber(numArr, 1)) {
-    return null;
+    return;
   }
 
   if (numArr[0] <= 0) {
     console.log("반지름은 0보다 커야 합니다.");
-    return null;
+    return;
   }
 
   var result = Math.pow(numArr[0], 2) * Math.PI;
@@ -55,21 +55,21 @@ function getCircle(numArr) {
 function getRect(numArr) {
   if (numArr.length !== 2) {
     console.log("2개의 인자가 필요합니다.");
-    return null;
+    return;
   }
 
   if (checkArgTypeofNumber(numArr, 2)) {
-    return null;
+    return;
   }
 
   if (numArr[0] <= 0) {
     console.log("밑변은 0보다 커야 합니다.");
-    return null;
+    return;
   }
 
   if (numArr[1] <= 0) {
     console.log("높이는 0보다 커야 합니다.");
-    return null;
+    return;
   }
 
   var result = numArr[0] * numArr[1];
@@ -86,27 +86,27 @@ function getRect(numArr) {
 function getTrapezoid(numArr) {
   if (numArr.length !== 3) {
     console.log("3개의 인자가 필요합니다.");
-    return null;
+    return;
   }
 
   if (checkArgTypeofNumber(numArr, 3)) {
     console.log("숫자형 타입만 계산이 가능합니다.");
-    return null;
+    return;
   }
 
   if (numArr[0] <= 0) {
     console.log("밑변은 0보다 커야 합니다.");
-    return null;
+    return;
   }
 
   if (numArr[1] <= 0) {
     console.log("윗변은 0보다 커야 합니다.");
-    return null;
+    return;
   }
 
   if (numArr[2] <= 0) {
     console.log("높이는 0보다 커야 합니다.");
-    return null;
+    return;
   }
 
   var result = numArr[0] * numArr[1] * numArr[2] / 2;
