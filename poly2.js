@@ -4,8 +4,7 @@
 
 //인자부족시 에러메세지 출력, 인자값이 0 일때 에러메세지 출력
 function printErrMsg(arg){
-    if(arg == 0) console.log("인자의 값은 0 이상을 입력해주세요")
-    else console.log(arg+"개의 인자가 필요합니다.");
+    console.log(arg+"개의 인자가 필요합니다.");
 }
 //원 넓이 구하기
 function getCircle(radius){
@@ -32,12 +31,6 @@ function getTrap(bottom,top,height){
     else if(height <= 0) { console.log("0보다 큰 height값을 입력해주세요"); }
     else return console.log((bottom + top) * height / 2);
 }
-/*
-(function(a,b,c) {
-    if(a&b&c) console.log("ok");
-    else console.log("oh..");
-    })(1,null,undefined);
-*/
 getTrap(5,10);
 getTrap(5,10,15);
 getTrap(-5,5,10);
