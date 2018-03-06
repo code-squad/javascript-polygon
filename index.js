@@ -4,50 +4,62 @@ let hasUndefinded = (arguments)=> {
     }
     return false;
 }
-let isAllUndefined = (arguments) => {
-    let counts = 0;
-    for (let key in arguments){
-        if(arguments[key] === undefined) counts++;
-    }
-    return counts === arguments.length;
-}
+let isAllUndefined = arguments => {return arguments.length === 0}
 let isNumber = item => {return typeof item === "number"}
 let isoverZero = item => {return item>0}
 
+const hasAlltype = {
+  numbers: 'numbers',
+  overZero: 'overZero',
+};
 
-
-function calculateCircleSize(radius1,radius2) {
-    console.log('arguments', arguments);
-    if(isAllUndefined(arguments)){
-        console.log('최소 한가지 값이 필요합니다');
+let hasAllCheck = (arguments, type)=> {
+    switch(type){
+        case hasAlltype[numbers]: return hasAllNumbers(arguments)
+        case hasAlltype[overZero]: return hasAllOverZero(arguments)
+        default: break;
     }
-    else{
-        console.log('값이 궁금하다', hasUndefinded(arguments))
-        if(hasUndefinded(arguments)){
-            console.log('값이 궁금하다',(isNumber(radius1)|| isNumber(radius2)))
-            if(isNumber(radius1)|| isNumber(radius2)){
-                let validInput = radius1 || radius2
-                if(isoverZero(validInput)){
-                    console.log('반지름이 '+validInput+'인 원의 넓이는 :'+(validInput*validInput*Math.PI));
-                }
-                else{
-                    console.log('반지름은 0보다 커야 합니다');
-                }
+}
+let hasAllNumbers = arguments => {
+    let count = 0;
+    for (let key in arguments){
+        if(typeof arguments[key] === "number") count++;
+    }
+    return count === arguments.length;
+}
+let hasAllOverZero = arguments => {
+    let count = 0;
+    for (let key in arguments){
+        if(arguments[key] > 0) count++;
+    }
+    return count === arguments.length;
+}
+
+const calculateErrorText = {
+    noArguments: '최소 한가지 값이 필요합니다',
+    hasMinus: '반지름은 0보다 커야 합니다',
+    hasNotNumber: '숫자형타입만 계산이 가능합니다.'
+}
+
+function calculateCircleSize(radius1,radius2) {   
+    if( !arguments[0]&&!arguments[1]) return calculateErrorText.noArguments;    
+    else {
+        if((arguments[0] !== undefined) &&(arguments[1] === undefined)){
+            if(typeof arguments[0] === "number"){
+                if(arguments[0] > 0) return `원의 넓이 : ${arguments[0]*arguments[0]*Math.PI}`
+                else return calculateErrorText.hasMinus
             }
-            else{
-                console.log('숫자형타입만 계산이 가능합니다.')
-            }
+            else return calculateErrorText.hasNotNumber;
         }
         else{
-            if(isNumber(radius1)&&isNumber(radius2)){
-                for(var i = radius1; i <= radius2; i++){
-                    console.log('반지름이 '+i+'인 원의 넓이는 :'+(i*i*Math.PI));
-                }
-                console.log('반지름이 '+validInput+'인 원의 넓이는 :'+(validInput*validInput*Math.PI));
+            if(hasAllNumbers(arguments)){
+                if(hasAllOverZero(arguments)){
+                    for(let i = Math.min(radius1,radius2); i<=Math.max(radius1,radius2); i++){
+                        console.log(`반지름이 ${i}인 원의 넓이는 ${i*i*Math.PI}`);
+                    }
+                }else return calculateErrorText.hasMinus        
             }
-            else{
-                console.log('숫자형타입만 계산이 가능합니다.')
-            }
+            else return calculateErrorText.hasNotNumber;
         }
     }
 }
@@ -81,25 +93,32 @@ function calculateTrapeSize(upper,bottom,height) {
 
 
 
-let getArea = function(shape, para1, para2, para3){
+function getArea(shape, para1, para2, para3) {
+    console.log('arguments',arguments)
     switch(shape){
-        case 'circle': calculateCircleSize(para1, para2);
+        case 'circle': return calculateCircleSize(para1, para2);
             break;
-        case 'rect': calculateRectSize(para1, para2);
+        case 'rect': return calculateRectSize(para1, para2);
             break;
-        case 'trape': calculateTrapeSize(para1, para2, para3);
+        case 'trape': return calculateTrapeSize(para1, para2, para3);
             break;
     }
 }
 
 // 요구사항 1 
-console.log(getArea('circle',10));
+//console.log('getArea(\'circle\')', getArea('circle'));
+//console.log('getArea(\'circle\', 10)', getArea('circle',10));
+//console.log('getArea(\'circle\', 10)', getArea('circle','10'));
+// console.log('getArea(\'circle\', 10)', getArea('circle',-1));
+// console.log('getArea(\'circle\', 10)', getArea('circle', 10, 15));
+// console.log('getArea(\'circle\', 10, \'15\')', getArea('circle', 10, '15'));
+// console.log('getArea(\'circle\', 10, -1)', getArea('circle', 10, -1));
 // 요구사항 2
-console.log(getArea('rect', 10,15));
+//console.log(getArea('rect', 10,15));
 // 요구사항 3
-console.log(getArea('trape', 10,5));
+// console.log(getArea('trape', 10,5));
 
-console.log(getArea('trape', 10,5, 12));
+// console.log(getArea('trape', 10,5, 12));
 
 //요구사항 2
 //2.1. 다음처럼 동작하는 원의 넓이를 계산하는 함수
@@ -113,8 +132,10 @@ console.log(getArea('trape', 10,5, 12));
 //다른다각형 함수도 수정.
 //다른 다각형의 넓이를 구하는 함수도 이와 같이 파라미터값을 체크하는 로직을 추가해서 리팩토링을 해보자.
 
-console.log(calculateCircleSize(10));
-
-// console.log(calculateCircleSize('10'));
 // console.log(calculateCircleSize());
+// console.log(calculateCircleSize(10));
+// console.log(calculateCircleSize('10'));
 // console.log(calculateCircleSize(-1));
+// console.log(calculateCircleSize(10, 13));
+// console.log(calculateCircleSize(10, '13'));
+// console.log(calculateCircleSize(10, -1));
