@@ -34,6 +34,14 @@ let hasAllOverZero = arguments => {
     }
     return count === arguments.length;
 }
+let caculateCount = 0;
+let reportList = [];
+
+let getCircle  = () => console.log(`계산이 ${caculateCount}번 일어났습니다. `);
+let getRect  = () => console.log(`계산이 ${caculateCount}번 일어났습니다. `);
+let getTrape  = () => console.log(`계산이 ${caculateCount}번 일어났습니다. `);
+
+let getReport = () => console.log(reportList);
 
 const calculateErrorText = {
     noArguments: '최소 한가지 값이 필요합니다',
@@ -46,7 +54,11 @@ function calculateCircleSize(radius1,radius2) {
     else {
         if((arguments[0] !== undefined) &&(arguments[1] === undefined)){
             if(typeof arguments[0] === "number"){
-                if(arguments[0] > 0) return `원의 넓이 : ${arguments[0]*arguments[0]*Math.PI}`
+                if(arguments[0] > 0){
+                    caculateCount++;
+                    reportList.push('circle')
+                    return `원의 넓이 : ${arguments[0]*arguments[0]*Math.PI}`
+                }
                 else return calculateErrorText.hasMinus
             }
             else return calculateErrorText.hasNotNumber;
@@ -54,7 +66,9 @@ function calculateCircleSize(radius1,radius2) {
         else{
             if(hasAllNumbers(arguments)){
                 if(hasAllOverZero(arguments)){
+                    reportList.push('circle')
                     for(let i = Math.min(radius1,radius2); i<=Math.max(radius1,radius2); i++){
+                        caculateCount++;
                         console.log(`반지름이 ${i}인 원의 넓이는 ${i*i*Math.PI}`);
                     }
                 }else return calculateErrorText.hasMinus        
@@ -71,6 +85,8 @@ function calculateRectSize(width, height) {
         if((arguments[0]!==undefined&&arguments[1]===undefined) || (arguments[0]===undefined&&arguments[1]!==undefined )){
             if(typeof arguments[0] === "number" || typeof arguments[1] === "number"){
                 if(arguments[0] > 0 || arguments[1] > 0){
+                    caculateCount++;                    
+                    reportList.push('rect')
                     length = arguments[0] || arguments[1]
                     return `정사각형의 넓이는 ${length*length}`;
                 }
@@ -81,6 +97,8 @@ function calculateRectSize(width, height) {
         // 2개의 값이 있는 경우 
         if(hasAllNumbers(arguments)){
             if(hasAllOverZero(arguments)){
+                caculateCount++;
+                reportList.push('rect')
                 return `직사각형의 넓이는 ${(arguments[0]*arguments[1])}`;
             }else return calculateErrorText.hasMinus        
         }
@@ -96,6 +114,8 @@ function calculateTrapeSize(upper,bottom,height) {
     else{
         if(hasAllNumbers(arguments)){
             if(hasAllOverZero(arguments)){
+                caculateCount++;
+                reportList.push('trape')                    
                 var size = (upper+bottom)*height/2;
                 console.log("사다리꼴의 넓이: "+size);
                 return size;
@@ -194,7 +214,30 @@ function getArea(shape, para1, para2, para3) {
 //  console.log(calculateTrapeSize());
 // console.log(calculateTrapeSize(10));
 // console.log(calculateTrapeSize('10'));
-//  console.log(calculateTrapeSize(-1));
-//  console.log(calculateTrapeSize(10, 13, 5));
+// console.log(calculateTrapeSize(-1));
+// console.log(calculateTrapeSize(10, 13, 5));
 // console.log(calculateTrapeSize(10, -1,5));
 // console.log(calculateTrapeSize(10, -1));
+
+//배열을 이용한 로깅 
+
+console.log(calculateCircleSize(10));
+console.log(getArea('circle',2)); 
+console.log(calculateRectSize(10, 13));
+console.log(calculateTrapeSize(10, 13, 5));
+getCircle();
+getReport(); 
+// > 계산이 1번 일어났습니다. 
+
+//getCircle() 
+// > 계산이 2번 일어났습니다. 
+
+//getArea('circle',2) 
+// > 계산이 3번 일어났습니다. 
+
+//getArea('rect',2,3) 
+// > 계산이 4번 일어났습니다. 
+
+//getReport() //getReport가 불려지면, 함수 호출된 순서를 출력한다.
+// > 계산수행순서 : circle, circle, circle, rect
+// 계산이 될 때만 기록한다고 가정하고 진행했습니다.
