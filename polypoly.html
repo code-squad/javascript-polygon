@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title>다각형의 넓이 구하기!</title>
+</head>
+<body>
+<script type="text/javascript">
+
+
+
+var caculateCircleSize = function(radius){
+
+	var result = radius * radius * Math.PI;
+	console.log("원의 넓이는 : " + result);
+
+}
+var caculateSquareSize = function(width, height){
+	
+	var result = width * height;
+	console.log("사각형의 넓이는 : " + result); 
+
+}
+function calculateTrapeSize(upper, bottom, height){
+	
+	var result = (upper + bottom) * height / 2;
+
+	if( arguments.length < 3 ){
+		console.log("3개의 인자가 필요합니다.");
+	}else{
+		console.log("사다리꼴의 넓이 : " + result);
+	}
+
+}
+
+caculateCircleSize(10);
+caculateSquareSize(10, 15);
+calculateTrapeSize(10, 5, 12);
+
+</script>
+</body>
+</html>
