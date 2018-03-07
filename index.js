@@ -1,26 +1,36 @@
 //공식 사용하기: 넓이 = π x 반지름^2 (넓이=파이 x 반지름 제곱)
 
-var array = [];
+let logCallFunc = [];
+let countCallFunc = 0;
 
 function calculateCircle(radius) {
-    var count = 0;
     if (!isNumber(radius)) return '숫자형타입만 계산이 가능합니다';
     if (!isPositiveNumber(radius)) return '반지름은 0보다 커야 합니다';
-    array.push('circle');
-    return radius * radius * Math.PI;
+    logCallFunc.push('circle');
+    let result = radius * radius * Math.PI;
+    countCallFunc++;
+    console.log('계산이 ' + countCallFunc + '번 일어났습니다.');
+    return result;
 }
 
 function calculateRect(width, height) {
+    if (!isNumber(width, height)) return '숫자형 타입만 계산이 가능합니다.'
     if (!isPositiveNumber(width, height)) return '밑변과 길이는 0보다 커야 합니다';
-    array.push('rect');
-    return width * height;
+    logCallFunc.push('rect');
+    let result = width * height;
+    countCallFunc++;
+    console.log('계산이 ' + countCallFunc + '번 일어났습니다.');
+    return result;
 }
 
 function calculateTrapezoid(top, bottom, height) {
     if (!isNumber(top, bottom, height)) return '숫자형 타입만 계산이 가능합니다.'
     if (!isPositiveNumber(top, bottom, height)) return '윗변, 아랫변, 높이는 0보다 커야 합니다';
-    array.push('trape');
-    return (top + bottom) * height / 2;
+    logCallFunc.push('trape');
+    let result = (top + bottom) * height / 2
+    countCallFunc++;
+    console.log('계산이 ' + countCallFunc + '번 일어났습니다.');
+    return result;
 }
 
 function isNumber() {
@@ -57,7 +67,7 @@ function getArea() {
 }
 
 function getReport() {
-    console.log(array);
+    console.log(logCallFunc);
 }
 console.log(getArea('circle', 5));
 console.log(getArea('circle', 5));
