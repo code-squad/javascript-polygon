@@ -1,4 +1,4 @@
-let hasUndefinded = (arguments)=> {
+let hasUndefinded = arguments => {
     for (let key in arguments){
         if(arguments[key] === undefined) return true;
     }
@@ -37,10 +37,10 @@ let hasAllOverZero = arguments => {
 
 const calculateErrorText = {
     noArguments: '최소 한가지 값이 필요합니다',
-    hasMinus: '반지름은 0보다 커야 합니다',
-    hasNotNumber: '숫자형타입만 계산이 가능합니다.'
+    hasMinus: '길이는 0보다 커야 합니다',
+    hasNotNumber: '숫자형타입만 계산이 가능합니다.',
+    insufficientArguments: '입력한 argument 수가 충분하지 않습니다.'
 }
-
 function calculateCircleSize(radius1,radius2) {   
     if( !arguments[0]&&!arguments[1]) return calculateErrorText.noArguments;    
     else {
@@ -64,30 +64,45 @@ function calculateCircleSize(radius1,radius2) {
     }
 }
 
-function calculateRectSize(width,height) {
-    if(typeof width !== 'number' && typeof height !== 'number'){
-        console.log('숫자형타입만 계산이 가능합니다');
-    } else if(arguments.length===0){
-        console.log('최소 한가지 값이 필요합니다')
-    } else if(width<= 0 || height<= 0){
-        console.log('길이값과 높이값은 0보다 커야합니다');
-    }
+function calculateRectSize(width, height) {
+    if( !arguments[0]&&!arguments[1]) return calculateErrorText.noArguments;
     else {
-        var size = width * height;
-        console.log("사각형의 넓이: " + size);
-        return size;
-    }
+        //하나의 값만 있는 경우 
+        if((arguments[0]!==undefined&&arguments[1]===undefined) || (arguments[0]===undefined&&arguments[1]!==undefined )){
+            if(typeof arguments[0] === "number" || typeof arguments[1] === "number"){
+                if(arguments[0] > 0 || arguments[1] > 0){
+                    length = arguments[0] || arguments[1]
+                    return `정사각형의 넓이는 ${length*length}`;
+                }
+                else return calculateErrorText.hasMinus;
+            }
+            else return calculateErrorText.hasNotNumber;
+        }
+        // 2개의 값이 있는 경우 
+        if(hasAllNumbers(arguments)){
+            if(hasAllOverZero(arguments)){
+                return `직사각형의 넓이는 ${(arguments[0]*arguments[1])}`;
+            }else return calculateErrorText.hasMinus        
+        }
+        else return calculateErrorText.hasNotNumber;
+    } 
 }
 
 
 function calculateTrapeSize(upper,bottom,height) {
-    if(hasUndefinded(arguments)){
-        console.log('3개의 인자가 필요합니다');
-    }
+    // 3개 중 undefined가 있는 경우 
+    if(hasUndefinded(arguments) || arguments.length !== 3)return calculateErrorText.insufficientArguments;
+    // 3개 모두 값이 있는 경우 
     else{
-        var size = (upper+bottom)*height/2;
-        console.log("사다리꼴의 넓이: "+size);
-        return size;
+        if(hasAllNumbers(arguments)){
+            if(hasAllOverZero(arguments)){
+                var size = (upper+bottom)*height/2;
+                console.log("사다리꼴의 넓이: "+size);
+                return size;
+            }
+            else return calculateErrorText.hasMinus;
+        }
+        else return calculateErrorText.hasNotNumber;
     }
 }
 
@@ -105,6 +120,8 @@ function getArea(shape, para1, para2, para3) {
     }
 }
 
+//getArea와 값이 다른 issue해결 ->1. (switch case)에서 리턴 값 arguments.length값 말고 해당 값 인덱스들로 접근
+
 // 요구사항 1 
 //console.log('getArea(\'circle\')', getArea('circle'));
 //console.log('getArea(\'circle\', 10)', getArea('circle',10));
@@ -112,7 +129,7 @@ function getArea(shape, para1, para2, para3) {
 // console.log('getArea(\'circle\', 10)', getArea('circle',-1));
 // console.log('getArea(\'circle\', 10)', getArea('circle', 10, 15));
 // console.log('getArea(\'circle\', 10, \'15\')', getArea('circle', 10, '15'));
-// console.log('getArea(\'circle\', 10, -1)', getArea('circle', 10, -1));
+//  console.log('getArea(\'circle\', 10, -1)', getArea('circle', 10, -1));
 // 요구사항 2
 //console.log(getArea('rect', 10,15));
 // 요구사항 3
@@ -139,3 +156,45 @@ function getArea(shape, para1, para2, para3) {
 // console.log(calculateCircleSize(10, 13));
 // console.log(calculateCircleSize(10, '13'));
 // console.log(calculateCircleSize(10, -1));
+
+// 2. 다른다각형 함수도 수정.
+// 다른 다각형의 넓이를 구하는 함수도 이와 같이 파라미터값을 체크하는 로직을 추가해서 리팩토링을 해보자.
+
+// 2.2 직사각형 test
+// console.log('getArea(\'rect\')', getArea('rect'));
+// console.log('getArea(\'rect\', 10)', getArea('rect',10));
+// console.log('getArea(\'rect\', \'10\')', getArea('rect','10'));
+//  console.log('getArea(\'rect\', 10)', getArea('rect',-1));
+// console.log('getArea(\'rect\', 10, 15)', getArea('rect', 10, 15));
+// console.log('getArea(\'rect\', 10, \'15\')', getArea('rect', 10, '15'));
+// console.log('getArea(\'rect\', 10, -1)', getArea('rect', 10, -1));
+
+
+// console.log(calculateRectSize());
+// console.log(calculateRectSize(10));
+// console.log(calculateRectSize('10'));
+//  console.log(calculateRectSize(-1));
+// console.log(calculateRectSize(10, 13));
+// console.log(calculateRectSize(10, '13'));
+// console.log(calculateRectSize(10, -1));
+
+
+//3.사다리꼴 테스트 
+// console.log('getArea(\'trape\')', getArea('trape'));
+// console.log('getArea(\'trape\', 10)', getArea('trape',10));
+// console.log('getArea(\'trape\', \'10\')', getArea('trape','10'));
+//  console.log('getArea(\'trape\', 10)', getArea('trape',-1));
+// console.log('getArea(\'trape\', 10, 15)', getArea('trape', 10, 15));
+// console.log('getArea(\'trape\', 10, \'15\')', getArea('trape', 10, '15'));
+// console.log('getArea(\'trape\', 10, -1)', getArea('trape', 10, -1));
+// console.log('getArea(\'trape\', 10, 3,5)', getArea('trape', 10, '3',5));
+// console.log('getArea(\'trape\', 10, 3,5)', getArea('trape', 10, -1,5));
+
+
+//  console.log(calculateTrapeSize());
+// console.log(calculateTrapeSize(10));
+// console.log(calculateTrapeSize('10'));
+//  console.log(calculateTrapeSize(-1));
+//  console.log(calculateTrapeSize(10, 13, 5));
+// console.log(calculateTrapeSize(10, -1,5));
+// console.log(calculateTrapeSize(10, -1));
