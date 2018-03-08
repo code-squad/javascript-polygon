@@ -1,10 +1,17 @@
+var calledFunctionCount = 0;
+var calledFunctionSequence = [];
+
 // 원 넓이 구하는 함수
 function calCircleArea (radius) {
+    calledFunctionCount++;
+    calledFunctionSequence.push('Circle');
     if (arguments.length === 0)
         return "최소 한가지 값이 필요합니다";
     else if (arguments.length === 2 && arguments[1] !== undefined) {
         for (let i = arguments[0]; i < arguments[1]; i++) {
             console.log(i + "번째 원의 넓이 : " + Math.PI * i * i);
+            calledFunctionCount++;
+            console.log("계산이 " + calledFunctionCount + "번 일어났습니다.");
         }
         let lastData = arguments[1];
         return lastData + "번째 원의 넓이 : " + Math.PI * lastData * lastData;
@@ -14,13 +21,15 @@ function calCircleArea (radius) {
         return "반지름은 0보다 커야 합니다";
     
     if (typeof(radius) === "number")
-        return Math.PI * radius * radius;
+        return Math.PI * radius * radius + "\n" + "계산이 " + calledFunctionCount + "번 일어났습니다.";
     else
         return "숫자형 타입만 계산이 가능합니다";
 }
 
 // 사각형 넓이 구하는 함수
 function calRectangleArea(width, height) {
+    calledFunctionCount++;
+    calledFunctionSequence.push('Rect');
     if (arguments.length <= 1)
         return "최소 한가지 값이 필요합니다";
     else if (arguments.length >= 3)
@@ -30,13 +39,15 @@ function calRectangleArea(width, height) {
         return "가로 및 세로 길이는 0보다 커야합니다";
 
     if (typeof(width) === "number" && typeof(height) === "number")
-        return width * height;
+        return width * height + "\n" + "계산이 " + calledFunctionCount + "번 일어났습니다.";
     else
         return "숫자형 타입만 계산이 가능합니다";
 }
 
 // 사다리꼴 넓이 구하는 함수
 function calTrapezoidArea(lowerbase, upperbase, height) {
+    calledFunctionCount++;
+    calledFunctionSequence.push('Trapezoid');
     if (arguments.length <= 2)
         return "최소 세가지 값이 필요합니다";
     else if (arguments.length >= 4)
@@ -46,7 +57,7 @@ function calTrapezoidArea(lowerbase, upperbase, height) {
         return "밑변 및 윗변, 높이의 길이는 0보다 커야합니다";
 
     if (typeof(lowerbase) === "number" && typeof(upperbase) && typeof(height) === "number")
-        return (lowerbase + upperbase) * height;
+        return (lowerbase + upperbase) * height + "\n" + "계산이 " + calledFunctionCount + "번 일어났습니다.";
     else
         return "숫자형 타입만 계산이 가능합니다";
 }
@@ -65,6 +76,10 @@ function getArea(mode, firstData, secondData, thirdData) {
         default:
             break;
     }
+}
+
+function getReport() {
+    calledFunctionSequence.forEach(value => console.log(value));
 }
 
 // 정상값 테스트
@@ -102,3 +117,7 @@ getArea('circle', 10);
 getArea('rect', 10, 15);
 getArea('trapezoid', 10, 5, 12);
 getArea('circle', 1, 100);
+
+console.log("-----------------");
+
+getReport();
