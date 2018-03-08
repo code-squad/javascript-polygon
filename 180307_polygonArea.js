@@ -1,20 +1,35 @@
-function circleArea(radius){
-    if(arguments.length !== 1){
-        console.log("한 개의 인자가 필요합니다");
-    } else if(typeof radius !== "number"){
-        console.log("숫자형타입만 계산이 가능합니다");
-    } else if(radius <= 0){
-        console.log("반지름은 0보다 커야합니다");
-    } else {
-        console.log(Math.pow(radius, 2) * Math.PI);
+function circleArea(){
+    switch(arguments.length){
+        case 1:
+            if(typeof arguments[0] !== "number"){
+                console.log("숫자형 타입만 계산이 가능합니다");
+            }else if(arguments[0] <= 0){
+                console.log("인자는 0보다 커야합니다");
+            }else{
+                console.log(Math.pow(arguments[0], 2) * Math.PI);
+            }
+            break;
+        case 2:
+            if(typeof arguments[0] !== "number" || typeof arguments[1] !== "number"){
+                console.log("숫자형 타입만 계산이 가능합니다");
+            }else if(arguments[0] <= 0 || arguments[1] <= 0){
+                console.log("인자는 0보다 커야합니다");
+            }else{
+                for(let i = arguments[0]; i <= arguments[1]; i++){
+                    console.log(i * i * Math.PI);
+                }
+            }
+            break;
+        default :
+            console.log("한 개 또는 두 개의 인자가 필요합니다");
     }
 }
 
-function rectangleArea(bottom, height){
+function rectArea(bottom, height){
     if(arguments.length !== 2){
         console.log("두 개의 인자가 필요합니다");
     } else if(typeof bottom !== "number" || typeof height !== "number"){
-        console.log("숫자형타입만 계산이 가능합니다");
+        console.log("숫자형 타입만 계산이 가능합니다");
     } else if(bottom <= 0 || height <= 0){
         console.log("인자는 0보다 커야합니다");
     } else {
@@ -26,7 +41,7 @@ function trapezoidArea(bottom, top, height){
     if(arguments.length !== 3){
         console.log("세 개의 인자가 필요합니다");
     } else if(typeof bottom !== "number" || typeof top !== "number" || typeof height !== "number"){
-        console.log("숫자형타입만 계산이 가능합니다");
+        console.log("숫자형 타입만 계산이 가능합니다");
     } else if(bottom <= 0 || top <= 0 || height <= 0){
         console.log("인자는 0보다 커야합니다");
     } else {
@@ -34,6 +49,24 @@ function trapezoidArea(bottom, top, height){
     }
 }
 
-circleArea(10);
-rectangleArea(15,10);
-trapezoidArea(10,5,12);
+function getArea(){
+    let args = Array.from(arguments); //slice를 위해 arguments를 array로 변환
+    let arr = args.slice(1); // arguments[0]값이 할당된 arr[0]를 없앰
+    switch(arguments[0]){
+        case 'circle':
+            circleArea(...arr);
+            break;
+        case 'rect':
+            rectArea(...arr);
+            break;
+        case 'trapezoid':
+            trapezoidArea(...arr);
+            break;
+        default :
+            console.log("올바른 인자를 입력하세요");
+    }
+}
+
+getArea('circle', 1, 100);
+getArea('rect', 10, 15);
+getArea('trapezoid', 10, 15, 12);
