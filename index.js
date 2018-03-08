@@ -229,7 +229,7 @@ getCircle();
 getReport(); 
 // > 계산이 1번 일어났습니다. 
 
-//getCircle() 
+//getCircle() 1
 // > 계산이 2번 일어났습니다. 
 
 //getArea('circle',2) 
