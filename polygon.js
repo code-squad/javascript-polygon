@@ -3,7 +3,8 @@ var errorComment = {
     nullArgu: "최소 한가지 값이 필요합니다.",
     notTwoArgu: "2개의 값이 필요합니다.",
     notThreeArgu: "3개의 인자가 필요합니다!",
-    minusValueCircle: "반지름은 0보다 커야 합니다."
+    minusValueCircle: "반지름은 0보다 커야 합니다.",
+    minusArgu: "0 보다 커야 합니다."
 };
 
 // 원의 넓이
@@ -19,14 +20,12 @@ function getAreaCircle (radius) {
         return '원의 넓이는 ' + circleResult + ' 입니다.';
     }
 }
-// console.log(getAreaCircle("10")); 
-// console.log(getAreaCircle());
-// console.log(getAreaCircle(-1));
-// console.log(getAreaCircle(10));
 
 // 사각형의 넓이
 function getAreaSquare (bottomSide, height) {
-    if (arguments.length !== 2){
+    if(arguments[0] <= 0 || arguments[1] <= 0 && typeof arguments === 'number'){
+        return errorComment.minusArgu;
+    } else if (arguments.length !== 2){
         return errorComment.notTwoArgu;
     } else if((typeof arguments[0] === 'string' || typeof arguments[1] === 'string') && arguments.length === 2){
         return errorComment.notNumber;
@@ -35,16 +34,14 @@ function getAreaSquare (bottomSide, height) {
         return "사각형의 넓이는 " + squareResult + " 입니다.";
     }
 }
-// console.log(getAreaSquare(10));
-// console.log(getAreaSquare(10, "0"));
-// console.log(getAreaSquare());
-// console.log(getAreaSquare(10, 15));
 
 // 사다리꼴의 넓이
 function getAreaTrapezoid (topSideArgu, bottomSideArgu, heightArgu) {
-    if (arguments.length !== 3){
+    if(arguments[0] <= 0 || arguments[1] <= 0 || arguments[2] <=0 && typeof arguments === 'number'){
+        return errorComment.minusArgu;
+    } else if (arguments.length !== 3){
         return errorComment.notThreeArgu;
-    } else if((typeof arguments[0] === "string" || typeof arguments[1] === "string" || typeof arguments[2] === "string")&& arguments.length === 3){
+    } else if((typeof arguments[0] === "string" || typeof arguments[1] === "string" || typeof arguments[2] === "string") && arguments.length === 3 ){
         return errorComment.notNumber;
     } else if ((typeof arguments[0] !== "string" || typeof arguments[1] !== "string" || typeof arguments[2] !== "string")&& arguments.length === 3) {
         let resultTrapzoid = (topSideArgu + bottomSideArgu) * heightArgu / 2;
@@ -52,7 +49,21 @@ function getAreaTrapezoid (topSideArgu, bottomSideArgu, heightArgu) {
     }
 }
 
-console.log(getAreaTrapezoid(10));
-console.log(getAreaTrapezoid(10, "0", 12));
-console.log(getAreaTrapezoid());
-console.log(getAreaTrapezoid(5, 10, 12));
+// 원의 넓이 출력 test
+// console.log(getAreaCircle("10")); 
+// console.log(getAreaCircle());
+// console.log(getAreaCircle(-1));
+// console.log(getAreaCircle(10));
+
+
+// 사각형의 넓이 출력 test
+// console.log(getAreaSquare(10));
+// console.log(getAreaSquare(10, "0"));
+// console.log(getAreaSquare(-10));
+// console.log(getAreaSquare(10, 15));
+
+// 사다리꼴의 넓이 출력 test
+// console.log(getAreaTrapezoid(10));
+// console.log(getAreaTrapezoid(10, "0", 12));
+// console.log(getAreaTrapezoid());
+// console.log(getAreaTrapezoid(5, 10, 12));
