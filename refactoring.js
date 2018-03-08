@@ -1,5 +1,5 @@
 
-const calculateErrorText = {
+const ErrorText = {
     noArguments: '최소 한가지 값이 필요합니다',
     hasMinus: '길이는 0보다 커야 합니다',
     hasNotNumber: '숫자형타입만 계산이 가능합니다.',
@@ -15,24 +15,34 @@ let getArea = (type,  ...args) => {
 }
 let printResult = (printText, caculatedSzie) => `${printText} ${caculatedSzie}`
 
-let caculateCounts = 0;
-let reportList = [];
+const caculateData = {
+    caculateCounts: 0,
+    reportList: [],
+}
 
 let printCouts = () => {
-    caculateCounts++;
-    console.log(`계산이 ${caculateCounts} 번 일어났습니다 :ㅇ`)
+    caculateData.caculateCounts++;
+    console.log(`계산이 ${caculateData.caculateCounts} 번 일어났습니다 :ㅇ`)
 }
 
 let getReport = () => {
-   console.log(reportList);
+   console.log(caculateData.reportList);
 }
 
 
 let inspectValidData = data => {
-    if(typeof data == "number"){
-        if(data > 0) return data;
-        else throw new Error(calculateErrorText.hasMinus)
-    }else throw new Error(calculateErrorText.hasNotNumber)
+    if(typeof data !== "number") throw new Error(ErrorText.hasNotNumber)
+    if(data > 0) return data;
+    else throw new Error(ErrorText.hasMinus)
+     
+}
+let inspectValidAllData = (...datas) => {
+    let validaDataList = [];
+    for(key in datas){
+        let validData = inspectValidData(datas[key]);
+        validaDataList.push(validData);
+    }
+    return validaDataList;
 }
 
 let calculateCircleSize = (...args) => {
@@ -40,7 +50,7 @@ let calculateCircleSize = (...args) => {
     let length = args.length;
     let getCircleSize = radius => {
         printCouts();
-        reportList.push('circle')
+        caculateData.reportList.push('circle')
         return radius*radius*Math.PI
     } 
     let printSection = (first,last, printText) => {
@@ -49,7 +59,7 @@ let calculateCircleSize = (...args) => {
         }
     }
     switch(length){
-        case 0: throw new Error(calculateErrorText.noArguments)  
+        case 0: throw new Error(ErrorText.noArguments)  
         case 1: return printResult(printText, getCircleSize(inspectValidData(args[0])));
         case 2: return printSection(inspectValidData(args[0]),inspectValidData(args[1]),printText);
         break;
@@ -63,16 +73,16 @@ let caculateRectSize = (...args) => {
     let length = args.length;
     let getSquareSize = squareLength => {
         printCouts();
-        reportList.push('rect');
+        caculateData.reportList.push('rect');
         return squareLength*squareLength;
     };
     let getReactSize = (width,height) => {
         printCouts();
-        reportList.push('rect');
+        caculateData.reportList.push('rect');
         return width*height;
     };
     switch(length){
-        case 0: throw new Error(calculateErrorText.noArguments)  
+        case 0: throw new Error(ErrorText.noArguments)  
         case 1: return printResult(printText.rect, getSquareSize(inspectValidData(args[0])));
         case 2: return printResult(printText.square, getReactSize(inspectValidData(args[0]),inspectValidData(args[1])));
         break;
@@ -83,19 +93,21 @@ let caculagteTrapeSize = (...args) => {
     let length = args.length;
     let getTrapeSize = (upper, bottom, height) => {
         printCouts();
-        reportList.push('trape');
+        caculateData.reportList.push('trape');
         return (upper+bottom)*height/2;
     }
     switch(length){
-        case 0: throw new Error(calculateErrorText.noArguments);
-        case 1,2: throw new Error(calculateErrorText.insufficientArguments);
+        case 0: throw new Error(ErrorText.noArguments);
+        case 1,2: throw new Error(ErrorText.insufficientArguments);
         case 3: return printResult(
             printText, 
-            getTrapeSize(inspectValidData(args[0]),inspectValidData(args[1]),inspectValidData(args[2]))
+            getTrapeSize(...inspectValidAllData(...args).slice(0,3))
         )
         break;
     }
 }
+
+
 
 // //getCircle() 
 // > 계산이 1번 일어났습니다. 
@@ -119,8 +131,8 @@ let caculagteTrapeSize = (...args) => {
 //  console.log(getArea('circle',1,4));
 //  console.log('caculaeCounts', caculateCounts);
 
-  console.log(getArea('rect',1,4));
-  console.log(caculateRectSize(10));
+//   console.log(getArea('rect',1,4));
+//   console.log(caculateRectSize(10));
  
 // console.log(calculateCircleSize(1,4));
 
@@ -129,6 +141,7 @@ let caculagteTrapeSize = (...args) => {
 console.log(getArea('trape',4,5,4));
 console.log(caculagteTrapeSize(1,4,5));
 getReport();
+
 // console.log(caculagteTrapeSize('1',4,5));
 // console.log(caculagteTrapeSize(-1,4,5));
 
