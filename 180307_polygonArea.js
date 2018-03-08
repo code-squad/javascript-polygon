@@ -1,3 +1,6 @@
+var logNum = 0;
+var logArr = [];
+
 function circleArea(){
     switch(arguments.length){
         case 1:
@@ -23,6 +26,9 @@ function circleArea(){
         default :
             console.log("한 개 또는 두 개의 인자가 필요합니다");
     }
+    logNum ++;
+    logArr.push('circle');
+    console.log("계산이 "+logNum+"번 일어났습니다");
 }
 
 function rectArea(bottom, height){
@@ -35,6 +41,9 @@ function rectArea(bottom, height){
     } else {
         console.log(bottom * height);
     }
+    logNum ++;
+    logArr.push('rect');
+    console.log("계산이 "+logNum+"번 일어났습니다");
 }
 
 function trapezoidArea(bottom, top, height){
@@ -47,6 +56,9 @@ function trapezoidArea(bottom, top, height){
     } else {
         console.log(((bottom + top) * height)/2);
     }
+    logNum ++;
+    logArr.push('trapezoid');
+    console.log("계산이 "+logNum+"번 일어났습니다");
 }
 
 function getArea(){
@@ -67,6 +79,11 @@ function getArea(){
     }
 }
 
-getArea('circle', 1, 100);
+function getReport(){
+    console.log("계산수행 순서 : " + logArr.join());
+}
+
+getArea('circle', 10, 12);
 getArea('rect', 10, 15);
 getArea('trapezoid', 10, 15, 12);
+getReport();
