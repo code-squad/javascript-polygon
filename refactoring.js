@@ -6,6 +6,11 @@ const ErrorText = {
     insufficientArguments: '입력한 argument 수가 충분하지 않습니다.'
 }
 
+const caculateData = {
+    caculateCounts: 0,
+    reportList: [],
+}
+
 let getArea = (type,  ...args) => {
     switch(type){
         case 'circle': return calculateCircleSize(...args)
@@ -15,20 +20,18 @@ let getArea = (type,  ...args) => {
 }
 let printResult = (printText, caculatedSzie) => `${printText} ${caculatedSzie}`
 
-const caculateData = {
-    caculateCounts: 0,
-    reportList: [],
-}
-
 let printCouts = () => {
-    caculateData.caculateCounts++;
     console.log(`계산이 ${caculateData.caculateCounts} 번 일어났습니다 :ㅇ`)
 }
+let caculateReport = (type) => {
+    caculateData.caculateCounts++;
+    caculateData.reportList.push(type);
+    printCouts();
+} 
 
 let getReport = () => {
    console.log(caculateData.reportList);
 }
-
 
 let inspectValidData = data => {
     if(typeof data !== "number") throw new Error(ErrorText.hasNotNumber)
@@ -49,8 +52,7 @@ let calculateCircleSize = (...args) => {
     let printText = '원의 넓이는';
     let length = args.length;
     let getCircleSize = radius => {
-        printCouts();
-        caculateData.reportList.push('circle')
+        caculateReport('circle');
         return radius*radius*Math.PI
     } 
     let printSection = (first,last, printText) => {
@@ -72,13 +74,11 @@ let caculateRectSize = (...args) => {
     } 
     let length = args.length;
     let getSquareSize = squareLength => {
-        printCouts();
-        caculateData.reportList.push('rect');
+        caculateReport('rect');
         return squareLength*squareLength;
     };
     let getReactSize = (width,height) => {
-        printCouts();
-        caculateData.reportList.push('rect');
+        caculateReport('rect');
         return width*height;
     };
     switch(length){
@@ -92,8 +92,7 @@ let caculagteTrapeSize = (...args) => {
     const printText = "사디리꼴의 넓이는";
     let length = args.length;
     let getTrapeSize = (upper, bottom, height) => {
-        printCouts();
-        caculateData.reportList.push('trape');
+        caculateReport('trape');
         return (upper+bottom)*height/2;
     }
     switch(length){
