@@ -47,9 +47,8 @@ let getReport = () => {
 
 let inspectValidData = data => {
     if(typeof data !== "number") throw new Error(ErrorText.hasNotNumber)
-    if(data > 0) return data;
-    else throw new Error(ErrorText.hasMinus)
-     
+    if(data <= 0) throw new Error(ErrorText.hasMinus) 
+    return data;
 }
 let inspectValidAllData = (...datas) => {
     let validaDataList = [];
@@ -150,7 +149,7 @@ let caculagteTrapeSize = (...args) => {
 // 
 
 console.log(getArea('trape',4,5,4));
-console.log(caculagteTrapeSize(1,4,5));
+console.log(caculagteTrapeSize(1,4,-1));
 getReport();
 
 // console.log(caculagteTrapeSize('1',4,5));
