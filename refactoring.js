@@ -1,4 +1,3 @@
-
 const ErrorText = {
     noArguments: '최소 한가지 값이 필요합니다',
     hasMinus: '길이는 0보다 커야 합니다',
@@ -9,13 +8,26 @@ const ErrorText = {
 const caculateData = {
     caculateCounts: 0,
     reportList: [],
-}
+};
+
+const PrintText = {
+    circle: '원의 넓이는',
+    square: '정사각형의 넓이는',
+    react: '직사각형의 넓이는', 
+    trape: '사디리꼴의 넓이는',
+};
+
+const Type = {
+    Circle: 'circle',
+    Rect: 'rect',
+    Trape: 'trape',
+};
 
 let getArea = (type,  ...args) => {
     switch(type){
-        case 'circle': return calculateCircleSize(...args)
-        case 'rect': return caculateRectSize(...args)
-        case 'trape': return caculagteTrapeSize(...args)
+        case Type.Circle: return calculateCircleSize(...args)
+        case Type.Rect: return caculateRectSize(...args)
+        case Type.Trape: return caculagteTrapeSize(...args)
     }
 }
 let printResult = (printText, caculatedSzie) => `${printText} ${caculatedSzie}`
@@ -49,10 +61,10 @@ let inspectValidAllData = (...datas) => {
 }
 
 let calculateCircleSize = (...args) => {
-    let printText = '원의 넓이는';
+    let printText = PrintText.circle;
     let length = args.length;
     let getCircleSize = radius => {
-        caculateReport('circle');
+        caculateReport(Type.Circle);
         return radius*radius*Math.PI
     } 
     let printSection = (first,last, printText) => {
@@ -68,31 +80,31 @@ let calculateCircleSize = (...args) => {
     }    
 }
 let caculateRectSize = (...args) => {
-    const printText = {
-        rect:'정사각형의 넓이는',
-        square: '직사각형의 넓이는',
+    let printText = {
+        rect: PrintText.rect,
+        square: PrintText.square,
     } 
     let length = args.length;
     let getSquareSize = squareLength => {
-        caculateReport('rect');
+        caculateReport(Type.Rect);
         return squareLength*squareLength;
     };
     let getReactSize = (width,height) => {
-        caculateReport('rect');
+        caculateReport(Type.Rect);
         return width*height;
     };
     switch(length){
         case 0: throw new Error(ErrorText.noArguments)  
-        case 1: return printResult(printText.rect, getSquareSize(inspectValidData(args[0])));
-        case 2: return printResult(printText.square, getReactSize(inspectValidData(args[0]),inspectValidData(args[1])));
+        case 1: return printResult(printText.square, getSquareSize(inspectValidData(args[0])));
+        case 2: return printResult(printText.rect, getReactSize(inspectValidData(args[0]),inspectValidData(args[1])));
         break;
     } 
 }
 let caculagteTrapeSize = (...args) => {
-    const printText = "사디리꼴의 넓이는";
+    const printText = PrintText.trape;
     let length = args.length;
     let getTrapeSize = (upper, bottom, height) => {
-        caculateReport('trape');
+        caculateReport(Type.Trape);
         return (upper+bottom)*height/2;
     }
     switch(length){
