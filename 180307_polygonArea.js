@@ -61,18 +61,16 @@ function trapezoidArea(bottom, top, height){
     console.log("계산이 "+logNum+"번 일어났습니다");
 }
 
-function getArea(){
-    let args = Array.from(arguments); //slice를 위해 arguments를 array로 변환
-    let arr = args.slice(1); // arguments[0]값이 할당된 arr[0]를 없앰
-    switch(arguments[0]){
+function getArea(shape, ...args){
+    switch(shape){
         case 'circle':
-            circleArea(...arr);
+            circleArea(...args);
             break;
         case 'rect':
-            rectArea(...arr);
+            rectArea(...args);
             break;
         case 'trapezoid':
-            trapezoidArea(...arr);
+            trapezoidArea(...args);
             break;
         default :
             console.log("올바른 인자를 입력하세요");
