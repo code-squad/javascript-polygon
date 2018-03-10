@@ -12,36 +12,38 @@ var calculateCount = []; // 계산한 수값 저장
 
 // 원의 넓이
 function getCircleArea (radius, otherRadius) {
-   switch (arguments.length) {
-       case 1:
-          if (radius <= 0) {
-             return errorComment.minusValueCircle;
-          } else if (typeof radius !== "number") {
-               return errorComment.notNumber;
+    switch (arguments.length) {
+        case 1:
+            if (radius <= 0) {
+                return errorComment.minusValueCircle;
+            } else if (typeof radius !== "number") {
+                return errorComment.notNumber;
             } else if (radius === null || radius === undefined || radius === " ") {
-              return errorComment.nullValue;
-            } else if(radius){
-              let circleResult = radius * radius * Math.PI;
-              count++;
-              calculateCount.push('circle');
-              return '계산이 ' + count + "번 일어났습니다. \n" +  "원의 넓이는 " + circleResult + " 입니다.";
+                return errorComment.nullValue;
+            } else {
+                let circleResult = radius * radius * Math.PI;
+                count++;
+                calculateCount.push('circle');
+                return '계산이 ' + count + "번 일어났습니다. \n" +  "원의 넓이는 " + circleResult + " 입니다.";
             }
             break;
-            
+
         case 2:
+            let resultArray = [];
             if (radius <= 0 || otherRadius <= 0) {
               return errorComment.minusValueCircle;
             } else if (typeof radius !== "number" || typeof otherRadius !== "number") {
               return errorComment.notNumber;
             } else if (radius === null || radius === undefined || radius === " ") {
               return errorComment.nullValue;
-            } else if(radius, otherRadius){
+            } else {
                 for (let i = radius; i <= otherRadius; i++) {
                     let circleResult = radius * i * Math.PI;
                     count++;
-                    calculateCount.push('circle');
-                    return '범위 계산이 ' + count + "번 일어났습니다. \n" +  "원의 넓이는 " + circleResult + " 입니다.";
+                    calculateCount.push("circle");
+                    resultArray.push(circleResult);
                 }
+                return "범위 계산이 " + count + "번 일어났습니다. \n" + "원의 넓이는 " + resultArray.join("\n") + " 입니다.";
             }
             break;
     }
@@ -49,31 +51,33 @@ function getCircleArea (radius, otherRadius) {
 
 // 사각형의 넓이
 function getSquareArea (bottomSide, height) {
-    if(arguments[0] <= 0 || arguments[1] <= 0 && typeof arguments === 'number'){
+    if(bottomSide <= 0 || height <= 0 && typeof arguments === 'number'){
         return errorComment.minusValue;
-    } else if((typeof arguments[0] !== 'number' || typeof arguments[1] !== 'number') && arguments.length === 2){
+    } else if((typeof bottomSide !== 'number' || typeof height !== 'number') && arguments.length === 2){
         return errorComment.notNumber;
     } else if (arguments.length !== 2){
         return errorComment.notTwoValue;
     } else if(bottomSide !== null && height ){
         let squareResult = bottomSide * height;
+        count++;
         calculateCount.push('rect');
-        return "사각형의 넓이는 " + squareResult + " 입니다.";
+        return '계산이 ' + count + "번 일어났습니다. \n" + "사각형의 넓이는 " + squareResult + " 입니다.";
     }
 }
 
 // 사다리꼴의 넓이
 function getTrapezoidArea (topSide, bottomSide, height) {
-    if((arguments[0] <= 0 || arguments[1] <= 0 || arguments[2] <=0) && typeof arguments === 'number'){
-        return errorComment.minusValue;
-    } else if((typeof arguments[0] !== "number" || typeof arguments[1] !== "number" || typeof arguments[2] !== "number") && arguments.length === 3 ){
-        return errorComment.notNumber;
-    } else if (arguments.length !== 3){
-        return errorComment.notThreeValue;
+    if ((topSide <= 0 || bottomSide <= 0 || height <= 0) && typeof arguments === "number") {
+      return errorComment.minusValue;
+    } else if ((typeof topSide !== "number" || typeof bottomSide !== "number" || typeof height !== "number") && arguments.length === 3) {
+      return errorComment.notNumber;
+    } else if (arguments.length !== 3) {
+      return errorComment.notThreeValue;
     } else {
-        let resultTrapzoid = (topSide + bottomSide) * height / 2;
-        calculateCount.push('trapezoid');
-        return "사다리꼴의 넓이는 " + resultTrapzoid + " 입니다.";
+      let resultTrapzoid = (topSide + bottomSide) * height / 2;
+      count++;
+      calculateCount.push("trapezoid");
+      return "계산이 " + count + "번 일어났습니다. \n" + "사다리꼴의 넓이는 " + resultTrapzoid + " 입니다.";
     }
 }
 
@@ -95,9 +99,8 @@ function getReport() {
     return "계산 수행 순서: " + calculateCount.join();
 }
 
-
 console.log(getArea('circle', 10) + "\n");
-console.log(getArea('circle', 1, 100) + "\n");
+console.log(getArea('circle', 1, 10) + "\n");
 console.log(getArea('circle', 2) + "\n");
 console.log(getArea('rect', 2, 3) + "\n");
 console.log(getReport());
