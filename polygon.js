@@ -1,18 +1,21 @@
-function circle(radius){
-    return radius * radius * 3.14;
+function getWidthCircle(radius){
+    let result1 = radius * radius * Math.PI;
+    return result1;
 }
 
-function square(base, height){
-    return base * height;
+function getWidthSquare(base, height){
+    let result2 = base * height;
+    return result2;
 }
 
-function Trapezoid(Tbase, Tuppbase, Theight){
-    if( Theight == undefined){
+function getWidthTrapezoid(base1, uppbase1, height1){
+    let result3 = (base1 + uppbase1) * height1 * 0.5
+    if( base1 === undefined || uppbase1 === undefined || height1 === undefined){
         return "3개의 인자가 필요합니다";
     }
-    return (Tbase+Tuppbase) * Theight * 0.5;
+    return result3;
 }
 
-console.log(circle(10));
-console.log(square(10, 15));
-console.log(Trapezoid(10, 5, 12));
+console.log(getWidthCircle(10));
+console.log(getWidthSquare(10, 15));
+console.log(getWidthTrapezoid(10, 5, 12));
