@@ -4,12 +4,12 @@
 </head>
 <body>
 <script>
-var reportArray = [];
-var count = 0;
 
+var count = 0;
+var reportArray = [];
 //타입에러 검사
 function typeError(...args){
-	for(var i = 0; i < args[0].length; i++){
+	for(let i = 0; i < args[0].length; i++){
 		if(typeof args[0][i] !== "number"){
 			console.log("숫자형타입만 계산이 가능합니다.");
 			return false;
@@ -19,7 +19,7 @@ function typeError(...args){
 }
 //값이 0보다 큰 값인지 검사
 function valueError(...args){
-	for(var i = 0; i < args[0].length; i++){
+	for(let i = 0; i < args[0].length; i++){
 		if(args[0][i] < 0 ){
 			console.log("값은 0보다 커야 계산이 가능합니다.");
 			return false;
@@ -31,11 +31,14 @@ function valueError(...args){
 function calculateCircle(radius1, radius2){
 	var circleArray = [];
 	var result;
-	if(arguments.length === 1){
+	if(arguments.length < 1){
+		console.log("인자값이 부족합니다.");
+		return ;
+	}else if(arguments.length === 1){
 		result = radius1 * radius1 * Math.PI;
 		circleArray.push(result);
 	}else if(arguments.length === 2){
-		for(var i = radius1; i <= radius2; i++){
+		for(let i = radius1; i <= radius2; i++){
 			result = i * i * Math.PI;
 			circleArray.push(result);
 		}
@@ -44,79 +47,77 @@ function calculateCircle(radius1, radius2){
 }
 //사각형의 넓이 계산함수
 function calculateRect(width, height){
-	var result = width * height;
-	return result;
+	if(arguments.length < 2){
+		console.log("인자값이 부족합니다.");
+		return ;
+	}else{
+		var result = width * height;
+		return result;
+	}
 }
 //사다리꼴의 넓이 계산
 function calculateTrape(bottom, top, height){
-	var result = (bottom + top) * height / 2;
-	return result;
+	if(arguments.length < 3){
+		console.log("인자값이 부족합니다.");
+		return ;
+	}else{
+		var result = (bottom + top) * height / 2;
+		return result;
+	}
 }
 //계산한 polygon 순서대로 나열하는 함수 
-function getReport(){
-	var reportArrayStr = reportArray.join(",");
-	console.log(reportArrayStr);
+function getReport(polygon){
+	
+	reportArray.push(polygon);
+	var reportArrayStr = reportArray.join(" ");
+	return reportArrayStr;
 }
 //계산 횟수를 세는 함수
 function calculateCount(){
+	count++;
 	console.log("계산이 " + count +"번 일어났습니다.");
 }
 
 //함수 호출하는 함수
 var getArea = function(polygon, ...args){
-	var arr = Array.from(args);
-	var typeErrorValue = typeError(arr);
-	var valueErrorValue = valueError(arr);
+	var typeErrorValue = typeError(args);
+	var valueErrorValue = valueError(args);
 
 	if(!(typeErrorValue &&valueErrorValue)){
 		return ;
 	}
 	var result;
 	switch(polygon){
-		case 'circle' : 
-		if(args.length < 1){
-			console.log("인자값이 필요합니다.");
-			return ;
-		}else{
-			result = calculateCircle(...args);
-		}
+		case 'circle' : result = calculateCircle(...args);
 		break;
-		case 'rect' : 
-		if(args.length < 2){
-			console.log("인자값이 필요합니다.");
-			return ;			
-		}else{
-			result = calculateRect(...args);
-		}
+		case 'rect' : result = calculateRect(...args);
 		break;
-		case 'trape' : 
-		if(args.length < 2){
-			console.log("인자값이 필요합니다.");
-			return ;			
-		}else{
-			result = calculateTrape(...args);
-		}
+		case 'trape' : result = calculateTrape(...args);
 		break;
 	}
+	if(typeof result !== "object" && typeof result !== "number") return ;
+
 	if(polygon === 'circle'){
-		for(var i = 0; i < result.length; i++){
+		for(let i = 0; i < result.length; i++){
 			console.log( polygon + "의 넓이는 " + result[i] + "입니다.");
-			count++;
 			calculateCount();
-			reportArray.push(polygon);
+			getReport(polygon);
 		}
 	}else{
 		console.log( polygon + "의 넓이는 " + result + "입니다.");
-		count++;
 		calculateCount();
-		reportArray.push(polygon);
+		getReport(polygon);
 	}
 }
 getArea("circle", 1, 5);
+getArea("rect", 10, 15);
+getArea("trape", 10, 12, 15);
+getArea("circle");
 getArea("rect");
-getArea("rect", "10", 10);
-getArea("rect", 10, -10);
-
+getArea("trape");
+/*getArea("rect", "10", 10);
+getArea("rect", 10, -10);*/
+console.log(getReport());
 </script>
 </body>
 </html>
