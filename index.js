@@ -1,35 +1,47 @@
-function checkNumberOfInput(validNum, inputVal) {
-    return (validNum === inputVal.length) ?  1 : 0;
+function checkEvery(targetArr, funcName) {
+    for(let i = 0; i < targetArr.length; i++) {
+        if(!funcName(targetArr[i])) {
+            return false;
+        }
+    }
+    return true;
 }
+
+function checkInputValue(validNum, inputVal) {
+    let inputValArray = Array.from(inputVal);
+    if(!checkEvery(inputValArray, elem => typeof elem === "number")) {
+        throw "숫자형 타입만 계산이 가능합니다.";
+    }
+    if(!inputValArray.length) {
+        throw "최소 한가지 값이 필요합니다.";
+    }
+    if(!checkEvery(inputValArray, elem => elem > 0)) {
+        throw "입력값은 0보다 커야 합니다.";
+    }
+    if(validNum !== inputValArray.length) {
+        throw `${validNum}개의 인자가 필요합니다.`;
+    }
+}
+
 function calculateCircle(radius) {
-    let result;
-    if(!checkNumberOfInput(1, arguments)) {
-        result = "1개의 인자가 필요합니다.";
-    }
-    else {
-        result = radius * radius * Math.PI;
-    }
-    return console.log(result);
+    checkInputValue(1, arguments);
+    let result = radius * radius * Math.PI;
+    console.log(result);
+    return true;
 }
+
 function calculateSquare(width, height) {
-    let result;
-    if(!checkNumberOfInput(2, arguments)) {
-        result = "2개의 인자가 필요합니다.";
-    }
-    else {
-        result = width * height;
-    }
-    return console.log(result);
+    checkInputValue(2, arguments);
+    let result = width * height;
+    console.log(result);
+    return true;
 }
+
 function calculateTrapezoid(upper, lower, height) {
-    let result;
-    if(!checkNumberOfInput(3, arguments)) {
-        result = "3개의 인자가 필요합니다.";
-    }
-    else {
-        result = (upper + lower) * height;
-    }
-    return console.log(result);
+    checkInputValue(3, arguments);
+    result = (upper + lower) * height / 2;
+    console.log(result);
+    return true;
 }
 
 calculateCircle(10);
