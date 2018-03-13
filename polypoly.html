@@ -5,6 +5,8 @@
 <body>
 <script type="text/javascript">
 
+var count = 0;
+var reportArray = [];
 //에러메시지 객체
 var error = {
 	define : "인자값이 부족합니다.",
@@ -13,9 +15,9 @@ var error = {
 }
 
 //에러확인 함수
-var errorCheck = function(){
+function errorCheck(){
 
-	var result = true;
+	var result = 0;
 	for(var i in arguments){
 		if(arguments[i] === undefined){
 			result = 1;
@@ -29,7 +31,7 @@ var errorCheck = function(){
 }
 
 //원넓이 함수
-var calculateCircleSize = function(radius1, radius2){
+function calculateCircleSize(radius1, radius2){
 
 	if(radius2 === undefined){
 
@@ -40,7 +42,7 @@ var calculateCircleSize = function(radius1, radius2){
 			break;
 			case 3 : console.log(error.value);
 			break;
-			case true : var result = radius1 * radius1 * Math.PI;
+			case 0 : var result = radius1 * radius1 * Math.PI;
 						console.log("원의 넓이는 : " + result);
 						calculateCount();
 						reportArray.push("circle");
@@ -54,7 +56,7 @@ var calculateCircleSize = function(radius1, radius2){
 			break;
 			case 3 : console.log(error.value);
 			break;
-			case true : for(var i = radius1; i <= radius2; i++ ){
+			case 0 : for(var i = radius1; i <= radius2; i++ ){
 							var result = i * i * Math.PI;
 							console.log("원의 넓이는 : " + result);
 							calculateCount();
@@ -67,7 +69,7 @@ var calculateCircleSize = function(radius1, radius2){
 }
 
 //사각형넓이 함수
-var calculateSquareSize = function(width, height){
+function calculateSquareSize(width, height){
 	
 	
 	switch(errorCheck(width, height)){
@@ -77,7 +79,7 @@ var calculateSquareSize = function(width, height){
 		break;
 		case 3 : console.log(error.value);
 		break;
-		case true : var result = width * height;
+		case 0 : var result = width * height;
 					console.log("사각형의 넓이는 : " + result);
 					calculateCount();
 					reportArray.push("squre");
@@ -96,7 +98,7 @@ function calculateTrapeSize(upper, bottom, height){
 		break;
 		case 3 : console.log(error.value);
 		break;
-		case true : var result = (upper + bottom) * height / 2;
+		case 0 : var result = (upper + bottom) * height / 2;
 					console.log("사다리꼴의 넓이는 : " + result);
 					calculateCount();
 					reportArray.push("trape");
@@ -105,21 +107,19 @@ function calculateTrapeSize(upper, bottom, height){
 
 }
 
-var count = 0;
-var reportArray = [];
 
 //계산수행순서 함수
-var getReport = function(){
+function getReport(){
 
-	var reportArray = reportArray.join(", ");
-	console.log("계산수행순서 : " + reportArray);
+	var reportString = reportArray.join(', ');
+	console.log("계산수행순서 : " + reportString);
 
 }
 
 //로깅 함수
-var calculateCount = function(){
+function calculateCount(){
 
-	count = count + 1;
+	count++;
 	console.log("계산이 " + count + "번 일어났습니다.");
 
 }
