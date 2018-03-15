@@ -11,40 +11,40 @@ function checkLogic(){
   }
   
   function getWidthCircle(radius){
-    let functionCheckLogic = checkLogic(radius);
-    if(functionCheckLogic == true){
+    let check = checkLogic(radius);
+    if(check){
       let result = radius * radius * Math.PI;
       return result;
     }
     else{
-      return functionCheckLogic;
+      return check;
     }
   }
   
   function getWidthSquare(base, height){
-    let functionCheckLogic = checkLogic(base, height);
-    if( functionCheckLogic === true){
+    let check = checkLogic(base, height);
+    if(check){
       let result = base * height;
       return result;
       }
     else{
-      return functionCheckLogic;
+      return check;
     }
   }
       
   function getWidthTrapezoid(base, uppbase, height){
-    let functionCheckLogic = checkLogic(base, uppbase, height);
-    if( functionCheckLogic === true){
+    let check = checkLogic(base, uppbase, height);
+    if(check){
       let result = (base + uppbase) * height * 0.5;
       return result;
       }
     else{
-      return functionCheckLogic;
+      return check;
     }
   }
 
-function getArea(){
-    if(arguments[0] === 'circle'){
+function getArea(polygon,...args){
+    if(polygon === 'circle'){
       if(arguments.length === 2){
         let radius = arguments[1];
         return getWidthCircle(radius);
@@ -57,11 +57,11 @@ function getArea(){
         return arr;
       }
     }
-    else if(arguments[0] === 'rect' && arguments.length === 3){
+    else if(polygon === 'rect' && arguments.length === 3){
       let base = arguments[1], height = arguments[2];
       return getWidthSquare(base, height);
     }
-    else if(arguments[0] === 'trapezoid' && arguments.length === 4){
+    else if(polygon === 'trapezoid' && arguments.length === 4){
       let base = arguments[1], uppbase = arguments[2], height = arguments[3];
       return getWidthTrapezoid(base, uppbase, height);
     }
