@@ -15,8 +15,7 @@ function checkLogic(){
     if(check){
       let result = radius * radius * Math.PI;
       return result;
-    }
-    else{
+    }else{
       return check;
     }
   }
@@ -26,8 +25,7 @@ function checkLogic(){
     if(check){
       let result = base * height;
       return result;
-      }
-    else{
+    }else{
       return check;
     }
   }
@@ -37,8 +35,7 @@ function checkLogic(){
     if(check){
       let result = (base + uppbase) * height * 0.5;
       return result;
-      }
-    else{
+    }else{
       return check;
     }
   }
@@ -46,8 +43,8 @@ function checkLogic(){
 function getArea(polygon,...args){
     if(polygon === 'circle'){
       if(arguments.length === 2){
-        let radius = arguments[1];
-        return getWidthCircle(radius);
+          let radius = arguments[1];
+          return getWidthCircle(radius);
       }
       else if(arguments.length === 3){
         let arr = [];
