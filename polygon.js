@@ -32,7 +32,7 @@ function getCircleArea(radius, otherRadius) {
       let resultArray = [];
       if (radius <= 0 || otherRadius <= 0) {
         return errorComment.minusValueCircle;
-      } else if (typeof radius === "string" || typeof otherRadius === "string") {
+      } else if (typeof radius === "stirng" || typeof otherRadius === "string") {
         return errorComment.notNumber;
       } else if (!radius) {
         return errorComment.nullValue;
@@ -109,15 +109,14 @@ function conditionConfirm(topSide, bottomSide, height) {
     return 'minusValue';
   }
 }
-
 // refactoring 조건 확인 함수
 // checkType(Array.from(arguments), "string")
 // checkType(Array.from(arguments), "number")
 
 
 
-// console.log(getArea('circle') + "\n");
-// console.log(getArea('circle', 1, 10) + "\n");
-// console.log(getArea('circle', 2) + "\n");
-console.log(getArea('rect', 3) + "\n");
+console.log(getArea('circle') + "\n");
+console.log(getArea('circle', 1, 10) + "\n");
+console.log(getArea('circle', 2) + "\n");
+// console.log(getArea('rect', 3) + "\n");
 // console.log(getReport());
