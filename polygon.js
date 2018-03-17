@@ -51,12 +51,12 @@ function getCircleArea(radius, otherRadius) {
 
 // 사각형의 넓이
 function getSquareArea(bottomSide, height) {
-  let badTypeFilter = checkType(bottomSide, height);
-  if (bottomSide <= 0 || height <= 0) {
+  let filteringType = checkType(bottomSide, height);
+  if (filteringType === "minusType") {
     return errorComment.minusValue;
   } else if (!bottomSide || !height) {
     return errorComment.notTwoValue;
-  } else if (typeof bottomSide === 'string' || typeof height === 'string') {
+  } else if (filteringType === "stringType") {
     return errorComment.notNumber;
   } else {
     let squareResult = bottomSide * height;
@@ -68,11 +68,13 @@ function getSquareArea(bottomSide, height) {
 
 // 사다리꼴의 넓이
 function getTrapezoidArea(topSide, bottomSide, height) {
-  if (topSide <= 0 || bottomSide <= 0 || height <= 0) {
+  let filteringType = checkType(topSide, bottomSide, height);
+
+  if (filteringType === "minusType") {
     return errorComment.minusValue;
   } else if (!topSide || !bottomSide || !height) { 
     return errorComment.notThreeValue;
-  } else if (typeof topSide === 'string' || typeof bottomSide === 'string' || typeof height === 'string') {
+  } else if (filteringType === "stringType") {
     return errorComment.notNumber;
   } else {
     let resultTrapzoid = (topSide + bottomSide) * height / 2;
@@ -111,18 +113,14 @@ var checkType = function(topSide, bottomSide, height) {
   }
 };
 
-console.log(checkType(1, 2));
-
 // console.log(getArea('circle') + "\n");
 // console.log(getArea('circle', 1, 10) + "\n");
 // console.log(getArea('circle', 1) + "\n");
 
-// console.log(getArea('rect', "1", 2) + "\n");
-// console.log(getArea('rect', 2, -2) + "\n");
-// console.log(getArea('rect', -1, 2) + "\n");
+// // console.log(getArea('rect', -1, 2) + "\n");
 
 // console.log(getArea('rect', 2, 2) + "\n");
-// console.log(getArea('rect', 2) + "\n");
+// // console.log(getArea('rect', 2) + "\n");
 
 // console.log(getArea('trapezoid', 1, 2, 3));
 // console.log(getReport());
