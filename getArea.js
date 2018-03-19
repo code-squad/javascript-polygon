@@ -1,6 +1,6 @@
 function checkLogic(){
     for(let n = 0; n < arguments.length; n++){
-      if(typeof arguments[n] === "string"){
+      if(typeof arguments[n] !== "number"){
         return "숫자형 타입만 계산이 가능합니다.";
       }
       else if(arguments[n] <= 0){
@@ -61,7 +61,7 @@ function getArea(polygon,...args){
   }
 }
   
-console.log(getArea('circle'));
+console.log(getArea('circle',-1));
 console.log(getArea('rect', 10,15));
 console.log(getArea('trapezoid',10,15,12));
 console.log(getArea('circle', 1,3));
