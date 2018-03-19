@@ -1,5 +1,5 @@
 function checkError(arr, ...validLength){
-    if(!validLength.includes(arr.length)) throw "올바른 인자 개수를 입력하십시오";
+    if(validLength.indexOf(arr.length) === -1) throw "올바른 인자 개수를 입력하십시오";
     if(!arr.every((element) => typeof element === "number")) throw "숫자형 타입만 계산이 가능합니다";
     if(!arr.every((element) => element > 0)) throw "인자는 0보다 커야합니다";
 }
@@ -10,26 +10,29 @@ function getACircleArea(radius){
 
 function getManyCircleArea(start, end){
     let result = [];
-    for(let radius = start; radius <= end; radius++){
-        result.push(getACircleArea(radius));
+    for(let i = start; i <= end; i++){
+        result.push(i);
     }
-    return result;
+    return result.reduce((previous, current) => [...previous, getACircleArea(current)], []);
 }
 
-function getCircleArea(){
-    checkError(Array.from(arguments), 1, 2);
+function getCircleArea(radius1, radius2){
+    let arr = Array.from(arguments);
+    checkError(arr, 1, 2);
     if(arguments.length === 1) return getACircleArea(...arguments);
     if(arguments.length === 2) return getManyCircleArea(...arguments);
 }
 
 function getRectArea(bottom, height){
-    checkError(Array.from(arguments), 2);
+    let arr = Array.from(arguments);    
+    checkError(arr, 2);
     let result = bottom * height;
     return result;
 }
 
 function getTrapezoidArea(bottom, top, height){
-    checkError(Array.from(arguments), 3);
+    let arr = Array.from(arguments);    
+    checkError(arr, 3);
     result = ((bottom + top) * height)/2;
     return result;
 }
