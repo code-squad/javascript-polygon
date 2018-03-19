@@ -7,44 +7,40 @@ function checkLogic(){
         return "길이가 0보다 커야 합니다.";
       }
     }
-    return true;
+    if(arguments.length === 0){
+      return "정확한 인자의 갯수를 입력하세요";
+    }
+    return "넓이를 출력";
   }
   
+  //원의 넓이
   function getWidthCircle(radius){
-    let check = checkLogic(radius);
-    if(check){
       let result = radius * radius * Math.PI;
       return result;
-    }else{
-      return check;
-    }
   }
   
+  //사각형의 넓이
   function getWidthSquare(base, height){
-    let check = checkLogic(base, height);
-    if(check){
       let result = base * height;
       return result;
-    }else{
-      return check;
-    }
   }
       
+  //사달꼴의 넓이
   function getWidthTrapezoid(base, uppbase, height){
-    let check = checkLogic(base, uppbase, height);
-    if(check){
       let result = (base + uppbase) * height * 0.5;
       return result;
-    }else{
-      return check;
-    }
   }
 
+
 function getArea(polygon,...args){
+  let check = checkLogic(...args);
+  if(check !== "넓이를 출력"){
+    return check;
+  }else{
     if(polygon === 'circle'){
       if(arguments.length === 2){
-          let radius = arguments[1];
-          return getWidthCircle(radius);
+        let radius = arguments[1];    
+        return getWidthCircle(radius);
       }
       else if(arguments.length === 3){
         let arr = [];
@@ -62,10 +58,10 @@ function getArea(polygon,...args){
       let base = arguments[1], uppbase = arguments[2], height = arguments[3];
       return getWidthTrapezoid(base, uppbase, height);
     }
-    return "정확한 인자의 갯수를 입력하세요";
+  }
 }
   
-console.log(getArea('circle', 10));
+console.log(getArea('circle'));
 console.log(getArea('rect', 10,15));
 console.log(getArea('trapezoid',10,15,12));
 console.log(getArea('circle', 1,3));
