@@ -1,5 +1,5 @@
 function checkError(arr, ...validLength){
-    if(validLength.indexOf(arr.length) === -1) throw "올바른 인자 개수를 입력하십시오";
+    if(!validLength.includes(arr.length)) throw "올바른 인자 개수를 입력하십시오";
     if(!arr.every((element) => typeof element === "number")) throw "숫자형 타입만 계산이 가능합니다";
     if(!arr.every((element) => element > 0)) throw "인자는 0보다 커야합니다";
 }
@@ -13,7 +13,16 @@ function getManyCircleArea(start, end){
     for(let i = start; i <= end; i++){
         result.push(i);
     }
-    return result.reduce((previous, current) => [...previous, getACircleArea(current)], []);
+    return reduce(result, (previous, current) => [...previous, getACircleArea(current)], []);
+}
+
+function reduce(arr, func, initialValue){
+    if(initialValue) arr.unshift(initialValue);
+    let result = arr[0];
+    for(let i = 1; i < arr.length; i++){
+        result = func(result, arr[i]);
+    }
+    return result;
 }
 
 function getCircleArea(radius1, radius2){
