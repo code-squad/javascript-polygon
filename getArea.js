@@ -49,12 +49,10 @@ function getArea(polygon,...args){
     return arr;
   }
   else if(polygon === 'rect'){
-    let base = args[0], height = args[1];
-    return getWidthSquare(base, height);
+    return getWidthSquare(args[0], args[1]);
   }
   else if(polygon === 'trapezoid'){
-    let base = args[0], uppbase = args[1], height = args[2];
-    return getWidthTrapezoid(base, uppbase, height);
+    return getWidthTrapezoid(args[0], args[1], args[2]);
   }
 }
   
