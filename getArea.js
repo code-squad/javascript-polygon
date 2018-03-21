@@ -37,17 +37,14 @@ function getArea(polygon,...args){
   if(check !== true){
     return check;
   }
-  
   if(polygon === 'circle'){
     let arr = [];
+    args[1] = args[1] || args[0];
     for(let radius = args[0]; radius <= args[1]; radius ++){
       arr.push(getWidthCircle(radius));
     }
-    if(typeof args[1] !== "number"){
-      return getWidthCircle(args[0]);
-    }
-    return arr;
-  }
+    return arr.join(", ");
+ }
   else if(polygon === 'rect'){
     return getWidthSquare(args[0], args[1]);
   }
