@@ -31,20 +31,26 @@ function getcheckerror(){
       return result;
   }
 
+//radius의 원의 넓이부터 untilThisRadius의 넓이까지 호출.
+function checkRadiusAmount(radius, untilThisRadius){
+  let arr = [];
+  radius = radius || untilThisRadius;
+  for(radius; radius <= untilThisRadius; radius ++){
+    arr.push(getWidthCircle(radius));
+  }
+  return arr.join(", ");
+}
 
+//구하려는 도형이 원인지, 사각형인지, 사다리꼴인지 판별하는 함수 + 에러체크
 function getArea(polygon,...args){
   let check = getcheckerror(...args);
   if(check !== true){
     return check;
   }
   if(polygon === 'circle'){
-    let arr = [];
-    args[1] = args[1] || args[0];
-    for(let radius = args[0]; radius <= args[1]; radius ++){
-      arr.push(getWidthCircle(radius));
-    }
-    return arr.join(", ");
- }
+    return checkRadiusAmount(args[0], args[1]);
+  }
+
   else if(polygon === 'rect'){
     return getWidthSquare(args[0], args[1]);
   }
