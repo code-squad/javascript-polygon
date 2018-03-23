@@ -16,7 +16,8 @@ function getcheckerror(){
   //원의 넓이
   function getWidthCircle(radius){
       let result = radius * radius * Math.PI;
-      return result.toFixed(2);
+      let demicalPlaceResult = result.toFixed(2);
+      return demicalPlaceResult;
   }
   
   //사각형의 넓이
