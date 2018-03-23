@@ -16,7 +16,7 @@ function getcheckerror(){
   //원의 넓이
   function getWidthCircle(radius){
       let result = radius * radius * Math.PI;
-      return result;
+      return result.toFixed(2);
   }
   
   //사각형의 넓이
@@ -34,7 +34,7 @@ function getcheckerror(){
 //radius의 원의 넓이부터 untilThisRadius의 넓이까지 호출.
 function checkRadiusAmount(radius, untilThisRadius){
   let arr = [];
-  radius = radius || untilThisRadius;
+  untilThisRadius = untilThisRadius || radius;
   for(radius; radius <= untilThisRadius; radius ++){
     arr.push(getWidthCircle(radius));
   }
