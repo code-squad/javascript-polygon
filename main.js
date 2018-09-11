@@ -41,3 +41,25 @@ const checkErrors = {
         return false;
     }
 };
+
+const calculateBtn = {
+    //get input from <input>s
+    //Check input error
+    //calculate
+    //return value through alert ;)
+
+    circle : function() {
+        const circleRadius = Number(document.getElementById('circleRadius').value);
+        const inputArr = [circleRadius];
+        if(checkErrors.hasLessArgs(inputArr) || checkErrors.hasAnyNaN(inputArr)) {return false;}
+        const circleArea = computeArea.circle(circleRadius);
+        alert(`입력하신 반지름 ${circleRadius}의 원 넓이는 ${circleArea}입니다.`);
+    },
+    square : function() {},
+    trapezoid : function() {},
+    cylinder : function() {}
+};
+
+
+//To-do
+    //addEventListener on submit buttons

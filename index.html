@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>도형 넓이 계산기</title>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
+    <style>
+        html {
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>도형 넓이 계산기</h1>
+    
+    <h3>원</h3>
+    <form>
+        <input type="text" placeholder="Radius" id="circleRadius">
+        <input type="submit" value="Calculate">
+    </form> 
+
+    <h3>사각형</h3>
+    <form>
+        <input type="text" placeholder="Width" id="squareWidth">
+        <input type="text" placeholder="height" id="squareHeight">
+        <input type="submit" value="Calculate">
+    </form> 
+    
+    <h3>사다리꼴</h3>
+    <form>
+        <input type="text" placeholder="Top Width" id="trapeTop">
+        <input type="text" placeholder="Bottom Width" id="trapeBottom">
+        <input type="text" placeholder="height" id="trapeHeight">
+        <input type="submit" value="Calculate">
+    </form> 
+
+    <h3>원기둥</h3>
+    <form>
+        <input type="text" placeholder="Radius" id="cylinRadius">
+        <input type="text" placeholder="Height" id="cylinHeight">
+        <input type="submit" value="Calculate">
+    </form> 
+
+    <script src="main.js"></script>
+</body>
+</html>
