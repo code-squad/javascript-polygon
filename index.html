@@ -1,0 +1,40 @@
+<!DOCTYPE>
+<head>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <!--  polygon 넓이(원, 사각형, 사다리꼴, 원기둥) -->
+
+    <div class="wrapper" id="polygon_wrapper">
+        <div class="polygon_container">
+            <div class="polygon_group">
+                <h1>원</h1>
+                <p class="input_wrapper">반지름의 길이: <input type="text" id="one_bottom_half"></p>
+                <div id="action_one_polygon" class="action_button polygon_action_button">Action</div>
+            </div>
+            <div class="polygon_group">
+                <h1>사각형</h1>
+                <p class="input_wrapper">밑변의 길이: <input type="text" id="square_width"></p>
+                <p class="input_wrapper">높이의 길이: <input type="text" id="square_height"></p>
+                <div id="action_square_polygon" class="action_button polygon_action_button">Action</div>
+            </div>
+            <div class="polygon_group">
+                <h1>사다리꼴</h1>
+                <p class="input_wrapper">밑변의 길이: <input type="text" id="trapezoid_bottom_width"></p>
+                <p class="input_wrapper">윗변의 길이: <input type="text" id="trapezoid_top_width"></p>
+                <p class="input_wrapper">높이의 길이: <input type="text" id="trapezoid_height"></p>
+                <div id="action_trapezoid_polygon" class="action_button polygon_action_button">Action</div>
+            </div>
+            <div class="polygon_group">
+                <h1>원기둥</h1>
+                <p class="input_wrapper">밑원의 반지름 길이: <input type="text" id="cylinder_bottom_half"></p>
+                <p class="input_wrapper">원기둥의 높이: <input type="text" id="cylinder_height"></p>
+                <div id="action_cylinder_polygon" class="action_button polygon_action_button">Action</div>
+            </div>
+        </div>
+        <div class="result_wrapper">결과 : <span id="result_polygon"></span></div>
+    </div>
+
+    <script type="text/javascript" src="./script.js"></script>
+</body>
