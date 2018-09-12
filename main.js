@@ -42,7 +42,7 @@ const checkErrors = {
     }
 };
 
-const calculateBtn = {
+const printArea = {
     //get input from <input>s
     //Check input error
     //calculate
@@ -55,8 +55,15 @@ const calculateBtn = {
         const circleArea = computeArea.circle(circleRadius);
         alert(`입력하신 반지름 ${circleRadius}의 원 넓이는 ${circleArea}입니다.`);
     },
-    square : function() {},
-    trapezoid : function() {},
+    square : function() {
+        const squareWidth = Number(document.getElementById('squareWidth').value);
+        const squareHeight = Number(document.getElementById('squareHeight').value);
+        const inputArr = [squareWidth, squareHeight];
+        if(checkErrors.hasLessArgs(inputArr) || checkErrors.hasAnyNaN(inputArr)) {return false;}
+        const squareArea = computeArea.square(squareWidth, squareHeight);
+        alert(`입력하신 너비 ${squareWidth}, 높이 ${squareHeight}의 사각형 넓이는 ${squareArea}입니다.`);
+    },
+    squareHeight : function() {},
     cylinder : function() {}
 };
 
