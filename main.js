@@ -43,10 +43,10 @@ const checkErrors = {
 };
 
 const printArea = {
-    //get input from <input>s
+    //Save arguments from HTML <input>s
     //Check input error
-    //calculate
-    //return value through alert ;)
+    //Calculate
+    //Return value through alert
 
     circle : function() {
         const circleRadius = Number(document.getElementById('circleRadius').value);
@@ -63,8 +63,23 @@ const printArea = {
         const squareArea = computeArea.square(squareWidth, squareHeight);
         alert(`입력하신 너비 ${squareWidth}, 높이 ${squareHeight}의 사각형 넓이는 ${squareArea}입니다.`);
     },
-    squareHeight : function() {},
-    cylinder : function() {}
+    trapezoid : function() {
+        const trapeTop = Number(document.getElementById('trapeTop').value);
+        const trapeBottom = Number(document.getElementById('trapeBottom').value);
+        const trapeHeight = Number(document.getElementById('trapeHeight').value);
+        const inputArr = [trapeTop, trapeBottom, trapeHeight];
+        if(checkErrors.hasLessArgs(inputArr) || checkErrors.hasAnyNaN(inputArr)) {return false;}
+        const trapeArea = computeArea.trapezoid(trapeTop, trapeBottom, trapeHeight);
+        alert(`입력하신 윗변 ${trapeTop}, 아랫변 ${trapeBottom}, 높이 ${trapeHeight}의 사다리꼴 넓이는 ${trapeArea}입니다.`);
+    },
+    cylinder : function() {
+        const cylinRadius = Number(document.getElementById('cylinRadius').value);
+        const cylinHeight = Number(document.getElementById('cylinHeight').value);
+        const inputArr = [cylinRadius, cylinHeight];
+        if(checkErrors.hasLessArgs(inputArr) || checkErrors.hasAnyNaN(inputArr)) {return false;}
+        const cylinArea = computeArea.cylinder(cylinRadius, cylinHeight);
+        alert(`입력하신 너비 ${cylinRadius}, 높이 ${cylinHeight}의 원기둥 넓이는 ${cylinArea}입니다.`);
+    }
 };
 
 
