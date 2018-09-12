@@ -83,5 +83,14 @@ const printArea = {
 };
 
 
-//To-do
-    //addEventListener on submit buttons
+
+//addEventListener on submit buttons
+const circleSubmit = document.getElementById('circleSubmit');
+const squareSubmit = document.getElementById('squareSubmit');
+const trapeSubmit = document.getElementById('trapeSubmit');
+const cylinSubmit = document.getElementById('cylinSubmit');
+
+circleSubmit.addEventListener("click", printArea.circle);
+squareSubmit.addEventListener("click", printArea.square);
+trapeSubmit.addEventListener("click", printArea.trapezoid);
+cylinSubmit.addEventListener("click", printArea.cylinder);
