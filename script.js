@@ -1,90 +1,45 @@
-    // 0. getElementById, getElementsByClassName 함수 정의
-    // for문 정리
+    // 인자 갯수 에러 함수
 
-    function $(result){
-        return document.getElementById(result);
-    }
-
-    function class_name(result){
-        return document.getElementsByClassName(result);
-    }
-    
-    
-    //   polygon 
-
-    let polygon_action_button = document.getElementsByClassName("polygon_action_button");
-
-    function string_error() {
-        let inputTag = window.document.getElementsByTagName("input");
-        for(let i = 0; i < inputTag.length; i++){
-            if(isNaN(+inputTag[i].value)){
-                result_polygon.innerHTML = "숫자를 입력해주세요.";
-                return;
-            }
+    function isBlank(arg, num){
+        let count = 0;
+        for(v of arg){
+            count++;
         }
+        return (count != num) ? true : false;
     }
 
-    function blank_error(target){
-        target.parentNode.childNodes.forEach(function(input_value){
-            if(input_value.nodeName == "P" && input_value.childNodes[1].value == ""){
-                result_polygon.innerHTML = "필요한 인자를 모두 입력해주세요.";
-                return;
-            }
-        })
-    }
+    // 숫자 타입 에러 함수
 
-    function polygon(){
-        let result;
-        if(this.id === "action_one_polygon"){
-            result = oneArea();
-        }  else if(this.id === "action_square_polygon"){
-            result = squareArea();
-        }  else if(this.id === "action_trapezoid_polygon"){
-            result = trapezoidArea();
-        }  else if(this.id === "action_cylinder_polygon"){
-            result = cylinderArea();
+    function isNum(arg){
+        let count = 0;
+        for(v of arg){
+            isNaN(+v) ?  count++ : false;
         }
-        result_polygon.innerHTML = result;
-
-        string_error();
-        blank_error(this);
+        return (count != 0) ? true : false;
     }
 
-
-    function oneArea(){
-        const one_half_length = parseInt($('one_bottom_half').value);
-        const result = one_half_length * one_half_length  * Math.PI;
-
-        return result;
+    // 다각형 넓이 함수
+    
+    function circleArea(circle_bottom_half){
+        if(isBlank(arguments, 1)){ return '정해진 인자 갯수대로 입력해주세요.'}
+        if(isNum(arguments)){ return '숫자만 입력해주세요.' };
+        return circle_bottom_half * circle_bottom_half  * Math.PI;
     }
 
-    function squareArea(){
-        const width = parseInt($('square_width').value);
-        const height = parseInt($('square_height').value);
-        const result = width * height;
-
-        return result;
+    function squareArea(square_width, square_height){
+        if(isBlank(arguments, 2)){ return '정해진 인자 갯수대로 입력해주세요.'}
+        if(isNum(arguments)){ return '숫자만 입력해주세요.' };
+        return square_width * square_height;
     }
 
-    function trapezoidArea(){
-        const bottom = parseInt($('trapezoid_bottom_width').value);
-        const top = parseInt($('trapezoid_top_width').value);
-        const height = parseInt($('trapezoid_height').value);
-        const result = (bottom + top) * height / 2;
-        
-        return result;
+    function trapezoidArea(trapezoid_bottom_width, trapezoid_top_width, trapezoid_height){
+        if(isBlank(arguments, 3)){ return '정해진 인자 갯수대로 입력해주세요.'}
+        if(isNum(arguments)){ return '숫자만 입력해주세요.' };
+        return (trapezoid_bottom_width + trapezoid_top_width) * trapezoid_height / 2;
     }
 
-    function cylinderArea(){
-        const one_half_length = parseInt($('cylinder_bottom_half').value);
-        const height = parseInt($('cylinder_height').value);
-        const result = Math.pow((Math.PI * one_half_length), 2) + 2 * Math.PI * one_half_length * height;
-
-        return result;
+    function cylinderArea(cylinder_bottom_half,cylinder_height){
+        if(isBlank(arguments, 2)){ return '정해진 인자 갯수대로 입력해주세요.'};
+        if(isNum(arguments)){ return '숫자만 입력해주세요.' };
+        return 2 * (circleArea(cylinder_bottom_half) + Math.PI * cylinder_bottom_half * cylinder_height);
     }
-
-    for (var i = 0; i < polygon_action_button.length; i++) {
-        polygon_action_button[i].addEventListener('click', polygon);
-    }
-
-    // End : STEP 01
