@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 다각형의 넓이 구하기
+
+        // 원의 넓이 구하기 함수
+        function getCircleSize( radius ) { 
+            if( arguments.length == 0 || arguments.length >= 2  ){
+                console.log( "한 개의 숫자만 넣으세요." );
+                return;
+            }
+            if( typeof radius != "number" ) {
+                console.log( "숫자만 넣을 수 있습니다." );
+                return;
+            }
+            const circleSize = radius * radius * Math.PI; 
+            console.log( "원의 넓이(반지름: " + radius +  " ): " +  circleSize ); 
+            return circleSize; 
+        }
+        getCircleSize( 5 ); 
+
+        // 사각형의 넓이 구하기 함수
+        function getSquareSize( width, height ) {
+            if( arguments.length < 2 || arguments.length >= 3 ){
+                console.log( "두 개의 숫자만 넣으세요." );
+                return;
+            }
+            if( typeof arguments[0] != "number" || typeof arguments[1] != "number" ) {
+                console.log( "숫자만 넣을 수 있습니다." );
+                return;
+            }
+            const squareSize = width * height; 
+            console.log( "사각형의 넓이(너비: " + width + " , 높이: " + height + " ): " +  squareSize );
+            return squareSize;  
+        }
+        getSquareSize( 2, 5 );
+    
+        // 사다리꼴의 넓이 구하기 함수
+        function getRectangleSize( upperSide, lowerSide, height ) {
+            if( arguments.length < 3 || arguments.length >= 4 ){
+                console.log( "세 개의 숫자만 넣으세요." );
+                return;
+            }
+            if( typeof arguments[0] != "number" || typeof arguments[1] != "number" ||
+            typeof arguments[2] != "number" ) {
+                console.log( "숫자만 넣을 수 있습니다." );
+                return;
+            }
+            const rectangleSize = ( upperSide + lowerSide ) * height;
+            console.log( "사다리꼴의 넓이(윗변: " + upperSide + ", 아랫변: " + lowerSide + ", 높이: " + height + " ): " + rectangleSize );
+            return rectangleSize; 
+        }
+        getRectangleSize( 2, 5, 4 ); 
+        
+
+        // 원기둥의 넓이 구하기 함수
+        function getCylinderSize( radius, height ){
+            if( arguments.length < 2 || arguments.length >= 3  ){
+                console.log( "두 개의 숫자만 넣으세요." );
+                return;
+            }
+            if( typeof arguments[0] != "number" || typeof arguments[1] != "number" ) {
+                console.log( "숫자만 넣을 수 있습니다." );
+                return;
+            }
+            const CylinderSize = ( radius * radius * Math.PI * 2 ) + ( radius * 2 * Math.PI *  height );
+            console.log( "원기둥의 넓이(너비: " + radius + " , 높이: " + height + " ): " +  CylinderSize );
+            return CylinderSize; 
+        }
+        getCylinderSize( 2, 5 ); 
+    
+    </script>
+
+</body>
+</html>
