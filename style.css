@@ -1,0 +1,55 @@
+body{
+    padding: 50px 100px;
+}
+
+p{
+    margin: 0;
+}
+
+input{
+    outline: none;
+    border: 0;
+    border-bottom: 1px solid #bbb;
+    padding-left: 10px;
+}
+
+.wrapper{
+    margin-bottom: 50px;
+    display: flex;
+    display: -webkit-flex;
+}
+
+.polygon_group{
+    margin-bottom: 50px;
+}
+
+.input_wrapper{
+    margin-bottom: 10px;
+}
+
+.action_button{
+    margin: 10px 0;
+    width: 50px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    color: #fefefe;
+    background-color: #040404;
+    cursor: pointer;
+    
+}
+
+.result_wrapper{
+    font-size: 30px;
+    margin: auto 0;
+    margin-left: 200px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+h1{
+    font-weight: 400;
+    font-size: 20px;
+    font-weight: bold;
+
+}
