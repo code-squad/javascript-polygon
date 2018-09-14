@@ -65,15 +65,14 @@ function calcTrapezoidWidth(trapezoidLowerSide, trapezoidTopSide, trapezoidHeigh
     }
     console.log('인자의 갯수가 맞지 않거나 숫자가 아닙니다.')
 }
-function sizeSylinder(radius, height) {
-    if (arguments.length != 2) {
-        return console.log('인자의 갯수가 맞지 않습니다.');
-    } else if (isNum(radius) || isNum(height)) {
-        return console.log('숫자만 계산할 수 있습니다.');
+
+function calcSylinderWidth (sylinderRadius, sylinderHeight) {
+    if(isNum(...arguments) && arguments.length === 2) {
+        const sylinderWidth = 2 * (sylinderRadius * sylinderRadius * Math.PI) + ((2 * Math.PI * sylinderRadius) * sylinderHeight)
+        console.log('반지름이 ' + sylinderRadius + '높이가 ' + sylinderHeight + '인 원기둥의 넓이는 ' + sylinderWidth + '입니다.');
+        ExecutionSequenceArray.push('sylinder');
     }
-    const sylinderArea = 2 * (Math.PI * radius * radius) + (2 * (radius * Math.PI) * height)
-    console.log('반지름과 높이가' + radius + ', ' + height + '인 원기둥의 겉넓이는 ' + sylinderArea + '입니다.');
-    arr.push('sylinder')
+    console.log('인자의 갯수가 맞지 않거나 숫자가 아닙니다.');
 }
 
 function getArea(polygon, num1, num2, num3) {
