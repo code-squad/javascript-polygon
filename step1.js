@@ -1,64 +1,65 @@
 //다각형의 넓이 구하기 
 
 //1. 원의 넓이 계산
-function circleArea (radius) {
-    if ([radius].length != arguments.length) {
-        return console.log('error');
+function getCircleArea (radius) {
+    let requiredInput = [radius];
+    if (requiredInput.length != arguments.length) {
+        let result = "인자 개수가 맞지 않습니다."; 
+        return result;
     }
 
-    if (!verification(radius)) {
-        let pi = 3.14;
+    if (isNaN(radius)) {
+        return 'error';
+    } else {
+        const pi = 3.14;
         let result = pi * Number(radius) * Number(radius);
-        return console.log(result);
-    }    
+        return result;
+    }
 }
 
 //2. 사각형의 넓이를 계산하는 함수
-function squareArea (width,height) {
+function getRectangleArea (width,height) {
     if ([width, height].length != arguments.length) {
-        return console.log('error');
+        let result = "인자 개수가 맞지 않습니다.";
+        return result;
     }
 
-    if (!verification(width,height)) {
+    if (isNaN(radius)) {
+        return 'error';
+    } else {
         let result = Number(width) * Number(height);
-        return console.log(result);
+        return result;
     }
 }
 
 //3.사다리꼴 넓이 계산 함수 
-function trapezoid (upperLine,bottomLine,height) {
+function getTrapezoidArea (upperLine,bottomLine,height) {
     if ([upperLine, bottomLine, height].length != arguments.length) {
-        return console.log('error');
+        let result = "인자 개수가 맞지 않습니다.";
+        return result;
     }
 
-    if (!verification(upperLine, bottomLine, height)) {
+    if (isNaN(radius)) {
+        return 'error';
+    } else {
         let result = (Number(upperLine) + Number(bottomLine)) * Number(height) / 2;
-        return console.log(result);
+        return result;
     }
 }
 
 //4.원기둥 넓이 계산 함수 
-function cylinder (radius,width) {
+function getCylinderArea (radius,width) {
     if ([radius, width].length != arguments.length) {
-        return console.log('error');
+        let result = "인자 개수가 맞지 않습니다.";
+        return result;
     }
 
-    if (!verification(radius,width)) {
-        let pi = 3.14;
-        let circle = pi * Number(radius) * Number(radius),
-            result = circle * Number(width);
-        return console.log(result);
+     if (isNaN(radius)) {
+         return 'error';
+     } else {
+        const pi = 3.14;
+        let circle = pi * Number(radius) * Number(radius);
+        let result = circle * Number(width);
+        return result;
     }
 }
-
-//5. 숫자 확인 함수
-function verification (val) {
-    if ( isNaN(val) === true ) {
-        console.log('error');
-        return false;
-       }    
-}
-
-
-
-
