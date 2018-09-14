@@ -25,7 +25,7 @@ function isTypeNumber(number) {
 
 //2. 인자를 구분할 때 !== 를 최대한 안쓰고 단순화시키는 걸로 개선
 //3. 계산하는 함수들의 이름과 인자들의 명칭들 모두 변경
-function CalcCircleWidth(radius1, radius2) {
+function calcCircleWidth(radius1, radius2) {
     if (radius1 > radius2) {
         console.log(radius1 + '부터' + radius2 + '까지라구요? 다시 한번 생각해주세요')
         return;
@@ -46,7 +46,7 @@ function CalcCircleWidth(radius1, radius2) {
 }
 
 
-function CalcRectWidth(RectLowerSide, RectHeight) {
+function calcRectWidth(RectLowerSide, RectHeight) {
     if(isNum(...arguments) && arguments.length === 2) {
         const RectWidth = RectLowerSide * RectHeight
         console.log('밑변이' + RectLowerSide + '높이가' + RectHeight + '인 사각형의 넓이는' + RectWidth + '입니다.');
@@ -56,17 +56,15 @@ function CalcRectWidth(RectLowerSide, RectHeight) {
     console.log('인자의 갯수가 맞지 않거나 숫자가 아닙니다.')
 }
 
-function sizeTrapezoid(topSide, lowerSide, height) {
-    if (arguments.length != 3) {
-        return console.log('인자의 개수가 맞지 않습니다.');
-    } else if (isNum(topSide) || isNum(lowerSide) || isNum(height)) {
-        return console.log('숫자만 계산할 수 있습니다.');
+function calcTrapezoidWidth(trapezoidLowerSide, trapezoidTopSide, trapezoidHeight) {
+    if(isNum(...arguments) && arguments.length === 3) {
+        const trapezoidWidth = (trapezoidLowerSide + trapezoidTopSide) * trapezoidHeight / 2
+        console.log('밑변이 ' + trapezoidLowerSide + '아랫변이 ' + trapezoidLowerSide + '높이가 ' + trapezoidHeight + '인 사다리꼴의 넓이는 ' + trapezoidWidth + '입니다.')
+        ExecutionSequenceArray.push('trapezoid');
+        return;
     }
-    const trapezoidArea = (topSide + lowerSide) * height / 2
-    console.log('윗변과 아랫변과 높이가 ' + topSide + ', ' + lowerSide + ', ' + height + '인 사다리꼴의 넓이는' + trapezoidArea + '입니다.');
-    arr.push('trapezoid');
+    console.log('인자의 갯수가 맞지 않거나 숫자가 아닙니다.')
 }
-
 function sizeSylinder(radius, height) {
     if (arguments.length != 2) {
         return console.log('인자의 갯수가 맞지 않습니다.');
