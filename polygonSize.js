@@ -1,4 +1,10 @@
-var arr = [];
+const ExecutionSequenceArray = [];
+
+function printExecutionSequence() {
+    ExecutionSequenceArray.forEach((v, i) => {
+        console.log((i + 1) + '번째 : ' + v)
+    })
+}
 
 function isNum(length) {
     if (toString.call(length) != '[object Number]') {
@@ -71,10 +77,4 @@ function getArea(polygon, num1, num2, num3) {
     } else if (polygon === 'circle') {
         sizeCircle(num1)
     }
-}
-
-function printExecutionSequence() {
-    arr.forEach(function(v, i) {
-        console.log((i + 1) + '번째 : ' + v)
-    })
 }
