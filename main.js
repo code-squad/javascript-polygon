@@ -84,32 +84,17 @@ const printArea = {
  입력 오류 점검 메소드
   */
 const inputErr = { //inputErr.argsNumber.one(arr) || inputErr.argsType(arr)
-    argsNumber : { // Check # of arguments if it's less or more
-        argsNumberError : false,
-        one(argList) {
-            const rightNumOfArgs = 1;
-            return this.hasWrongNumOfElems(argList,rightNumOfArgs);
-        },
-        two(argList) {
-            const rightNumOfArgs = 2;
-            return this.hasWrongNumOfElems(argList,rightNumOfArgs);
-        },
-        three(argList) {
-            const rightNumOfArgs = 3;
-            return this.hasWrongNumOfElems(argList,rightNumOfArgs);
-        },
-        hasWrongNumOfElems(arr, rightNumOfArgs) {
-            if(!arr[0]) {
-                console.log('아무 정보도 입력하지 않았습니다');
-                return this.argsNumberError = true;
-            }
-            if(arr.length < rightNumOfArgs) {
-                console.log('정보를 더 입력하셔야 합니다.');
-                return this.argsNumberError = true;
-            } else if(arr.length > rightNumOfArgs) {
-                console.log('너무 많은 정보를 입력하셨습니다');
-                return this.argsNumberError = true;
-            }
+    hasWrongNumOfElems(arr, rightNumOfArgs) {// Check # of arguments if it's less or more
+        if(!arr[0]) {
+            console.log('아무 정보도 입력하지 않았습니다');
+            return true;
+        }
+        if(arr.length < rightNumOfArgs) {
+            console.log('정보를 더 입력하셔야 합니다.');
+            return true;
+        } else if(arr.length > rightNumOfArgs) {
+            console.log('너무 많은 정보를 입력하셨습니다');
+            return true;
         }
     },
     argsType(arr) { // Check element of arguments if any NAN or negative/zero Integer
@@ -137,41 +122,53 @@ const inputErr = { //inputErr.argsNumber.one(arr) || inputErr.argsType(arr)
 };
 
 /*
-넓이 처리 메소드 - Object Literal
+넓이 처리 메소드
 */
 const area = {
     circle(circleRadius) {
         const circleArea = computeArea.circle(circleRadius);
         const argList = Array.from(arguments);
-        if(inputErr.argsNumber.one(argList) || inputErr.argsType(argList)) {return false;}
+        if(inputErr.hasWrongNumOfElems(argList, 1) || inputErr.argsType(argList)) {return false;}
     
         printArea.circle(circleRadius, circleArea);
+    },
+    growingCircle(startRadius, targetRadius) {
+        const argList = Array.from(arguments);
+        if(inputErr.hasWrongNumOfElems(argList, 2) || inputErr.argsType(argList)) {return false;}
+        if(startRadius > targetRadius){
+            console.log('시작 반지름 넓이가 최종 반지름보다 작습니다!');
+            return false;
+        }
+        for (let radius = startRadius; radius <= targetRadius; radius++) {
+            const circleArea = computeArea.circle(radius);
+            printArea.circle(radius, circleArea);
+        }
     },
     rect(rectWidth, rectHeight) {
         const rectArea = computeArea.rect(rectWidth, rectHeight);
         const argList = Array.from(arguments);
-        if(inputErr.argsNumber.two(argList) || inputErr.argsType(argList)) {return false;}
+        if(inputErr.hasWrongNumOfElems(argList, 2) || inputErr.argsType(argList)) {return false;}
     
         printArea.rect(rectWidth, rectHeight, rectArea);
     },
     trape(trapeTop, trapeBottom, trapeHeight) {
         const trapeArea = computeArea.trapezoid(trapeTop, trapeBottom, trapeHeight);
         const argList = Array.from(arguments);
-        if(inputErr.argsNumber.three(argList) || inputErr.argsType(argList)) {return false;}
+        if(inputErr.hasWrongNumOfElems(argList, 3) || inputErr.argsType(argList)) {return false;}
     
         printArea.trapezoid(trapeTop, trapeBottom, trapeHeight, trapeArea);
     },
     cylin(cylinRadius, cylinHeight) {
         const cylinArea = computeArea.cylinder(cylinRadius, cylinHeight);
         const argList = Array.from(arguments);
-        if(inputErr.argsNumber.two(argList) || inputErr.argsType(argList)) {return false;}
+        if(inputErr.hasWrongNumOfElems(argList, 2) || inputErr.argsType(argList)) {return false;}
     
         printArea.cylinder(cylinRadius, cylinHeight, cylinArea);
     }
 };
 
 /*
-넓이 처리 메소드 - 다각형 형태를 인자로 따로 받는 함수 형태
+넓이 처리 메소드를 사용자가 호출하게 돕는 메소드
 */
 function getArea(...arguments) {
     let calcType = arguments[0];
@@ -179,45 +176,24 @@ function getArea(...arguments) {
     if(calcType === 'circle' && argList.length >= 2) {calcType = 'growingCircle';}
 
     switch (calcType) {
-        case 'circle':
-            if(inputErr.argsNumber.one(argList) || inputErr.argsType(argList)) {return false;}
-            const circleRadius = argList[0];
-            const circleArea = computeArea.circle(circleRadius);
-            printArea.circle(circleRadius, circleArea);    
+        case 'circle':    
+            area.circle(...argList);
             break;
 
         case 'growingCircle':
-            if(inputErr.argsNumber.two(argList) || inputErr.argsType(argList)) {return false;}
-            let startRadius = argList[0], targetRadius = argList[1];
-            if(startRadius > targetRadius){
-                console.log('시작 반지름 넓이가 최종 반지름보다 작습니다!');
-                return false;
-            }
-            for (let radius = startRadius; radius <= targetRadius; radius++) {
-                const circleArea = computeArea.circle(radius);
-                printArea.circle(radius, circleArea);
-            }
+            area.growingCircle(...argList);
             break;
             
         case 'rect':
-            if(inputErr.argsNumber.two(argList) || inputErr.argsType(argList)) {return false;}
-            const rectWidth = argList[0], rectHeight = argList[1];
-            const rectArea = computeArea.rect(rectWidth, rectHeight);
-            printArea.rect(rectWidth, rectHeight, rectArea);
+            area.rect(...argList);
             break;
 
         case 'trapezoid':
-            if(inputErr.argsNumber.three(argList) || inputErr.argsType(argList)) {return false;}
-            const trapeTop = argList[0], trapeBottom = argList[1], trapeHeight = argList[2];
-            const trapeArea = computeArea.trapezoid(trapeTop, trapeBottom, trapeHeight);
-            printArea.trapezoid(trapeTop, trapeBottom, trapeHeight, trapeArea);
+            area.trape(...argList);
             break;
 
         case 'cylinder':
-            if(inputErr.argsNumber.two(argList) || inputErr.argsType(argList)) {return false;}
-            const cylinRadius = argList[0], cylinHeight = argList[1];
-            const cylinArea = computeArea.cylinder(cylinRadius, cylinHeight);
-            printArea.cylinder(cylinRadius, cylinHeight, cylinArea);
+            area.cylin(...argList);
             break;
 
 
@@ -246,6 +222,7 @@ greeting();
 //test cases
 getArea('circle', 2);
 getArea('circle', 2,5);
+getArea('circle', 'a');
 getArea('circle', 5,2);
 getArea('rect', 2,5);
 getArea('rect', 2,5,7);
