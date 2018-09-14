@@ -46,15 +46,14 @@ function CalcCircleWidth(radius1, radius2) {
 }
 
 
-function sizeSquare(lowerSide, height) {
-    if (arguments.length != 2) {
-        return console.log('인자의 개수가 맞지 않습니다.');
-    } else if (isNum(lowerSide) || isNum(height)) {
-        return console.log('숫자만 계산 가능합니다.');
+function CalcRectWidth(RectLowerSide, RectHeight) {
+    if(isNum(...arguments) && arguments.length === 2) {
+        const RectWidth = RectLowerSide * RectHeight
+        console.log('밑변이' + RectLowerSide + '높이가' + RectHeight + '인 사각형의 넓이는' + RectWidth + '입니다.');
+        ExecutionSequenceArray.push('Rect')
+        return;
     }
-    const squareArea = lowerSide * height
-    console.log('밑변과 높이가 ' + lowerSide + ', ' + height + '인 사각형의 넓이는' + squareArea + '입니다.');
-    arr.push('rect');
+    console.log('인자의 갯수가 맞지 않거나 숫자가 아닙니다.')
 }
 
 function sizeTrapezoid(topSide, lowerSide, height) {
