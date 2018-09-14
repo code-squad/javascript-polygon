@@ -1,18 +1,30 @@
+//변수 const나 let으로 변경, 변수이름 개선
 const ExecutionSequenceArray = [];
 
+//arrow함수 이용
 function printExecutionSequence() {
     ExecutionSequenceArray.forEach((v, i) => {
         console.log((i + 1) + '번째 : ' + v)
     })
 }
 
-function isNum(length) {
-    if (toString.call(length) != '[object Number]') {
-        return true
+//1. isNum함수 개선 isNum함수를 위한 isThatNum 함수만들기
+function isNum(number1, number2, number3) {
+    for (let i = 1; i <= arguments.length; i++) {
+        if (isTypeNumber(arguments[i - 1]) === false) {
+            return false
+        }
     }
-    return false
+    return true
 }
 
+function isTypeNumber(number) {
+    return toString.call(number) === '[object Number]'
+}
+
+
+//2. 인자를 구분할 때 !== 를 최대한 안쓰고 단순화시키는 걸로 개선
+//3. 계산하는 함수들의 이름과 인자들의 명칭들 모두 변경
 function sizeCircle(radius1, radius2) {
     if (arguments.length === 2) {
         let sum = 0;
