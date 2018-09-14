@@ -1,28 +1,26 @@
 const logArr = [];
 
-getArea('rect',3,4);
-getArea('trapezoid',3,4,5);
-getArea('circle',3);
-getArea('circle',3,4);
-printExecutionSequence();
-
 function getArea(shape, val1, val2, val3) {
     if (shape === 'rect') {
-        logArr.push('rect');
         let result = measureRectangleArea(val1, val2);
-        return console.log('사각형의 넓이는 '+result);
+        logArr.push('rect');
+        console.log('사각형 넓이의 값은 =' + result);
+        return result;
     } else if (shape === 'trapezoid') {
-        logArr.push('trapezoid');
         let result = measureTrapezoidArea(val1, val2, val3);
-        return console.log('사다리꼴의 넓이는 '+result);
-    } else if (shape === 'circle' && !val2 && !val3){
-        logArr.push('circle');
+        logArr.push('trapezoid');
+        console.log('사다리꼴 넓이의 값은 =' + result);
+        return result;
+    } else if (shape === 'circle' && !val2){
         let result = measureCircleArea(val1);
-        return console.log('원의 넓이는 '+result);
-    } else if (shape === 'circle' && !val3){
         logArr.push('circle');
+        console.log('원 넓이의 값은 =' + result);
+        return result;
+    } else if (shape === 'circle' && !val3){
         let result = measureCirclesArea(val1, val2);
-        return console.log('반지름 '+val1+'부터 '+val2+'까지 '+val1+'씩 증가하는 원 '+val2+'의 넓이는 '+result);
+        logArr.push('circle');
+        console.log('반지름 '+val1+'부터 '+val2+'까지 넓이의 값은 =' + result);
+        return result;
     }
 }
 
@@ -71,7 +69,13 @@ function measureTrapezoidArea(b1, b2, h) {
 }
 
 function printExecutionSequence(){
-    for (i = 0; i < logArr.length; i++){
-        console.log(logArr[i]);
-    }
+    logArr.forEach(function(value){
+        console.log(value);
+        });
 }
+
+getArea('rect',3,4);
+getArea('trapezoid',3,4,5);
+getArea('circle',3);
+getArea('circle',3,4);
+printExecutionSequence();
