@@ -95,7 +95,7 @@
         }
     }
 
-    
+    // printExecutionSequence 주석
 
     function printExecutionSequence(){
         return '실행된 함수: ' + logHistory.toString();
