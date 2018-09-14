@@ -7,11 +7,46 @@ Requirements
     숫자가 아니면 에러를 반환하도록 구현한다.
     인자의갯수가 부족하면 에러를 반환한다.
 */
+
+/*
+printExecutionSequence()  //printExecutionSequence가 불려지면, 함수 호출된 순서를 출력한다. 
+
+getCircle() 
+getCircle() 
+getArea('circle',2) 
+getArea('rect',2,3) 
+> 계산수행순서 : circle, circle, circle, rect
+*/
+function printExecutionSequence() {
+    console.log(executionSequence.printAsStr());
+    return executionSequence.printAsStr();
+}
+
+const executionSequence = (function() {
+    const sequence = [];
+    return {
+        update(str) {sequence.push(str);},
+        printAsStr() {
+            const len = sequence.length;
+            let resultStr = `계산수행순서 : ${sequence[0]}`;
+            if (len === 1) {return resultStr}
+
+            for(let i = 1; i < len; i++) {
+                resultStr += `, ${sequence[i]}`;
+            }
+            return resultStr
+        }
+    }
+})();
+
+/*
+넓이를 계산하고, 결과를 출력하는 메소드(실행순서를 별도 Object에 저장)
+*/
 const computeArea = {
     circle(radius) {
         return Math.PI * Math.pow(radius, 2);
     },
-    square(width, height) {
+    rect(width, height) {
         return width * height;
     },
     trapezoid(top, bottom, height) {
@@ -26,100 +61,156 @@ const computeArea = {
 
 const printArea = {
     //Return value through console.log
+    //Log function call history on executionSequence object
     circle(circleRadius, circleArea) {
+        executionSequence.update('circle');
         console.log(`입력하신 반지름 ${circleRadius}의 원 넓이는 ${circleArea}입니다.`);
     },
-    square(squareWidth, squareHeight, squareArea) {
-        console.log(`입력하신 너비 ${squareWidth}, 높이 ${squareHeight}의 사각형 넓이는 ${squareArea}입니다.`);
+    rect(rectWidth, rectHeight, rectArea) {
+        executionSequence.update('rect');
+        console.log(`입력하신 너비 ${rectWidth}, 높이 ${rectHeight}의 사각형 넓이는 ${rectArea}입니다.`);
     },
     trapezoid(trapeTop, trapeBottom, trapeHeight, trapeArea) {    
+        executionSequence.update('trapezoid');
         console.log(`입력하신 윗변 ${trapeTop}, 아랫변 ${trapeBottom}, 높이 ${trapeHeight}의 사다리꼴 넓이는 ${trapeArea}입니다.`);
     },
     cylinder(cylinRadius, cylinHeight, cylinArea) {
+        executionSequence.update('cylinder');
         console.log(`입력하신 너비 ${cylinRadius}, 높이 ${cylinHeight}의 원기둥 넓이는 ${cylinArea}입니다.`);
     }
 };
 
-function checkInputErr(arr, rightNumOfArgs) {
-    let errorFound = false;
-    
-    function elemNegativeOrZero(arr) {
-        return arr.some((el) => el <= 0);
-    }
-    function nonNumberElem(arr) {
-        return arr.some((el) => (typeof el != "number")? true : false);
-    }
-    function hasLessElems(arr, rightNumOfArgs) {
-        if(typeof arr[0] === "undefined") {
+ /*
+ 입력 오류 점검 메소드
+  */
+const inputErr = { //inputErr.argsNumber.one(arr) || inputErr.argsType(arr)
+    hasWrongNumOfElems(arr, rightNumOfArgs) {// Check # of arguments if it's less or more
+        if(!arr[0]) {
             console.log('아무 정보도 입력하지 않았습니다');
-            errorFound = true;
+            return true;
         }
         if(arr.length < rightNumOfArgs) {
             console.log('정보를 더 입력하셔야 합니다.');
-            errorFound = true;
+            return true;
         } else if(arr.length > rightNumOfArgs) {
             console.log('너무 많은 정보를 입력하셨습니다');
-            errorFound = true;
+            return true;
         }
-    }
-    function hasWrongInt(arr) {
-        if (elemNegativeOrZero(arr)) {
-            console.log('0보다 작거나 같은 값이 있습니다!');
-            errorFound = true;
+    },
+    argsType(arr) { // Check element of arguments if any NAN or negative/zero Integer
+        let argsTypeError = false;
+        function hasWrongInt(arr) {
+            function isElemNegativeOrZero(arr) {return arr.some((el) => el <= 0)}
+            if (isElemNegativeOrZero(arr)) {
+                console.log('0보다 작거나 같은 값이 있습니다!');
+                argsTypeError = true;
+            }
         }
-    }
-    function hasAnyNaN(arr) {
-        if (nonNumberElem(arr)) {
-            console.log('숫자가 아닌 입력값이 있습니다!');
-            errorFound = true;
+        function hasAnyNaN(arr) {
+            function nonNumberElem(arr) {return arr.some((el) => (typeof el != "number")? true : false)}
+            if (nonNumberElem(arr)) {
+                console.log('숫자가 아닌 입력값이 있습니다!');
+                argsTypeError = true;
+            }
         }
+    
+        hasWrongInt(arr);
+        hasAnyNaN(arr);
+    
+        return argsTypeError;
     }
+};
 
-    hasLessElems(arr, rightNumOfArgs);
-    hasWrongInt(arr);
-    hasAnyNaN(arr);
-
-    return errorFound;
-}
-
+/*
+넓이 처리 메소드
+*/
 const area = {
     circle(circleRadius) {
         const circleArea = computeArea.circle(circleRadius);
-        const inputArr = Array.from(arguments);
-        if(checkInputErr(inputArr, 1)) {return false;}
+        const argList = Array.from(arguments);
+        if(inputErr.hasWrongNumOfElems(argList, 1) || inputErr.argsType(argList)) {return false;}
     
         printArea.circle(circleRadius, circleArea);
     },
-    square(squareWidth, squareHeight) {
-        const squareArea = computeArea.square(squareWidth, squareHeight);
-        const inputArr = Array.from(arguments);
-        if(checkInputErr(inputArr, 2)) {return false;}
+    growingCircle(startRadius, targetRadius) {
+        const argList = Array.from(arguments);
+        if(inputErr.hasWrongNumOfElems(argList, 2) || inputErr.argsType(argList)) {return false;}
+        if(startRadius > targetRadius){
+            console.log('시작 반지름 넓이가 최종 반지름보다 작습니다!');
+            return false;
+        }
+        for (let radius = startRadius; radius <= targetRadius; radius++) {
+            const circleArea = computeArea.circle(radius);
+            printArea.circle(radius, circleArea);
+        }
+    },
+    rect(rectWidth, rectHeight) {
+        const rectArea = computeArea.rect(rectWidth, rectHeight);
+        const argList = Array.from(arguments);
+        if(inputErr.hasWrongNumOfElems(argList, 2) || inputErr.argsType(argList)) {return false;}
     
-        printArea.square(squareWidth, squareHeight, squareArea);
+        printArea.rect(rectWidth, rectHeight, rectArea);
     },
     trape(trapeTop, trapeBottom, trapeHeight) {
         const trapeArea = computeArea.trapezoid(trapeTop, trapeBottom, trapeHeight);
-        const inputArr = Array.from(arguments);
-        if(checkInputErr(inputArr, 3)) {return false;}
+        const argList = Array.from(arguments);
+        if(inputErr.hasWrongNumOfElems(argList, 3) || inputErr.argsType(argList)) {return false;}
     
         printArea.trapezoid(trapeTop, trapeBottom, trapeHeight, trapeArea);
     },
     cylin(cylinRadius, cylinHeight) {
         const cylinArea = computeArea.cylinder(cylinRadius, cylinHeight);
-        const inputArr = Array.from(arguments);
-        if(checkInputErr(inputArr, 2)) {return false;}
+        const argList = Array.from(arguments);
+        if(inputErr.hasWrongNumOfElems(argList, 2) || inputErr.argsType(argList)) {return false;}
     
         printArea.cylinder(cylinRadius, cylinHeight, cylinArea);
     }
 };
 
+/*
+넓이 처리 메소드를 사용자가 호출하게 돕는 메소드
+*/
+function getArea(...arguments) {
+    let calcType = arguments[0];
+    const argList = arguments.splice(1);
+    if(calcType === 'circle' && argList.length >= 2) {calcType = 'growingCircle';}
+
+    switch (calcType) {
+        case 'circle':    
+            area.circle(...argList);
+            break;
+
+        case 'growingCircle':
+            area.growingCircle(...argList);
+            break;
+            
+        case 'rect':
+            area.rect(...argList);
+            break;
+
+        case 'trapezoid':
+            area.trape(...argList);
+            break;
+
+        case 'cylinder':
+            area.cylin(...argList);
+            break;
+
+
+        default:
+            break;
+    }
+}
+
+
 function greeting() {
     console.log(
         `다각형 넓이 계산기입니다. 아래 예시를 보고 명령어를 입력해 주세요
-        - 원: area.circle(반지름 숫자) [예: area.circle(2)]
-        - 사각형: area.square(너비, 높이) [예: area.square(2,3)]
-        - 사다리꼴: area.trape(윗변 길이, 아랫변 길이, 높이) [예: area.trape(2,3,5)]
-        - 원기둥: area.cylin(반지름, 높이) [예: area.cylin(2,5)]
+        - 원 넓이: getArea('circle', 반지름 숫자) [예: getArea('circle', 2)]
+        - 점점 커지는 원 넓이: getArea('circle', 시작 반지름 숫자, 최대 반지름 숫자) [예: getArea('circle', 2, 5)]
+        - 사각형: getArea('rect', 너비, 높이) [예: getArea('rect', 2, 3)]
+        - 사다리꼴: getArea('trapezoid', 윗변 길이, 아랫변 길이, 높이) [예: area('trapezoid', 2,3,5)]
+        - 원기둥: getArea('cylinder', 반지름, 높이) [예: getArea('cylinder', 2,5)]
         `
     );
 }
@@ -127,12 +218,19 @@ function greeting() {
 greeting();
 
 
+
 //test cases
-console.log(`circleArea(1)`);
-circleArea(1);
-console.log(`circleArea()`);
-circleArea();
-console.log(`circleArea('a')`);
-circleArea('a');
-console.log(`circleArea('a', 2, 3)`);
-circleArea('a', 2, 3);
+getArea('circle', 2);
+getArea('circle', 2,5);
+getArea('circle', 'a');
+getArea('circle', 5,2);
+getArea('rect', 2,5);
+getArea('rect', 2,5,7);
+getArea('rect', 2,5,'a');
+getArea('trapezoid', 2,5,7);
+getArea('trapezoid', 2,5,'a');
+getArea('trapezoid', 2,7);
+getArea('cylinder', 2,5,7);
+getArea('cylinder', 2,5);
+getArea('cylinder', 2);
+printExecutionSequence();
