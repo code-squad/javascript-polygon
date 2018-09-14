@@ -9,13 +9,37 @@ Requirements
 */
 
 /*
+printExecutionSequence()  //printExecutionSequence가 불려지면, 함수 호출된 순서를 출력한다. 
 
 getCircle() 
 getCircle() 
 getArea('circle',2) 
 getArea('rect',2,3) 
-printExecutionSequence()  //printExecutionSequence가 불려지면, 함수 호출된 순서를 출력한다. 
 > 계산수행순서 : circle, circle, circle, rect
+*/
+
+function printExecutionSequence() {
+    return executionSequence.printSequenceStr();
+}
+
+const executionSequence = (function() {
+    const sequence = [];
+    return {
+        updateExecutionSequence(str) {sequence.push(str);},
+        printSequenceStr() {
+            const len = sequence.length;
+            let resultStr = sequence[0];
+            if (len === 1) {return resultStr}
+            for(let i = 1; i < len; i++) {
+                resultStr += `, ${sequence[i]}`;
+            }
+            return resultStr
+        }
+    }
+})();
+
+/*
+넓이를 계산하고, 결과를 출력하는 메소드(실행순서를 별도 Object에 저장)
 */
 const computeArea = {
     circle(radius) {
@@ -36,77 +60,87 @@ const computeArea = {
 
 const printArea = {
     //Return value through console.log
+    //Log function call history in executionSequence object
     circle(circleRadius, circleArea) {
+        executionSequence.updateExecutionSequence('circle');
         console.log(`입력하신 반지름 ${circleRadius}의 원 넓이는 ${circleArea}입니다.`);
     },
     rect(rectWidth, rectHeight, rectArea) {
+        executionSequence.updateExecutionSequence('rect');
         console.log(`입력하신 너비 ${rectWidth}, 높이 ${rectHeight}의 사각형 넓이는 ${rectArea}입니다.`);
     },
     trapezoid(trapeTop, trapeBottom, trapeHeight, trapeArea) {    
+        executionSequence.updateExecutionSequence('trapezoid');
         console.log(`입력하신 윗변 ${trapeTop}, 아랫변 ${trapeBottom}, 높이 ${trapeHeight}의 사다리꼴 넓이는 ${trapeArea}입니다.`);
     },
     cylinder(cylinRadius, cylinHeight, cylinArea) {
+        executionSequence.updateExecutionSequence('cylinder');
         console.log(`입력하신 너비 ${cylinRadius}, 높이 ${cylinHeight}의 원기둥 넓이는 ${cylinArea}입니다.`);
     }
 };
 
-function checkInputErr(arr, rightNumOfArgs) {
-    let errorFound = false;
-    
-    function elemNegativeOrZero(arr) {
-        return arr.some((el) => el <= 0);
-    }
-    function nonNumberElem(arr) {
-        return arr.some((el) => (typeof el != "number")? true : false);
-    }
-    function hasLessElems(arr, rightNumOfArgs) {
-        if(!arr[0]) {
-            console.log('아무 정보도 입력하지 않았습니다');
-            errorFound = true;
-        }
-        if(arr.length < rightNumOfArgs) {
-            console.log('정보를 더 입력하셔야 합니다.');
-            errorFound = true;
-        } else if(arr.length > rightNumOfArgs) {
-            console.log('너무 많은 정보를 입력하셨습니다');
-            errorFound = true;
-        }
-    }
-    function hasWrongInt(arr) {
-        if (elemNegativeOrZero(arr)) {
-            console.log('0보다 작거나 같은 값이 있습니다!');
-            errorFound = true;
-        }
-    }
-    function hasAnyNaN(arr) {
-        if (nonNumberElem(arr)) {
-            console.log('숫자가 아닌 입력값이 있습니다!');
-            errorFound = true;
-        }
-    }
-
-    hasLessElems(arr, rightNumOfArgs);
-    hasWrongInt(arr);
-    hasAnyNaN(arr);
-
-    return errorFound;
-}
-
+ /*
+ 입력 오류 점검 메소드
+  */
 const inputErr = {
     withOneArgs(argList) {
         const rightNumOfArgs = 1;
-        return checkInputErr(argList,rightNumOfArgs);
+        return this.checkInputErr(argList,rightNumOfArgs);
     },
     withTwoArgs(argList) {
         const rightNumOfArgs = 2;
-        return checkInputErr(argList,rightNumOfArgs);
+        return this.checkInputErr(argList,rightNumOfArgs);
     },
     withThreeArgs(argList) {
         const rightNumOfArgs = 3;
-        return checkInputErr(argList,rightNumOfArgs);
+        return this.checkInputErr(argList,rightNumOfArgs);
+    },
+    checkInputErr(arr, rightNumOfArgs) {
+        let errorFound = false;
+        
+        function elemNegativeOrZero(arr) {
+            return arr.some((el) => el <= 0);
+        }
+        function nonNumberElem(arr) {
+            return arr.some((el) => (typeof el != "number")? true : false);
+        }
+        function hasLessElems(arr, rightNumOfArgs) {
+            if(!arr[0]) {
+                console.log('아무 정보도 입력하지 않았습니다');
+                errorFound = true;
+            }
+            if(arr.length < rightNumOfArgs) {
+                console.log('정보를 더 입력하셔야 합니다.');
+                errorFound = true;
+            } else if(arr.length > rightNumOfArgs) {
+                console.log('너무 많은 정보를 입력하셨습니다');
+                errorFound = true;
+            }
+        }
+        function hasWrongInt(arr) {
+            if (elemNegativeOrZero(arr)) {
+                console.log('0보다 작거나 같은 값이 있습니다!');
+                errorFound = true;
+            }
+        }
+        function hasAnyNaN(arr) {
+            if (nonNumberElem(arr)) {
+                console.log('숫자가 아닌 입력값이 있습니다!');
+                errorFound = true;
+            }
+        }
+    
+        hasLessElems(arr, rightNumOfArgs);
+        hasWrongInt(arr);
+        hasAnyNaN(arr);
+    
+        return errorFound;
     }
 };
 
+/*
+넓이 계산 메소드 - Object Literal
+*/
 const area = {
     circle(circleRadius) {
         const circleArea = computeArea.circle(circleRadius);
@@ -138,6 +172,9 @@ const area = {
     }
 };
 
+/*
+넓이 계산 메소드 - 인자를 따로 받는 함수 형태
+*/
 function getArea(...arguments) {
     let calcType = arguments[0];
     const argList = arguments.splice(1);
@@ -189,6 +226,7 @@ function getArea(...arguments) {
         default:
             break;
     }
+}
 
 
 function greeting() {
