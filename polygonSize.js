@@ -77,14 +77,20 @@ function calcSylinderWidth (sylinderRadius, sylinderHeight) {
 
 function getArea(polygon, num1, num2, num3) {
     if (polygon === 'circle' && arguments.length === 3) {
-        sizeCircle(num1, num2)
-    } else if (polygon === 'rect') {
-        sizeSquare(num1, num2)
-    } else if (polygon === 'trapezoid') {
-        sizeTrapezoid(num1, num2, num3)
-    } else if (polygon === 'Sylinder') {
-        sizeSylinder(num1, num2)
-    } else if (polygon === 'circle') {
-        sizeCircle(num1)
+        calcCircleWidth(num1, num2)
+        return;
+    } else if (polygon === 'rect' && arguments.length === 3) {
+        calcRectWidth(num1, num2)
+        return;
+    } else if (polygon === 'trapezoid' && arguments.length === 4) {
+        calcTrapezoidWidth(num1, num2, num3)
+        return;
+    } else if (polygon === 'Sylinder' && arguments.length === 3) {
+        calcSylinderWidth(num1, num2)
+        return;
+    } else if (polygon === 'circle' && arguments.length === 2) {
+        calcCircleWidth(num1)
+        return;
     }
+    console.log('인자의 갯수가 맞지 않거나 숫자가 아닙니다.')
 }
