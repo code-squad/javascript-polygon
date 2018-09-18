@@ -1,61 +1,57 @@
 //다각형의 넓이 구하기 
 
-//1. 원의 넓이 계산
+//1. Before: 원의 넓이 계산
+// function getCircleArea(para1,para2) {
+//     addSequenceArr('circle');
 
-function getCircleArea(para1,para2) {
-    
-    if (isNaN(para1, para2)) {
-        sequenceArr.push('circle');
-        return 'error';
-    }
-    else if ( para2 === undefined ) {
-        const pi = 3.14;
-        const radius = para1;
-        let result = '원의 넓이는 '+pi * Number(radius) * Number(radius);
-        sequenceArr.push('circle');
-        return result;
-    }
-    else if (arguments.length === 2 ) {
-        const pi = 3.14,
-              min = para1,
-              max = para2;
-        let result = '';
+//     if (isNaN(para1, para2)) {
+//         return 'error';
+//     }
+//     else if ( para2 === undefined ) {
+//         const pi = 3.14;
+//         const radius = para1;
+//         let result = '원의 넓이는 '+pi * Number(radius) * Number(radius);
+//         return result;
+//     }
+//     else if (arguments.length === 2 ) {
+//         const pi = 3.14,
+//               min = para1,
+//               max = para2;
+//         let result = '';
 
-        for (let r = min; r < max + 1; r++) {
-            const rSquare = Math.pow(r, 2);
-            result += '반지름 ' + r + '의 원넓이는 ' + (pi * rSquare) + ' / ';
-        }
-        sequenceArr.push('circle');
-        return result;
-    } else if ( arguments.length > 2 ) {
-        let result = "인자 개수가 맞지 않습니다.";
-        sequenceArr.push('circle');
-        return result;
-    } 
-}
+//         for (let r = min; r < max + 1; r++) {
+//             const rSquare = Math.pow(r, 2);
+//             result += '반지름 ' + r + '의 원넓이는 ' + (pi * rSquare) + ' / ';
+//         }
+//         return result;
+//     } else if ( arguments.length > 2 ) {
+//         let result = "인자 개수가 맞지 않습니다.";
+//         return result;
+//     } 
+// }
 
 //2. 사각형의 넓이를 계산하는 함수
 function getRectangleArea(width, height) {
+    addSequenceArr('rect');
 
     if ([width, height].length != arguments.length) {
         let result = "인자 개수가 맞지 않습니다.";
-        sequenceArr.push('rect');
         return result;
     }
     else if (isNaN(width, height)) {
         return 'error';
     } else {
         let result = '사각형의 넓이는 '+Number(width) * Number(height);
-        sequenceArr.push('rect');
         return result;
     }
 }
 
 //3.사다리꼴 넓이 계산 함수 
 function getTrapezoidArea(upperLine, bottomLine, height) {
+    addSequenceArr('trapezoid');
+
     if ([upperLine, bottomLine, height].length != arguments.length) {
         let result = "인자 개수가 맞지 않습니다.";
-        sequenceArr.push('rect');
         return result;
     }
 
@@ -63,27 +59,25 @@ function getTrapezoidArea(upperLine, bottomLine, height) {
         return 'error';
     } else {
         let result = '사다리꼴의 넓이는 '+(Number(upperLine) + Number(bottomLine)) * Number(height) / 2;
-        sequenceArr.push('trapezoid');
         return result;
     }
 }
 
 //4.원기둥 넓이 계산 함수 
 function getCylinderArea(radius, width) {
+      addSequenceArr('cylinder');
+
     if ([radius, width].length != arguments.length) {
         let result = "인자 개수가 맞지 않습니다.";
-        sequenceArr.push('cylincer');
         return result;
     }
 
     if (isNaN(radius, width)) {
-        sequenceArr.push('cylincer');
         return 'error';
     } else {
         const pi = 3.14;
         let circle = pi * Number(radius) * Number(radius);
         let result = '원기둥의 넓이는 '+circle * Number(width);
-        sequenceArr.push('cylincer');
         return result;
     }
 }
@@ -104,10 +98,70 @@ function getArea(figure, para1, para2, para3) {
     return result;
 }
 
-// printExecutionSequence 
+// Initialize printExecutionSequence
 var sequenceArr = [];
 
-function printExecutionSequence() {
-    let sequence = sequenceArr;
-    return sequence;
+
+// 수정1. getCircleArea() > Creating subfunction
+function getCircleArea(para1, para2) {
+    addSequenceArr('circle');
+
+    if (isNaN(para1, para2)) {
+        return 'error';
+    } else if (arguments.length > 2) {
+        let result = "인자 개수가 맞지 않습니다.";
+        return result;
+    } else {
+        let result = subroutine(para1, para2);
+        return result;
+    }
 }
+
+let subroutine = function (para1, para2) {
+    if (para2 === undefined) {
+        const pi = 3.14;
+        const radius = para1;
+        let result = '원의 넓이는 ' + pi * Number(radius) * Number(radius);
+        return result;
+    } else if (arguments.length === 2) {
+        const pi = 3.14,
+            min = para1,
+            max = para2;
+        let result = '';
+
+        for (let r = min; r < max + 1; r++) {
+            const rSquare = Math.pow(r, 2);
+            result += '반지름 ' + r + '의 원넓이는 ' + (pi * rSquare) + ' / ';
+        }
+        return result;
+    }
+}
+
+// 수정2. Before:Overlapped sequenceArr.push() > After:creating function 
+function addSequenceArr(figure) {
+    return sequenceArr.push(figure);
+}
+
+// 수정3. Print array using for-in statement
+function printExecutionSequence() {
+    let result = '';
+
+    for (let index in sequenceArr) {
+        let sequence = Number(index)+1;
+        result += + sequence+'번째 호출한 함수는 ' + sequenceArr[index] + '입니다 /';
+    }
+    return result;
+}
+
+// [1] 실행: getArea()
+// getArea('circle', 10);
+// getArea('rect', 10, 15);
+// getArea('trapezoid', 10, 15, 12);
+// getArea('circle', 1, 100);
+
+// [2] 실행: printExecutionSequence()
+// getCircleArea(); 
+// getCircleArea(); 
+// getArea('circle',2); 
+// getArea('rect',2,3); 
+// printExecutionSequence(); 
