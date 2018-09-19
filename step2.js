@@ -146,10 +146,9 @@ function addSequenceArr(figure) {
 function printExecutionSequence() {
     let result = '';
 
-    for (let index in sequenceArr) {
-        let sequence = Number(index)+1;
-        result += + sequence+'번째 호출한 함수는 ' + sequenceArr[index] + '입니다 /';
-    }
+    sequenceArr.forEach( (index) => {
+        result += index+"\n";
+    })
     return result;
 }
 
