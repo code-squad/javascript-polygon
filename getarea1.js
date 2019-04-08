@@ -22,7 +22,7 @@ function checkArguments() {
     for (let i = 0; i < arguments.length; i++) {
         if (typeof arguments[i] === 'undefined') {
             throw Error('인자갯수가 부족합니다.')
-        } else if (typeof arguments[i] === 'number') {
+        } else if (typeof arguments[i] !== 'number') {
             throw Error('숫자가 아닙니다')
         }
     }
