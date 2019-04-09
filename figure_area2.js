@@ -34,7 +34,7 @@ function cylinderArea(r, h){
 
 function checkArguments(...args){
     for (let i = 0; i < args.length; i++){
-        if(typeof args[i] == 'undefined'){
+        if(typeof args[i] === 'undefined'){
             throw new Error("인자 개수가 부족합니다.");
         } else if (typeof args[i] !== 'number'){
             throw new Error("숫자가 아닙니다.");
