@@ -15,16 +15,16 @@ function isNum(param){
 function checkParamCount(count, param) {
         if(!(count === param.length)){
             throw Error(`input ${count} argument, your argument count is ${param.length}`)
-        }else{
-            return true
         }
+        return true
+        
     }   
 function checkParam(count, param){
     return isNum(param) && checkParamCount(count, param) && [ ... param]
 }
 
 function circleArea(...param){
-    const r = checkParam(1, param);
+    const [r] = checkParam(1, param);
     return 3.14 * r * r 
 }
 
