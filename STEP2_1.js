@@ -1,4 +1,5 @@
 const {PI} = Math
+const {pow} = Math
 
 function checkType(arr) {
     for (let i = 0; i < arr.length; i++) {
@@ -18,7 +19,7 @@ function circleArea(r) {
     checkArgumentCount(arguments, 1);
     checkType(arguments);
 
-    return PI * Math.pow(r, 2)
+    return PI * pow(r, 2)
 }
 
 function squareArea(width, height) {
@@ -39,7 +40,7 @@ function cylinderArea(r, h) {
     checkArgumentCount(arguments, 2);
     checkType(arguments);
 
-    return (2 * PI * Math.pow(r, 2)) + 2 * PI * r * h
+    return (2 * circleArea(r)) + 2 * PI * r * h
 }
 
 console.log(circleArea(3));
