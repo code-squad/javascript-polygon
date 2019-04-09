@@ -4,7 +4,7 @@ function getCircleArea(r, n) {
     if (arguments.length === 1) {
         util.lengthChecker(1, arguments);
         util.numberTypeChecker(arguments);
-        let result = Math.pow(r, 2) * util.pi;
+        let result = util.pow(r, 2) * util.PI;
         executionLog.push('cirlce :', result);
         return result;
     } else {
@@ -52,7 +52,7 @@ function getTrapezoidArea(top, bottom, height) {
 function getCylinderArea(r, h) {
     util.lengthChecker(2, arguments);
     util.numberTypeChecker(arguments);
-    let result = 2 * Math.pow(r, 2) * util.pi + (2 * util.pi * r * h);
+    let result = 2 * util.pow(r, 2) * util.PI + (2 * util.PI * r * h);
     executionLog.push('cylinder :', result);
     return result;
 
