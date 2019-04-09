@@ -57,7 +57,7 @@ function getArea(type, args){
       throw new Error('radius, line, height는 숫자여야 합니다.');
     }
 
-    if(!checkArgsLength(args.length, parameterLength[type].length)){
+    if(!checkArgsLength(args.length, parameterLength[type])){
       throw new Error('필요한 인자의 개수가 부족합니다');
     }
 
