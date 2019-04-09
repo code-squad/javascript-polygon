@@ -1,10 +1,10 @@
-function areaC(r) {
+function areaOfCirc(r) {
     let area = 0;
-    if(arguments.length != 1){
-        throw "인자 갯수가 맞지않습니다.";
+    if(arguments.length !== 1){
+        throw checkArg.message;
     }
-    if(typeof r != "number"){
-        throw "숫자를 입력하세요";
+    if(checkNum(r)){
+        throw reqNum.message;
     }
  
     area = Math.PI*r*r;
@@ -12,42 +12,53 @@ function areaC(r) {
     return area.toFixed(2);
  }
  
- function areaR(a,b){
+ function areaOfRect(w, l){
     let area = 0;
-    if(arguments.length != 2){
-        throw "인자 갯수가 맞지않습니다.";
+    if(arguments.length !== 2){
+        throw checkArg.message;
     }
-    if(typeof a != "number" || typeof b != "number"){
-        throw "숫자를 입력하세요";
+    if(checkNum(w, l)){
+        throw reqNum.message;
     }
-    area = a*b;
+    area = w * l;
  
     return area;
  }
  
- function areaT(a,h){
+ function areaOfTrap(w, l, h){
     let area = 0;
-    if(arguments.length != 2){
-        throw "인자 갯수가 맞지않습니다.";
+    if(arguments.length !== 3){
+        throw checkArg.message;
     }
-    if(typeof a != "number" || typeof h != "number"){
-        throw "숫자를 입력하세요";
+    if(checkNum(w, l, h)){
+        throw reqNum.message;
     }
-    area = a*h;
+    area = (w + l) * h / 2;
  
     return area;
  }
  
- function areaS(r,h){
+ function areaOfCyli(r, h){
     let area = 0;
-    if(arguments.length != 2){
-        throw "인자 갯수가 맞지않습니다.";
+    if(arguments.length !== 2){
+        throw checkArg.message;
     }
-    if(typeof r != "number" || typeof h != "number"){
-        throw "숫자를 입력하세요";
+    if(checkNum(r, h)){
+        throw reqNum.message;
     }
-    let AC = areaC(r);
-    area = 2*AC+2*Math.PI*r*h;
+    let AC = areaOfCirc(r);
+    area = 2 * AC + 2 * Math.PI * r * h;
  
     return area.toFixed(2);
  }
+
+ function checkNum() {
+    for(let i in arguments) {
+        if(typeof arguments[i] !== 'number') {
+            return true;
+        }
+    }
+ }
+
+ let checkArg = new Error('인자 갯수가 맞지 않습니다.');
+ let reqNum = new Error('숫자를 입력하세요.');
