@@ -17,6 +17,7 @@ function getTypeOfPolygon(typeOfPolygon, ...args) {
 }
 
 
+
 function getArea(typeOfPolygon, ...args) {
     callStack.push({ 'typeOfPolygon': typeOfPolygon, 'result': getTypeOfPolygon(typeOfPolygon, ...args) })
     return getTypeOfPolygon(typeOfPolygon, ...args)
@@ -35,3 +36,6 @@ if (require.main === module) {
 } else {
     console.log('Required as a module')
 }
+getArea();
+
+

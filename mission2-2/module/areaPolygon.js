@@ -12,18 +12,19 @@ module.exports.sumOfAreaOfCircle = (args) => {
 
     const start = args[0]
     const end = args[1]
-    if(start > end){
+    if (start > end) {
         console.log(sum);
         // return sum;   // sum 값을 consolo.log()로는 출력이되는데 return 을 하면 undefiend라고 나옵니다. 이유를 모르겠습니다..
-    } else{
+    } else {
         sum += Number(this.areaOfCircle(end));
-        this.sumOfAreaOfCircle([start, end-1])
+        this.sumOfAreaOfCircle([start, end - 1])
     }
 }
 
 module.exports.areaOfSquare = (args) => {
+    
     const argNum = 2;
-    checkArgNum(argNum,args);
+    checkArgNum(argNum, args);
     const w = args[0];
     const h = args[1];
     area = w * h;
@@ -35,7 +36,7 @@ module.exports.areaOfSquare = (args) => {
 module.exports.areaOfTrapezoid = (args) => {
 
     const argNum = 3;
-    checkArgNum(argNum,args);
+    checkArgNum(argNum, args);
     const dw = args[0];
     const uw = args[1];
     const h = args[2];
