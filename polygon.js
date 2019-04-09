@@ -5,7 +5,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-var polygonCalls = []
+let polygonCalls = []
 
 const input = (query) => {
   return new Promise((resolve, reject) => {
@@ -23,10 +23,14 @@ const checkNumbers = (property) => {
   return property.every(checkNum)
 }
 
+const saveFunctionCallName = (funcName) => {
+  polygonCalls.push(funcName)
+}
+
 module.exports.getCircle = async (radius) => {
-  var prop = [radius]
+  let prop = [radius]
   if(!checkNumbers(prop)){
-    var radius = await input('[ circle radius ] >> ')
+    radius = await input('[ circle radius ] >> ')
   }
   
   prop = [radius]
@@ -34,14 +38,14 @@ module.exports.getCircle = async (radius) => {
     throw new Error('Input Error!')
   }
 
-  var circle = radius*radius*PI;
+  const circle = radius*radius*PI;
   console.log('result circle => ', circle)
-  polygonCalls.push('circle')
-  return true;
+  saveFunctionCallName('circle')
+  return
 }
   
 module.exports.getSquare = async (height, width) => {
-  var props = [height, width]
+  let props = [height, width]
   if(!checkNumbers(props)){
     height = await input('[ square height ] >> ')
     width = await input('[ square width ] >> ')
@@ -51,18 +55,18 @@ module.exports.getSquare = async (height, width) => {
   if(!checkNumbers(props)){
     throw new Error('Type Error!')
   }
-  var square = height*width;
+  const square = height*width;
   console.log('result square => ', square)
-  polygonCalls.push('square')
-  return true;
+  saveFunctionCallName('square')
+  return
 }
   
 module.exports.getTrapezoid = async (height, underWidth, upperWidth) => {
-  var props = [height, underWidth, upperWidth]
+  let props = [height, underWidth, upperWidth]
   if(!checkNumbers(props)){
-    var height = await input('[ trapezoid height ] >> ')
-    var underWidth = await input('[ trapezoid underWidth ] >> ')
-    var upperWidth = await input('[ trapezoid upperWidth ] >> ')
+    height = await input('[ trapezoid height ] >> ')
+    underWidth = await input('[ trapezoid underWidth ] >> ')
+    upperWidth = await input('[ trapezoid upperWidth ] >> ')
   }
 
   props = [height, underWidth, upperWidth]
@@ -71,15 +75,16 @@ module.exports.getTrapezoid = async (height, underWidth, upperWidth) => {
   }
   const trapezoid = height*(underWidth + upperWidth)/2
   console.log('result trapezoid => ', trapezoid)
-  polygonCalls.push('trapezoid')
-  return true
+  saveFunctionCallName('trapezoid')
+  return
 }
 
 module.exports.getCylinder = async (radius, height) => {
-  var props = [radius, height]
+  let props = [radius, height]
+  
   if(!checkNumbers(props)){
-    var radius = await input('[ cylinder radius ] >> ')
-    var height = await input('[ cylinder height ] >> ')
+    radius = await input('[ cylinder radius ] >> ')
+    height = await input('[ cylinder height ] >> ')
   }
 
   props = [radius, height]
@@ -87,14 +92,14 @@ module.exports.getCylinder = async (radius, height) => {
     throw new Error('Type Error!')
   }
 
-  var cylinder = radius*radius*height*PI
+  let cylinder = radius*radius*height*PI
   console.log('result cylinder => ', cylinder)
-  polygonCalls.push('cylinder')
-  return true
+  saveFunctionCallName('cylinder')
+  return
 }
 
 module.exports.getArea = async (type, a, b, c) => {
-  var that = this
+  let that = this
   
   function recurCircle(a, b) {
     if(a > b){
@@ -127,12 +132,12 @@ module.exports.getArea = async (type, a, b, c) => {
 }
 
 module.exports.printExecutionSequence = () => {
-  var result = '계산 수행 순서 : '
-  polygonCalls.forEach(element => result = result.concat(element + ', '))
-  console.log(result.substr(0, result.length-2))
+  let result = `수행 순서 출력 >> ${polygonCalls.reduce((acc, call) => acc + ', ' + call)}`
+  console.log(result)
+  return
 }
 
 module.exports.shutdownRl = async () => {
   await rl.close()
-  return true
+  return
 }
