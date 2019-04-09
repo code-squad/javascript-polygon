@@ -8,7 +8,8 @@ const CIRCLE_NAME = "circle",
 
 const printExecutionSequence = _ => {
     let log = "";
-    log = logArr.map((el, i) => `${logArr[i]} ${logRes[i]}`).reduce((a, b) => `${a}, ${b}`, log);
+    log = logArr.map((el, i) => `${logArr[i]} ${logRes[i]}`)
+                .reduce((a, b) => `${a}, ${b}`, log);
     console.log(log);
 };
 
@@ -25,7 +26,7 @@ const getCircleArea = r => {
 };
 
 const getTotalCircleArea = (n, area = 0) => {
-    if (0 === n) {
+    if (n === 0) {
         logExecution(CIRCLE_NAME, area);
         return area;
     }
