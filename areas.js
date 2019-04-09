@@ -1,7 +1,9 @@
     function areaOfCirc(...args) {
         let area = 0;
         let r = 0;
-        if(checkParams('circle', args)){
+        let paramLength = args.length;
+        
+        if(checkParams('circle', paramLength)){
             throw checkArg.message;
         }
         if(checkNum(args)){
@@ -18,7 +20,9 @@
     function areaOfRect(...args){
         let area = 0;
         let w, l;
-        if(checkParams('rectangle', args)){
+        let paramLength = args.length;
+
+        if(checkParams('rectangle', paramLength)){
             throw checkArg.message;
         }
         if(checkNum(args)){
@@ -34,7 +38,9 @@
     function areaOfTrap(...args){
         let area = 0;
         let w, l, h;
-        if(checkParams('trapezoid', args)){
+        let paramLength = args.length;
+
+        if(checkParams('trapezoid', paramLength)){
             throw checkArg.message;
         }
         if(checkNum(args)){
@@ -50,7 +56,9 @@
     function areaOfCyli(...args){
         let area = 0;
         let r, h;
-        if(checkParams('cylinder', args)){
+        let paramLength = args.length;
+
+        if(checkParams('cylinder', paramLength)){
             throw checkArg.message;
         }
         if(checkNum(args)){
@@ -58,8 +66,7 @@
         }
 
         [r, h] = args
-        let AC = areaOfCirc(r);
-        area = 2 * AC + 2 * Math.PI * r * h;
+        area = 2 * Math.PI * r * (r + h);
     
         return area.toFixed(2);
     }
@@ -73,28 +80,28 @@
         }
     }
 
-    function checkParams(polygon, arr){
+    function checkParams(polygon, paramNum){
         switch(polygon) {
             case 'circle':
-                if (arr.length !== 1) {
+                if (paramNum !== 1) {
                     return true;
                 }
                 break;
                 
                 case 'rectangle':
-                if (arr.length !== 2) {
+                if (paramNum !== 2) {
                     return true;
                 }
                 break;
 
             case 'trapezoid':
-                if(arr.length !== 3) {
+                if(paramNum !== 3) {
                     return true;
                 }
                 break;
 
             case 'cylinder':
-                if(arr.length !== 2) {
+                if(paramNum !== 2) {
                     return true;
                 }
                 break;
