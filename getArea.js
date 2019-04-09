@@ -7,7 +7,14 @@ const CIRCLE_NAME = "circle",
   TRAPE_NAME = "trapezoid";
 
 const printExecutionSequence = _ => {
-  console.log(logArr.join(", "));
+  // console.log(logArr.join(", "));
+
+  //추가 미션 구현
+  let logStr = "";
+  logArr.forEach((el, idx) => {
+    logStr += `${logArr[idx]} - ${logRes[idx]}\n`;
+  });
+  console.log(logStr);
 };
 
 const logExecution = (polygonName, polygonArea) => {
