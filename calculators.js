@@ -1,13 +1,11 @@
-const getCircleArea = function(r, n) {
-    errorChecker(arguments, r);
+const getCircleArea = function(radius, targetRadius) {
+    errorChecker(arguments, radius);
 
     if (arguments.length === 1) {
-        return Math.PI * r * r;
+        return Math.PI * radius * radius;
     } else if (arguments.length === 2) {
-        
-        if (n == r) return getCircleArea(r);
-        
-        let result = getCircleArea(n) + getCircleArea(r, n-1);
+        if (radius == targetRadius) return getCircleArea(r);
+        let result = getCircleArea(radius) + getCircleArea(radius, targetRadius-1);
         return result;
     }
 }

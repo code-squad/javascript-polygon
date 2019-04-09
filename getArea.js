@@ -4,16 +4,15 @@ const getCircle = cal.getCircleArea;
 const getRect = cal.getSquareArea;
 const getTrapezoid = cal.getTrapezoidArea;
 
-const cals = {getCircle, getRect, getTrapezoid};
 const stacks = [];
 
 const getFigure = function(figure) {
     if (figure == 'circle') {
-        return cals.getCircle;
+        return getCircle;
     } else if (figure == 'rect') {
-        return cals.getRect;
+        return getRect;
     } else if (figure == 'trapezoid') {
-        return cals.getTrapezoid;
+        return getTrapezoid;
     }
 }
 
