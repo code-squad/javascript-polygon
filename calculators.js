@@ -1,6 +1,13 @@
-const getCircleArea = function(r) {
-    errorChecker(arguments, r);
-    return Math.PI * r * r;
+const getCircleArea = function(radius, targetRadius) {
+    errorChecker(arguments, radius);
+
+    if (arguments.length === 1) {
+        return Math.PI * radius * radius;
+    } else if (arguments.length === 2) {
+        if (radius == targetRadius) return getCircleArea(r);
+        let result = getCircleArea(radius) + getCircleArea(radius, targetRadius-1);
+        return result;
+    }
 }
 
 const getSquareArea = function(width, height) {
@@ -34,8 +41,14 @@ const checkParamNum = function(...args) {
     }
 }
 
-// 에러 체커는 하나의 함수로 추가
 const errorChecker = function(params, ...args) {
     checkIsNumError(params);
     checkParamNum(...args);
 };
+
+module.exports = {
+    getCircleArea,
+    getSquareArea,
+    getTrapezoidArea,
+    getCylinderArea
+}
