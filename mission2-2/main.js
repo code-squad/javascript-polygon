@@ -66,9 +66,6 @@ function getArea() {
           console.log(printExecutionSequence());
      });
 
-
-
 }
 getArea();
-// 피드백 반영(모듈 재구성)[o]
-// getArea 함수 구현(모든 넓이 값을 얻을 수 있음)
+
