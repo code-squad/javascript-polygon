@@ -42,7 +42,7 @@ function getTrapezoidArea(top, bottom, height) {
     util.lengthChecker(3, arguments);
     util.numberTypeChecker(arguments);
     let result = ((top + bottom) / 2) * height;
-    executionLog.push('trapezoid :', result );
+    executionLog.push('trapezoid :', result);
     return result;
 }
 // 사다리꼴 넓이 구하기
