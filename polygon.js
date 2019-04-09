@@ -39,9 +39,9 @@ module.exports.getCircle = async (radius) => {
   }
 
   const circle = radius*radius*PI;
-  console.log('result circle => ', circle)
+  
   saveFunctionCallName('circle')
-  return
+  return circle
 }
   
 module.exports.getSquare = async (height, width) => {
@@ -100,19 +100,20 @@ module.exports.getCylinder = async (radius, height) => {
 
 module.exports.getArea = async (type, a, b, c) => {
   let that = this
-  
-  function recurCircle(a, b) {
+  let sum = 0
+  const recurCircle = async (a, b) =>  {
     if(a > b){
       return
     }
-    that.getCircle(a)
-    recurCircle(a+1, b)
+    sum = sum + await that.getCircle(a)
+    await recurCircle(a+1, b)
   }
 
   switch (type) {
     case 'circle' : 
       if (checkNumbers([b])) {
-        recurCircle(a, b)
+        await recurCircle(a, b)
+        console.log(`Sum of circles = ${sum} `)
       } else {
         await this.getCircle(a)
       }
