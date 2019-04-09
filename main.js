@@ -1,34 +1,15 @@
-const polygon = require('./polygon')
-const readline = require('readline')
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+const polygon = require('./polygon');
 
-const input = (args) => {
-    return new Promise((resolve, reject) => {
-        rl.question(`${args} input >> `, (answer) => {
-            resolve(answer * 1) // number 로 변환
-        })
-    })
-}
+(async () => {
+    polygon.print( 'circle', await polygon.getCircle(2) );
+    polygon.print( 'rect', await polygon.getRect(2, 4) );
+    polygon.print( 'trapezoid', await polygon.getTrapezoid(2, 4, 5) );
+    polygon.print( 'cylinder', await polygon.getCylinder(2, 5) );
+    polygon.print( 'circle', await polygon.getArea('circle', 1) );
+    polygon.print( 'circle', await polygon.getArea('circle', 1, 4) );
+    polygon.print( 'circle', await polygon.getArea('trapezoid') );
+    polygon.print( 'rect', await polygon.getArea('rect') );
 
-(main = async () => {
-    var circle = polygon.circle(await input('circle radius'))
-    console.log('[ Circle Result ] : ', circle)
-
-    var square = polygon.square(await input('square height'), 
-                                await input('square width'))
-    console.log('[ Square Result ] : ', square)
-
-    var trapezoid = polygon.trapezoid(await input('trapezoid height'),
-                                      await input('trapezoid underWidth'), 
-                                      await input('trapezoid upperWidth'))
-    console.log('[ Trapezoid Result ] : ', trapezoid)
-
-    var cylinder = polygon.cylinder(await input('cylinder radius'), 
-                                    await input('cylinder height'))
-    console.log('[ Cylinder Result ] : ', cylinder)
-
-    rl.close()
-})()
+    polygon.readLineClose();
+    polygon.printExecutionSequence();
+})();
