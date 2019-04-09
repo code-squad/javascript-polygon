@@ -1,49 +1,24 @@
 const polygon = require('./polygon');
-const readline = require("readline");
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
 
-const input = () => {
-  return new Promise((resolve, reject) => {
-    rl.question('input >> ', (answer) => {
-      answer *=1
-      resolve(answer)
-    })
-  })
-}
+(async () => {
+  try{
+    await polygon.getCircle(3)
+    await polygon.getSquare(5, 2)
+    await polygon.getTrapezoid()
+    await polygon.getCylinder(1, 1)
+    await polygon.printExecutionSequence()
+    await polygon.getArea('circle', 2, 5)
+    await polygon.getArea('circle', 5)
+    await polygon.getArea('square', 2, 5)
+    await polygon.getArea('trapezoid', 2, 5, 4)
+    await polygon.getArea('cylinder', 2, 5)
+    await polygon.printExecutionSequence()    
 
-const main = async () => {
-  console.log('[ circle radius ]')
-  var radius = await input()
-  var circle = polygon.circle(radius)
-  console.log('result circle => ', circle)
-
-  console.log('[ square height ]')
-  var height = await input()
-  console.log('[ square width ]')
-  var width = await input()
-  var square = polygon.square(height, width)
-  console.log('result square => ', square)
-
-  console.log('[ trapezoid height ]')
-  height = await input()
-  console.log('[ trapezoid underWidth ]')
-  var underWidth = await input()
-  console.log('[ trapezoid upperWidth ]')
-  var upperWidth = await input()
-  var trapezoid = polygon.trapezoid(height, underWidth, upperWidth)
-  console.log('result trapezoid => ', trapezoid)
-
-  console.log('[ cylinder radius ]')
-  radius = await input()
-  console.log('[ cylinder height ]')
-  height = await input()
-  var cylinder = polygon.cylinder(radius, height)
-  console.log('result cylinder => ', cylinder)
-
-  rl.close()
-}
-
-main()
+  } catch(e) {
+    console.log(e)
+    throw e
+  }
+  
+  
+  polygon.shutdownRl()
+})()
