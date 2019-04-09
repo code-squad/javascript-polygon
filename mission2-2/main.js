@@ -1,4 +1,3 @@
-
 const AreaOfPolygon = require('./module/AreaOfPolygon');
 
 const callStack = [];
