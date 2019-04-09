@@ -2,13 +2,9 @@
         let area = 0;
         let r = 0;
         let paramLength = args.length;
-        
-        if(checkParams('circle', paramLength)){
-            throw checkArg.message;
-        }
-        if(checkNum(args)){
-            throw reqNum.message;
-        }
+
+        checkParams(paramLength, 1);
+        checkNum(args);
 
         r = args[0]
     
@@ -22,12 +18,8 @@
         let w, l;
         let paramLength = args.length;
 
-        if(checkParams('rectangle', paramLength)){
-            throw checkArg.message;
-        }
-        if(checkNum(args)){
-            throw reqNum.message;
-        }
+        checkParams(paramLength, 2);
+        checkNum(args);
 
         [w, l] = args
         area = w * l;
@@ -37,17 +29,12 @@
     
     function areaOfTrap(...args){
         let area = 0;
-        let w, l, h;
+        const [w, l, h] = args;
         let paramLength = args.length;
 
-        if(checkParams('trapezoid', paramLength)){
-            throw checkArg.message;
-        }
-        if(checkNum(args)){
-            throw reqNum.message;
-        }
+        checkParams(paramLength, 3);
+        checkNum(args);
 
-        [w, l, h] = args
         area = (w + l) * h / 2;
     
         return area;
@@ -55,17 +42,12 @@
     
     function areaOfCyli(...args){
         let area = 0;
-        let r, h;
         let paramLength = args.length;
+        const [r, h] = args
 
-        if(checkParams('cylinder', paramLength)){
-            throw checkArg.message;
-        }
-        if(checkNum(args)){
-            throw reqNum.message;
-        }
+        checkParams(paramLength, 2);
+        checkNum(args);
 
-        [r, h] = args
         area = 2 * Math.PI * r * (r + h);
     
         return area.toFixed(2);
@@ -75,36 +57,14 @@
         let arr = args;
         for(let i = 0; i < arr.length; i++) {
             if(typeof arr[i] !== 'number'){
-                return true;
+                throw reqNum.message;
             }
         }
     }
 
-    function checkParams(polygon, paramNum){
-        switch(polygon) {
-            case 'circle':
-                if (paramNum !== 1) {
-                    return true;
-                }
-                break;
-                
-                case 'rectangle':
-                if (paramNum !== 2) {
-                    return true;
-                }
-                break;
-
-            case 'trapezoid':
-                if(paramNum !== 3) {
-                    return true;
-                }
-                break;
-
-            case 'cylinder':
-                if(paramNum !== 2) {
-                    return true;
-                }
-                break;
+    function checkParams(realParamNum, neededParamNum){
+        if(realParamNum !== neededParamNum) {
+            throw checkArg.message;
         }
     }
 
