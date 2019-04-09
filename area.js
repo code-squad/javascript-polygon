@@ -1,10 +1,4 @@
 /*
-[ ]필요한 인자를 입력받아 사각형의 넓이를 계산하는 함수를 만든다.
-[ ]필요한 인자를 입력받아 사다리꼴의 넓이를 계산하는 함수를 만든다.
-[ ]필요한 인자를 입력받아 원기둥의 넒이를 계산하는 함수를 만든다.
-*/
-
-/*
 area.js
 Caculate various area of shapes
 */
@@ -21,9 +15,33 @@ function areaOfCircle(radius) {
     if(!validArgs(arguments, 1)) {
         return -1;
     }    
-    return Math.PI * radius;
+    return Math.PI * radius * radius;
+}
+
+function areaOfRectangle(w, h) {
+    if(!validArgs(arguments, 2)) {
+        return -1;
+    }    
+    return w * h;
+}
+
+function areaOfTrapezoid(bottom, top, h) {
+    if(!validArgs(arguments, 3)) {
+        return -1;
+    }    
+    return (bottom * top) * h * 0.5;
+}
+
+function volumeOfCylinder(r, h) {
+    if(!validArgs(arguments, 2)) {
+        return -1;
+    }    
+    return areaOfCircle(r) * h;
 }
 
 module.exports = {
     areaOfCircle,
+    areaOfRectangle,
+    areaOfTrapezoid,
+    volumeOfCylinder
 };
