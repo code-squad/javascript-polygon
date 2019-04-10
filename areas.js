@@ -1,53 +1,72 @@
-function areaC(r) {
-    let area = 0;
-    if(arguments.length != 1){
-        throw "인자 갯수가 맞지않습니다.";
+    function areaOfCirc(...args) {
+        let area = 0;
+        let r = 0;
+        let paramLength = args.length;
+
+        checkParams(paramLength, 1);
+        checkNum(args);
+
+        r = args[0]
+    
+        area = Math.PI*r*r;
+    
+        return area.toFixed(2);
     }
-    if(typeof r != "number"){
-        throw "숫자를 입력하세요";
+    
+    function areaOfRect(...args){
+        let area = 0;
+        let w, l;
+        let paramLength = args.length;
+
+        checkParams(paramLength, 2);
+        checkNum(args);
+
+        [w, l] = args
+        area = w * l;
+    
+        return area;
     }
- 
-    area = Math.PI*r*r;
- 
-    return area.toFixed(2);
- }
- 
- function areaR(a,b){
-    let area = 0;
-    if(arguments.length != 2){
-        throw "인자 갯수가 맞지않습니다.";
+    
+    function areaOfTrap(...args){
+        let area = 0;
+        const [w, l, h] = args;
+        let paramLength = args.length;
+
+        checkParams(paramLength, 3);
+        checkNum(args);
+
+        area = (w + l) * h / 2;
+    
+        return area;
     }
-    if(typeof a != "number" || typeof b != "number"){
-        throw "숫자를 입력하세요";
+    
+    function areaOfCyli(...args){
+        let area = 0;
+        let paramLength = args.length;
+        const [r, h] = args
+
+        checkParams(paramLength, 2);
+        checkNum(args);
+
+        area = 2 * Math.PI * r * (r + h);
+    
+        return area.toFixed(2);
     }
-    area = a*b;
- 
-    return area;
- }
- 
- function areaT(a,h){
-    let area = 0;
-    if(arguments.length != 2){
-        throw "인자 갯수가 맞지않습니다.";
+
+    function checkNum(args) {
+        let arr = args;
+        for(let i = 0; i < arr.length; i++) {
+            if(typeof arr[i] !== 'number'){
+                throw reqNum.message;
+            }
+        }
     }
-    if(typeof a != "number" || typeof h != "number"){
-        throw "숫자를 입력하세요";
+
+    function checkParams(realParamNum, neededParamNum){
+        if(realParamNum !== neededParamNum) {
+            throw checkArg.message;
+        }
     }
-    area = a*h;
- 
-    return area;
- }
- 
- function areaS(r,h){
-    let area = 0;
-    if(arguments.length != 2){
-        throw "인자 갯수가 맞지않습니다.";
-    }
-    if(typeof r != "number" || typeof h != "number"){
-        throw "숫자를 입력하세요";
-    }
-    let AC = areaC(r);
-    area = 2*AC+2*Math.PI*r*h;
- 
-    return area.toFixed(2);
- }
+
+    let checkArg = new Error('인자 갯수가 맞지 않습니다.');
+    let reqNum = new Error('숫자를 입력하세요.');
