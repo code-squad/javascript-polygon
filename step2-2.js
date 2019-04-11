@@ -2,28 +2,16 @@ const printStack = [];
 function getArea() {
     let result = 0;
     switch (arguments[0]) {
-        case "circle" :
-            if(arguments.length == 2) {
-                result = parseInt(arguments[1]*arguments[1]*Math.PI);
-                printStack.push([arguments[0], result]);
-                return result;
-            } else if (arguments.length == 3) {
-                let sum = 0;
-                for(let i = arguments[1]; i <= arguments[2]; i++) {
-                    sum += getArea('circle', i);
-                }
-                return parseInt(sum);
-            }
         
+        case "circle" :
+            circle(arguments);
+            break;
         case "rect" :
-            result = parseInt(arguments[1]*arguments[2]);
-            printStack.push([arguments[0], result]);
-            return result;
+            rectangle(arguments);
+            break;
         case "trapezoid" :
-
-            result = parseInt(((arguments[1]+arguments[2])*arguments[3])/2);
-            printStack.push([arguments[0], result]);
-            return result; 
+            trapezoid(arguments);
+            break;
         default:
             console.log("Wrong Parameter!!");
             return;
@@ -34,9 +22,37 @@ function printExecutionSequence() {
     console.log(printStack);
 }
 
-console.log(getArea('circle', 3));
-console.log(getArea('rect', 3, 5));
-console.log(getArea('trapezoid', 3, 5, 5));
-console.log(getArea('circle', 3, 5));
+
+function circle() {
+    if(arguments[0].length == 2) {
+        result = parseInt(arguments[0][1]*arguments[0][1]*Math.PI);
+        printStack.push([arguments[0][0], result]);
+        return result;
+    } else if (arguments[0].length == 3) {
+        let sum = 0;
+        for(let i = arguments[0][1]; i <= arguments[0][2]; i++) {
+            sum += getArea('circle', i);
+        }
+        return parseInt(sum);
+    }
+}
+
+function rectangle() {
+    result = parseInt(arguments[0][1]*arguments[0][2]);
+    printStack.push([arguments[0][0], result]);
+    return result;
+}
+
+function trapezoid() {
+    result = parseInt(((arguments[0][1]+arguments[0][2])*arguments[0][3])/2);
+    printStack.push([arguments[0][0], result]);
+    return result; 
+}
+
+
+getArea('circle', 3);
+getArea('rect', 3, 5);
+getArea('trapezoid', 3, 5, 5);
+getArea('circle', 3, 5);
 
 printExecutionSequence();
