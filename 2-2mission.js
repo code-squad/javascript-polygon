@@ -37,41 +37,39 @@ function getArea(name,...param){
         
             typeNumber(param);
             checkParameter(param.length,1,2);
-            functionCount.push(name);
             param.sort(function(a,b){
                 return a-b;
             })
-            return areaOfCircle(param[0],param[1]);
+            return areaOfCircle(name,param[0],param[1]);
             
             case 'rect':
             
             typeNumber(param);
             checkParameter(param.length,2);
-            functionCount.push(name);
-            return areaOfRectangular(param[0],param[1])
+            return areaOfRectangular(name,param[0],param[1])
             
             case 'trapezoid':
             
             typeNumber(param);
             checkParameter(param.length,3);
-            functionCount.push(name);
-            return areaOfTrapezoid(param[0],param[1],param[2]);
+            return areaOfTrapezoid(name,param[0],param[1],param[2]);
             
             case 'cylinder':
             
             typeNumber(param);
             checkParameter(param.length,2);
-            functionCount.push(name);
-            return areaOfCylinder(param[0],param[1]);
+            return areaOfCylinder(name,param[0],param[1]);
         }       
     };
     
 
-function areaOfCircle(radius,n) {
+function areaOfCircle(name,radius,n) {
     let area = 0;
     
-    area = Math.PI*radius*radius;
-    console.log(area.toFixed(2));
+    area = (Math.PI*radius*radius).toFixed(2);
+    console.log(area);
+    functionCount.push(name+" : "+area);
+
     
     if(n !== undefined){
 
@@ -79,30 +77,33 @@ function areaOfCircle(radius,n) {
             return;
         }else{
             radius++;
-            return areaOfCircle(radius, n);
+            return areaOfCircle(name, radius, n);
         }
     }
     return area;
 }
 
-function areaOfRectangular(a,b){
+function areaOfRectangular(name,a,b){
     let area = 0;
     area = a*b;
+    functionCount.push(name+" : "+area);
     console.log(area);
     return area;
 }
 
-function areaOfTrapezoid(a,b,h){
+function areaOfTrapezoid(name,a,b,h){
     let area = 0;
     area = (a+b)*h/2;
+    functionCount.push(name+" : "+area);
     console.log(area);
     return area;
 }
 
-function areaOfCylinder(r,h){
+function areaOfCylinder(name,r,h){
     let area = 0;
-
-    area = 2*Math.PI*r*(r+h);
-    console.log(area.toFixed(2));
-    return area.toFixed(2);
+    
+    area = (2*Math.PI*r*(r+h)).toFixed(2);
+    functionCount.push(name+" : "+area);
+    console.log(area);
+    return area;
 }
