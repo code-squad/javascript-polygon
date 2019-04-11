@@ -1,69 +1,71 @@
+let functionCount = [];
 
-function typeNumber(a){
-    if(typeof a !== "number"){
-        throw "숫자를 입력하세요";
-    }
+function printExecutionSequence(name){
+    console.log("계산수행 순서: " + functionCount.join(', '));
 }
 
-function checkParameter(length,condition1,condition2){
+function typeNumber(array){
+    
+    array.forEach(function(item){
+        if(typeof item !== "number"){
+            throw "숫자를 입력하세요";
+        }
+    });
+}
+
+function checkParameter(len,condition1,condition2){
 
     if(arguments.length === 2){
-        if(length!==condition1) {
+        if(len!==condition1) {
             throw "인자 갯수가 맞지않습니다.";
         }else{
             return ;
         }
 
     } else {
-        if(length < condition1 || length > condition2 ) {
+        if(len < condition1 || len > condition2 ) {
             throw "인자 갯수가 맞지않습니다.";
         } else {
             return;
         }
     }
-
 }
 
-function getArea(name,...para){
+function getArea(name,...param){
     switch(name){
         case 'circle':
         
-            para.forEach(function(item){
-                typeNumber(item);
-            });
-            checkParameter(para.length,1,2);
-            para.sort(function(a,b){
+            typeNumber(param);
+            checkParameter(param.length,1,2);
+            functionCount.push(name);
+            param.sort(function(a,b){
                 return a-b;
             })
-            return areaOfCircle(para[0],para[1]);
-
-        case 'rect':
-
-            para.forEach(function(item){
-                typeNumber(item);
-            });
-            checkParameter(para.length,2);
-            return areaOfRectangular(para[0],para[1])
-
-        case 'trapezoid':
-         
-            para.forEach(function(item){
-                typeNumber(item);
-            });
-            checkParameter(para.length,3);
-            return areaOfTrapezoid(para[0],para[1],para[2]);
-
-        case 'cylinder':
+            return areaOfCircle(param[0],param[1]);
             
-            para.forEach(function(item){
-                typeNumber(item);
-            });
-            checkParameter(para.length,2);
-            return areaOfCylinder(para[0],para[1]);
-    }       
-
-};
-
+            case 'rect':
+            
+            typeNumber(param);
+            checkParameter(param.length,2);
+            functionCount.push(name);
+            return areaOfRectangular(param[0],param[1])
+            
+            case 'trapezoid':
+            
+            typeNumber(param);
+            checkParameter(param.length,3);
+            functionCount.push(name);
+            return areaOfTrapezoid(param[0],param[1],param[2]);
+            
+            case 'cylinder':
+            
+            typeNumber(param);
+            checkParameter(param.length,2);
+            functionCount.push(name);
+            return areaOfCylinder(param[0],param[1]);
+        }       
+    };
+    
 
 function areaOfCircle(radius,n) {
     let area = 0;
@@ -80,9 +82,7 @@ function areaOfCircle(radius,n) {
             return areaOfCircle(radius, n);
         }
     }
-
     return area;
-    
 }
 
 function areaOfRectangular(a,b){
