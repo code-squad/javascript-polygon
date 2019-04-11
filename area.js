@@ -1,8 +1,10 @@
 const PIE = Math.PI;
 let areaSum = 0;
+let stackList = [];
 
 function circle(r = -1){
     checkParameter(r);
+    stackList.push("circle");
     return Math.pow(r, 2) * PIE;
 }
 
@@ -12,6 +14,8 @@ function circleSum(r = -1){
     if(r > 0){
         areaSum += Math.pow(r, 2) * PIE;
         circleSum(r-1);
+    } else{
+        stackList.push("circle");
     }
 
     return areaSum;
@@ -19,11 +23,13 @@ function circleSum(r = -1){
 
 function rect(a = -1, b = -1){
     checkParameter(a, b);
+    stackList.push("rect");
     return a * b;
 }
 
 function trapezoid(a = -1, b = -1, h = -1){
     checkParameter(a, b, h);
+    stackList.push("trapezoid");
     return (a + b) * h / 2;
 }
 
@@ -46,6 +52,11 @@ function checkParamType(param){
 function checkParameter(...param){
     checkParamCount(param);
     checkParamType(param);
+}
+
+module.exports.printExecutionSequence = function(){
+    let result = stackList.join(', ');
+    return result;
 }
 
 module.exports.getArea = function (...param){
