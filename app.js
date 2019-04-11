@@ -1,4 +1,6 @@
 const calc = require('./calc');
+// const calc = require('./calc-this');
+
 
 const {log} = console;
 
@@ -14,3 +16,6 @@ log(calc.getArea('circle',10));
 log(calc.getArea('circle',1,3));
 log(calc.getArea('rect',10,14));
 log(calc.getArea('trapezoid',10,14,5));
+
+calc.printExecutionSequence();
+// log(calc.printExecutionSequence())
