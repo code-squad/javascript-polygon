@@ -7,7 +7,7 @@ const getArea = function(shape, ...rest) {
     if (shape === "circle") {
         if (rest.length === 1) {
             result = cal.getCircleArea(rest[0]);
-        } else {
+        } else if (rest.length === 2) {
             result = cal.getCircleSum(rest[0], rest[1]);
         }
     } else if (shape === "rect") {
@@ -27,14 +27,7 @@ const getArea = function(shape, ...rest) {
     return result;
 }
 
-function main() {
-    getArea('circle', 2); 
-    getArea('circle', 1, 3);
-    getArea('rect', 2, 3);
-    getArea('trapezoid', 5, 8, 10);
-    getArea('cylinder', 5, 10);
-    getArea('triple', 4, 3);
-
+const printExecutionSequence = function() {
     let result1 = "계산수행순서 : ";
     for (shape of funcArr) {
         result1 = result1 + shape + ", ";
@@ -46,6 +39,17 @@ function main() {
     for (let i = 0; i < funcArr.length; i++) {
         console.log(funcArr[i] + " : " + areaArr[i]);
     }
+}
+
+function main() {
+    getArea('circle', 2); 
+    getArea('circle', 1, 3);
+    getArea('rect', 2, 3);
+    getArea('trapezoid', 5, 8, 10);
+    getArea('cylinder', 5, 10);
+    getArea('triple', 4, 3);
+
+    printExecutionSequence();
 }
 
 main();

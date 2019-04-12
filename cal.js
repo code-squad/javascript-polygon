@@ -1,24 +1,24 @@
-const getCircleArea = function(r) { 
-    checkError(r);
-    return Math.PI * r * r;
+const getCircleArea = radius => {
+    checkError(radius);
+    return Math.PI * radius * radius;
 }
 
-const getSquareArea = function(width, height) {
+const getSquareArea = (width, height) => {
     checkError(width, height);
     return width * height;
 }
 
-const getTrapezoidArea = function(top, bottom, height) {
+const getTrapezoidArea = (top, bottom, height) => {
     checkError(top, bottom, height);
     return ((top + bottom) * height) / 2
 }
 
-const getCylinderArea = function(r, height) {
-    checkError(r, height);
-    return getCircleArea(r) * height;
+const getCylinderArea = (radius, height) => {
+    checkError(radius, height);
+    return getCircleArea(radius) * height;
 }
 
-const getCircleSum = function(num1, num2) {
+const getCircleSum = (num1, num2) => {
     let start, end;
     if (num1 >= num2) {
         start = num2;
