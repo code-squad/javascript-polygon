@@ -2,7 +2,7 @@ const cal = require("./cal");
 const funcArr = [];
 const areaArr = [];
 
-let getArea = function(shape, ...rest) {
+const getArea = function(shape, ...rest) {  
     let result = 0;
     if (shape === "circle") {
         if (rest.length === 1) {
@@ -27,24 +27,25 @@ let getArea = function(shape, ...rest) {
     return result;
 }
 
-getArea('circle', 2); 
-getArea('circle', 1, 3);
-getArea('rect', 2, 3);
-getArea('trapezoid', 5, 8, 10);
-getArea('cylinder', 5, 10);
-getArea('triple', 4, 3);
-console.log();
-console.log(funcArr);
-console.log(areaArr);
+function main() {
+    getArea('circle', 2); 
+    getArea('circle', 1, 3);
+    getArea('rect', 2, 3);
+    getArea('trapezoid', 5, 8, 10);
+    getArea('cylinder', 5, 10);
+    getArea('triple', 4, 3);
 
-let result1 = "계산수행순서 : ";
-for (shape of funcArr) {
-    result1 = result1 + shape + ", ";
-}
-console.log(result1);
-console.log();
+    let result1 = "계산수행순서 : ";
+    for (shape of funcArr) {
+        result1 = result1 + shape + ", ";
+    }
+    console.log(result1);
+    console.log();
 
-let result2 = "";
-for (let i = 0; i < funcArr.length; i++) {
-    console.log(funcArr[i] + " : " + areaArr[i]);
+    let result2 = "";
+    for (let i = 0; i < funcArr.length; i++) {
+        console.log(funcArr[i] + " : " + areaArr[i]);
+    }
 }
+
+main();
