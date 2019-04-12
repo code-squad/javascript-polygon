@@ -1,24 +1,24 @@
-let getCircleArea = function(r) {
-    checkErr(r);
+const getCircleArea = function(r) { 
+    checkError(r);
     return Math.PI * r * r;
 }
 
-let getSquareArea = function(width, height) {
-    checkErr(width, height);
+const getSquareArea = function(width, height) {
+    checkError(width, height);
     return width * height;
 }
 
-let getTrapezoidArea = function(top, bottom, height) {
-    checkErr(top, bottom, height);
+const getTrapezoidArea = function(top, bottom, height) {
+    checkError(top, bottom, height);
     return ((top + bottom) * height) / 2
 }
 
-let getCylinderArea = function(r, height) {
-    checkErr(r, height);
+const getCylinderArea = function(r, height) {
+    checkError(r, height);
     return getCircleArea(r) * height;
 }
 
-let getCircleSum = function(num1, num2) {
+const getCircleSum = function(num1, num2) {
     let start, end;
     if (num1 >= num2) {
         start = num2;
@@ -35,13 +35,13 @@ let getCircleSum = function(num1, num2) {
     }
 }
 
-let checkErr = function(...args) {
+const checkError = function(...args) {
     for (let val of args) {
         if (typeof val === "undefined") {
             throw new Error("인자의 갯수가 부족합니다.");
         }
         if (typeof val !== "number") {
-            throw new Error("인자값이 숫자가 아닙니다");
+            throw new Error("인자값이 숫자가 아닙니다.");
         }
     }
 }
