@@ -1,6 +1,7 @@
 let utils = require("./STEP2_2_utils")
-let log = "<계산수행순서 > \n";
 let result = 0;
+let logList = ["<계산 수행 순서> \n"];
+
 
 let getArea = (func_name, ...args) => {
     switch (func_name){
@@ -17,11 +18,17 @@ let getArea = (func_name, ...args) => {
             result = utils.polygon.cylinder(...args);
             break;
     }
-    log += `${func_name} : ${result} \n`;
+    addLog(func_name, result);
 };
 
-let printExecutionSequence = () => {
-    console.log(log.substr(0, log.length - 2))
+let addLog = (func_name, result) => {
+    logList.push(`${func_name} : ${result}`)
+}
+
+let printExecutionSequence = (logList) => {
+    logList.forEach(element => {
+        console.log(element);
+    });
 }
 
 getArea('circle', 3)
@@ -29,4 +36,4 @@ getArea('circle', 1, 3);
 getArea('rect', 10, 15);
 getArea('trapezoid', 10, 15, 12);
 getArea('cylinder', 3, 7);
-printExecutionSequence();
+printExecutionSequence(logList);
